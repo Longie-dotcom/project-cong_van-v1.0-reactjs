@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 
 import PaperImage from './../../assets/image/paper/paper.png';
+import PaperImage2 from './../../assets/image/paper/paper2.png';
 
 import PaperTabI1Image from './../../assets/image/paper/paper-tab-i1.png';
 import PaperTabI2Image from './../../assets/image/paper/paper-tab-i2.png';
@@ -32,11 +33,10 @@ export default function Paper({
   activeTab = 'A', 
   setActiveTab, 
   documents = [],
-  visualStamps = [] 
+  visualStamps = [],
+  isStamperDragging = false // 🎯 NEW PROP ADDED HERE
 }) {
   const [hoveredTab, setHoveredTab] = useState(null);
-
-  // 🔊 Audio reference to hold the persistent tab-switch audio object safely
   const switchAudioRef = useRef(null);
 
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
@@ -58,42 +58,21 @@ export default function Paper({
   };
 
   const currentDocument = documents.find(doc => doc.id === activeTab);
-
-  // 🗺️ Map state database keys cleanly to imported pixel icons
-  const statIcons = {
-    Resource: ResourceIcon,
-    Security: SecurityIcon,
-    Trust: TrustIcon,
-    Economy: EconomyIcon,
-    Equality: EqualityIcon
-  };
-
-  // Explicit static map order to make sure the side-tabs don't jump layout lines erratically
+  const statIcons = { Resource: ResourceIcon, Security: SecurityIcon, Trust: TrustIcon, Economy: EconomyIcon, Equality: EqualityIcon };
   const statOrder = ['Resource', 'Security', 'Trust', 'Economy', 'Equality'];
 
-  // ====================================================================
-  // 🔊 TAB SWITCH AUDIO TRIGGER HANDLER
-  // ====================================================================
   function handleTabClick(docId) {
-    // 1. Only play sound and switch if the player clicks a different tab
     if (activeTab !== docId) {
       if (!switchAudioRef.current) {
         switchAudioRef.current = new Audio(TabSwitchSound);
-        switchAudioRef.current.volume = 0.5; // Balanced volume mix
+        switchAudioRef.current.volume = 0.5;
       }
-
-      // 2. Rewind audio channel to zero to support instant rapid clicking speed
       switchAudioRef.current.currentTime = 0;
-      switchAudioRef.current.play().catch(err => {
-        console.log("Audio waiting for player interaction to play...", err);
-      });
-
-      // 3. Update the parent active state index hook
+      switchAudioRef.current.play().catch(err => console.log("Audio play deferred...", err));
       setActiveTab(docId);
     }
   }
 
-  // Clean up tab switch sound instance on complete scene unmounts
   useEffect(() => {
     return () => {
       if (switchAudioRef.current) {
@@ -106,7 +85,7 @@ export default function Paper({
   return (
     <div ref={setNodeRef} style={style} className="paper">
       
-      {/* 📊 MECHANICAL SLIDE-OUT STAT ICON TABS PANEL */}
+      {/* Mechanical Side-Stat Tabs Panel */}
       <div className="paper-side-stat-tabs">
         {statOrder.map((statKey, index) => {
           const val = currentDocument?.effects?.[statKey] || 0;
@@ -119,14 +98,10 @@ export default function Paper({
             <div 
               key={statKey} 
               className={`side-stat-tab-item ${hasEffect ? 'slide-out' : 'slide-hidden'}`}
-              style={{ top: `${index * 64 + 40}px` }} // Clean vertical spacing stack layout
+              style={{ top: `${index * 64 + 40}px` }}
             >
               <div className="stat-icon-wrapper">
-                <img 
-                  src={statIcons[statKey]} 
-                  alt={statKey} 
-                  className="stat-pixel-icon" 
-                />
+                <img src={statIcons[statKey]} alt={statKey} className="stat-pixel-icon" />
                 {hasEffect && (
                   <span className={`stat-badge-overlay ${statusClass}`}>
                     {displaySign}
@@ -154,22 +129,22 @@ export default function Paper({
               style={{ top: `${index * 80}px` }}
               onMouseEnter={() => setHoveredTab(doc.id)}
               onMouseLeave={() => setHoveredTab(null)}
-              onClick={() => handleTabClick(doc.id)} // 🌟 Uses our new sound wrapper handler
+              onClick={() => handleTabClick(doc.id)}
             />
           );
         })}
       </div>
 
-      {/* Main Base Paper Image Background Layer */}
+      {/* 🖼️ SWAP BACKGROUND ASSET DYNAMICALLY */}
       <img
-        src={PaperImage}
+        src={isStamperDragging ? PaperImage2 : PaperImage}
         alt="Paper Asset Background"
         className="paper-image"
         {...listeners}
         {...attributes}
       />
 
-      {/* 🔴 VISUAL INK STAMP IMPRINTS CONTAINER */}
+      {/* Visual Ink Stamp Imprints */}
       {visualStamps.map((stamp, idx) => (
         <img
           key={`stamp-mark-${idx}`}
@@ -186,11 +161,13 @@ export default function Paper({
         />
       ))}
 
-      {/* Narrative & Parameter Impact Text Layer Container */}
-      <div className="paper-text-layer">
-        <div className="paper-title">{currentDocument?.title}</div>
-        <div className="paper-content">{currentDocument?.content}</div>
-      </div>
+      {/* 📝 TEMPORARILY HIDE TEXT LAYER CONTAINER ON DRAG */}
+      {!isStamperDragging && (
+        <div className="paper-text-layer">
+          <div className="paper-title">{currentDocument?.title}</div>
+          <div className="paper-content">{currentDocument?.content}</div>
+        </div>
+      )}
     </div>
   );
 }

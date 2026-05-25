@@ -25,25 +25,20 @@ export default function GameScene({
   onGameStateUpdate,
   onGameEnd 
 }) {
+  // 🎯 NEW STATE: Tracks if the stamper is active
+  const [isStamperDragging, setIsStamperDragging] = useState(false);
+
   const [stampedDocuments, setStampedDocuments] = useState([]);
   const [fadePhase, setFadePhase] = useState('in'); 
   const [paperVisualStamps, setPaperVisualStamps] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(true);
   
-  const [playerStats, setPlayerStats] = useState({
-    Resource: 50,
-    Security: 50,
-    Trust: 50,
-    Economy: 50,
-    Equality: 50
-  });
+  const [playerStats, setPlayerStats] = useState({ Resource: 50, Security: 50, Trust: 50, Economy: 50, Equality: 50 });
 
-  // 📍 Tọa độ kéo thả hồ sơ chính
   const INITIAL_PAPER_POS = { x: 500, y: 200 };
   const [paperPos, setPaperPos] = useState(INITIAL_PAPER_POS);
   const [livePaperDelta, setLivePaperDelta] = useState({ x: 0, y: 0 });
 
-  // ✉️ STATE QUẢN LÝ THƯ TÍCH LŨY KHÔNG BỊ KHỞI TẠO LẠI KHI QUA NGÀY
   const [activeMailsList, setActiveMailsList] = useState([]);
   const [mailPositions, setMailPositions] = useState({});
   const [liveMailDelta, setLiveMailDelta] = useState({ x: 0, y: 0 });
@@ -54,11 +49,7 @@ export default function GameScene({
 
   const [gameEventID, setGameEventID] = useState(() => {
     if (currentEventID) return currentEventID;
-    const initialEvent = getEventByPhase(currentPhaseID, {
-      currentPhaseID,
-      currentEventID: null,
-      eventHistory: eventHistory
-    });
+    const initialEvent = getEventByPhase(currentPhaseID, { currentPhaseID, currentEventID: null, eventHistory });
     return initialEvent ? initialEvent.EventID : null;
   });
 
@@ -70,25 +61,20 @@ export default function GameScene({
 
   const currentEventData = EVENTS_DATABASE[gameEventID];
 
-  // 📥 TÍCH LŨY THƯ MỚI TỪ EVENT DATA VÀO BÀN LÀM VIỆC (KHÔNG LÀM MẤT THƯ CŨ)
   useEffect(() => {
     if (currentEventData?.MailsList) {
       setActiveMailsList(prevMails => {
         const updatedMails = [...prevMails];
         const newPositions = { ...mailPositions };
-
         currentEventData.MailsList.forEach((newMail, idx) => {
           const exists = updatedMails.some(m => m.id === newMail.id);
           if (!exists) {
             updatedMails.push(newMail);
-            // Cấp tọa độ mặc định hơi lệch nhau một chút để tránh đè hoàn toàn lên nhau
             if (!newPositions[newMail.id]) {
               newPositions[newMail.id] = { x: 950 + (idx * 30), y: 400 + (idx * 20) };
             }
           }
         });
-
-        setMailPositions(newPositions);
         return updatedMails;
       });
     }
@@ -105,11 +91,7 @@ export default function GameScene({
 
   useEffect(() => {
     if (!currentEventID && gameEventID && typeof onGameStateUpdate === 'function') {
-      onGameStateUpdate({
-        currentPhaseID,
-        currentEventID: gameEventID,
-        eventHistory
-      });
+      onGameStateUpdate({ currentPhaseID, currentEventID: gameEventID, eventHistory });
     }
     const introTimer = setTimeout(() => {
       setFadePhase('idle');
@@ -121,7 +103,7 @@ export default function GameScene({
   const STAMPERX = 126;
   const STAMPERY = 658;
   const PAPER_SIZE = { width: 374, height: 544 };
-  const MAIL_SIZE = { width: 80, height: 60 }; // Kích thước vật lý hộp va chạm của Thư
+  const MAIL_SIZE = { width: 80, height: 60 };
   const DESK_WIDTH = 1920;
   const DESK_HEIGHT = 1080;
 
@@ -138,8 +120,6 @@ export default function GameScene({
     if (isTransitioning) return;
     setPaperPos(INITIAL_PAPER_POS);
     setLivePaperDelta({ x: 0, y: 0 }); 
-
-    // Gom toàn bộ Thư hiện tại về lại khu vực trung tâm gọn gàng
     setMailPositions(prev => {
       const resetPositions = { ...prev };
       activeMailsList.forEach((mail, idx) => {
@@ -154,10 +134,14 @@ export default function GameScene({
     if (isTransitioning) return; 
     const { active } = event;
 
+    // ⚡ DETECT IF STAMPER WAS PICKED UP
+    if (active.id === 'stamper-tool') {
+      setIsStamperDragging(true);
+    }
+
     if (active.id === 'paper-1') {
       setLivePaperDelta({ x: 0, y: 0 });
     }
-    // Phát hiện lực kéo thả Thư dựa theo ID hệ thống
     if (typeof active.id === 'string' && active.id.startsWith('mail-')) {
       setActiveMailDragID(active.id);
       setLiveMailDelta({ x: 0, y: 0 });
@@ -177,12 +161,10 @@ export default function GameScene({
     if (isTransitioning) return; 
     const { active, delta } = event;
 
-    // 1. Xử lý va chạm Vật lý của Hồ Sơ
     if (active.id === 'paper-1') {
       let adjustedDelta = { x: delta.x, y: delta.y };
       let targetX = paperPos.x + adjustedDelta.x;
       let targetY = paperPos.y + adjustedDelta.y;
-
       let paperRect = { left: targetX, top: targetY, width: PAPER_SIZE.width, height: PAPER_SIZE.height };
 
       for (let pass = 0; pass < 2; pass++) {
@@ -207,17 +189,10 @@ export default function GameScene({
       setLivePaperDelta(adjustedDelta);
     }
 
-    // 2. Xử lý va chạm Vật lý cho từng chiếc Thư riêng biệt
     if (active.id === activeMailDragID) {
       let adjustedDelta = { x: delta.x, y: delta.y };
       const currentMailOrigin = mailPositions[activeMailDragID] || { x: 950, y: 400 };
-
-      let mailRect = {
-        left: currentMailOrigin.x + adjustedDelta.x,
-        top: currentMailOrigin.y + adjustedDelta.y,
-        width: MAIL_SIZE.width,
-        height: MAIL_SIZE.height
-      };
+      let mailRect = { left: currentMailOrigin.x + adjustedDelta.x, top: currentMailOrigin.y + adjustedDelta.y, width: MAIL_SIZE.width, height: MAIL_SIZE.height };
 
       for (let pass = 0; pass < 2; pass++) {
         for (const obstacle of OBSTACLES) {
@@ -246,6 +221,11 @@ export default function GameScene({
     if (isTransitioning) return; 
     const { active } = event;
     
+    // ⚡ RESET TRACKING STATE REGARDLESS OF WHERE IT DROPPED
+    if (active.id === 'stamper-tool') {
+      setIsStamperDragging(false);
+    }
+
     if (active.id === 'stamper-tool' && active.data.current?.onDragEndCustom) {
       active.data.current.onDragEndCustom(event.delta.x, event.delta.y);
     }
@@ -255,7 +235,6 @@ export default function GameScene({
       setLivePaperDelta({ x: 0, y: 0 });
     }
 
-    // Cập nhật vị trí lưu trữ cuối cùng của bức thư vừa buông chuột
     if (active.id === activeMailDragID) {
       setMailPositions(prev => ({
         ...prev,
@@ -311,9 +290,7 @@ export default function GameScene({
           setStampedDocuments(prev => [...prev, activeTab]);
         }
 
-        setTimeout(() => {
-          setFadePhase('out'); 
-        }, 1200);
+        setTimeout(() => { setFadePhase('out'); }, 1200);
 
         setTimeout(() => {
           const updatedHistory = [...eventHistory, gameEventID];
@@ -326,15 +303,9 @@ export default function GameScene({
             return; 
           }
 
-          const temporaryStatePayload = {
-            currentPhaseID: targetedPhaseID,
-            currentEventID: gameEventID,
-            eventHistory: updatedHistory
-          };
-
+          const temporaryStatePayload = { currentPhaseID: targetedPhaseID, currentEventID: gameEventID, eventHistory: updatedHistory };
           const nextEventObj = getEventByPhase(targetedPhaseID, temporaryStatePayload);
 
-          // CHỈ dọn sạch tài liệu hồ sơ, KHÔNG reset state Thư để lưu giữ vị trí cũ
           setActiveTab('A');
           setPaperVisualStamps([]);
           setPaperPos(INITIAL_PAPER_POS);
@@ -343,14 +314,8 @@ export default function GameScene({
           if (nextEventObj) {
             setGameEventID(nextEventObj.EventID);
             if (typeof onGameStateUpdate === 'function') {
-              onGameStateUpdate({
-                currentPhaseID: targetedPhaseID,
-                currentEventID: nextEventObj.EventID, 
-                eventHistory: updatedHistory
-              });
+              onGameStateUpdate({ currentPhaseID: targetedPhaseID, currentEventID: nextEventObj.EventID, eventHistory: updatedHistory });
             }
-          } else {
-            console.warn(`🏁 Không tìm thấy Event hợp lệ tiếp theo.`);
           }
 
           setFadePhase('in');
@@ -372,17 +337,14 @@ export default function GameScene({
 
   return (
     <div className={`game-screen ${isTransitioning ? 'desk-frozen' : ''}`}>
-      <DndContext 
-        onDragStart={handleDragStart} 
-        onDragMove={handleDragMove} 
-        onDragEnd={handleDragEnd}>
+      <DndContext onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
         <div className="desk-area">
           <img src={Frame} alt="Desk Frame" className="desk-frame" />
-
           <StatTab stats={playerStats} />
 
           {currentEventData ? (
             <>
+              {/* 🎯 CONFIGURED WITH THE DRAG TRACKING PROP BELOW */}
               <Paper
                 currentX={paperPos.x}
                 currentY={paperPos.y}
@@ -392,9 +354,9 @@ export default function GameScene({
                 documents={currentDocumentsList}
                 visualStamps={paperVisualStamps}
                 onStampDropped={handleStampDropped}
+                isStamperDragging={isStamperDragging} 
               />
 
-              {/* ✉️ MAP HOÀN CHỈNH DANH SÁCH THƯ ĐANG CÓ TRÊN BÀN LÀM VIỆC */}
               {activeMailsList.map((mailItem) => {
                 const pos = mailPositions[mailItem.id] || { x: 950, y: 400 };
                 const isCurrentMailDragging = activeMailDragID === mailItem.id;
@@ -416,28 +378,16 @@ export default function GameScene({
               })}
 
               {currentEventData.Newspaper && (
-                <News 
-                  title={currentEventData.Newspaper.Title} 
-                  content={currentEventData.Newspaper.Content} 
-                  onGameEnd={onGameEnd}
-                />
+                <News title={currentEventData.Newspaper.Title} content={currentEventData.Newspaper.Content} onGameEnd={onGameEnd} />
               )}
 
-              <Telephone
-                key={`phone-node-reset-${currentEventData.EventID}`} 
-                phoneCalls={currentEventData.Telephone?.phoneCalls || []}
-              />
+              <Telephone key={`phone-node-reset-${currentEventData.EventID}`} phoneCalls={currentEventData.Telephone?.phoneCalls || []} />
             </>
           ) : (
             <div className="desk-loading-indicator">Đang nạp dữ liệu từ kho lưu trữ...</div>
           )}
 
-          <StamperTool 
-            x={STAMPERX} 
-            y={STAMPERY} 
-            onStampDropped={handleStampDropped}
-            disabled={isTransitioning} 
-          />
+          <StamperTool x={STAMPERX} y={STAMPERY} onStampDropped={handleStampDropped} disabled={isTransitioning} />
           <StamperContainer />
 
           <button 
@@ -453,9 +403,7 @@ export default function GameScene({
           </button>
         
           {fadePhase !== 'idle' && (
-            <div className={`retro-scene-overlay ${
-              fadePhase === 'out' ? 'fade-out-world' : 'fade-in-new-world'
-            }`} />
+            <div className={`retro-scene-overlay ${fadePhase === 'out' ? 'fade-out-world' : 'fade-in-new-world'}`} />
           )}
         </div>
       </DndContext>
