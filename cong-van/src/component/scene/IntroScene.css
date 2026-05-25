@@ -1,0 +1,219 @@
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  background: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* =========================
+   LOGO
+========================= */
+.intro-logo {
+  width: 320px;
+  image-rendering: pixelated;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(0);
+  animation: logoFade 2000ms forwards;
+  animation-delay: 1000ms;
+  transition:
+    transform 800ms ease-in-out,
+    opacity 600ms ease;
+}
+
+.logo-up {
+  transform: translateY(-32px);
+}
+
+/* =========================
+   START TEXT
+========================= */
+.start-text {
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  user-select: none;
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+
+.show-start {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  animation: blink 1200ms infinite;
+}
+
+.start-text:hover {
+    color: rgb(219, 99, 99);
+}
+
+/* =========================
+   FADE LAYER
+========================= */
+.fade-layer {
+  position: absolute;
+  inset: 0;
+  background: black;
+  z-index: 10;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1200ms ease;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+/* =========================
+   CONVERSATION SCENE
+========================= */
+
+.conversation-scene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  z-index: 1;
+  padding: 32px;
+}
+
+/* =========================
+   CHARACTER ROW
+========================= */
+
+.character-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 48px;
+}
+
+/* =========================
+   CHARACTER IMAGE
+========================= */
+
+.character-image {
+  width: 128px;
+  image-rendering: pixelated;
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease,
+    filter 400ms ease;
+}
+
+/* Active speaker */
+.active-character {
+  opacity: 1;
+  transform: translateY(-8px);
+  filter: brightness(1);
+}
+
+/* Inactive speakers */
+.inactive-character {
+  opacity: 0.35;
+  transform: translateY(0);
+  filter: brightness(0.6);
+}
+
+/* =========================
+   SPEAKER NAME
+========================= */
+
+.speaker-name {
+  font-size: 16px;
+  color: white;
+  padding-top: 20px;
+}
+
+/* =========================
+   DIALOGUE BOX
+========================= */
+
+.dialogue-box {
+  width: 720px;
+  min-height: 120px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 24px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.dialogue-box:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Add/adjust these rules to control cursor and event locks across UI layers */
+.dialogue-click-zone.zone-locked {
+  cursor: default;
+}
+
+.dialogue-click-zone.zone-clickable {
+  cursor: pointer;
+}
+
+@keyframes retroPulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* =========================
+   CONTINUE HINT
+========================= */
+
+.continue-hint {
+  font-size: 16px;
+  color: white;
+  opacity: 0.7;
+  text-align: center;
+  user-select: none;
+  animation: blink 1200ms infinite;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes logoFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.35;
+  }
+}

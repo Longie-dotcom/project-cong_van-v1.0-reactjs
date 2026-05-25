@@ -1,0 +1,55 @@
+.news-board-wrapper {
+  position: absolute;
+  /* 📍 Match your chosen layout desk position coordinates */
+  right: 60px;
+  top: 38px; 
+  width: 436px;  /* Matches your original obstacle component size profile */
+  height: 736px;
+  display: inline-block;
+  user-select: none;
+}
+
+.news-board-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+/* 📥 The Absolute Layout Positioning Box overlaying the backdrop */
+.news-text-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 88px;
+  margin-left: 10px;
+  width: 90%;
+  height: 100%;
+  padding: 12px 16px; /* Inside breathing room boundary padding */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Crisp step separation */
+}
+
+/* 🖋️ Pixel Art Text Controls */
+.news-title {
+  margin: 0;
+  font-family: inherit;
+  color: rgb(182, 7, 7);
+  font-size: 16px;    /* Perfect 8-bit grid baseline multiple */
+}
+
+.news-content {
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px;     /* Small sharp technical documentation text scale */
+  color: #1a1a1a;
+  overflow: hidden;   /* Guard against multi-line overflow breaks */
+  text-overflow: ellipsis;
+  
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: none;
+}

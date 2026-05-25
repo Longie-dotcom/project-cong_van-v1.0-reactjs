@@ -1,0 +1,72 @@
+.stamper-tool {
+  position: absolute;
+  z-index: 50;
+  width: 120px;
+}
+
+/* Handles the smooth return trip back to the side of the desk */
+.stamper-tool.returning {
+  transition: left 300ms cubic-bezier(0.25, 1, 0.5, 1), 
+              top 300ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.stamper-image {
+  width: 150px;
+  height: 194px;
+  display: block;
+  cursor: grab;
+
+  transition: transform 90ms cubic-bezier(0.32, 0, 2, 1);
+}
+
+.stamper-tool:active .stamper-image {
+  cursor: grabbing;
+}
+
+/* SHADOW CORE */
+.stamper-shadow {
+  position: absolute;
+  width: 170px;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 40;
+
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0;
+  
+  /* Shadow scales up smoothly as you lift the item */
+  transition: 
+    opacity 150ms ease, 
+    transform 150ms ease, 
+    filter 150ms ease, 
+    top 0ms; /* Top updates instantly with dragging state */
+}
+
+/* Shadow behavior while floating in air */
+.stamper-shadow.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* ==========================================
+   STAMPER CONTAINER (STATIC BASE)
+   ========================================== */
+.stamper-container {
+  position: absolute;
+  
+  /* 1. Position matches the StamperTool HOME defaults (x=900, y=420) */
+  left: 110px;
+  bottom: 190px;
+  
+  /* 2. Adjust size if needed. Adjust this width to match your asset's design aspect ratio */
+  width: 182px; 
+  height: auto;
+  
+  /* 3. Situate the asset securely flat against background elements */
+  display: block;
+  pointer-events: none; /* Allows clicks to pass through if interacting near edges */
+  
+  /* 4. Critical: Must be lower than .stamper-tool (50) so tool sits on top */
+  z-index: 35; 
+}

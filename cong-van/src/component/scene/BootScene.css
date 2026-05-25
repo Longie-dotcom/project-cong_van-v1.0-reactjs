@@ -1,0 +1,101 @@
+.boot-screen {
+  background-color: #fff; /* ⚪ Clean white workspace backdrop */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- LOGO LAYER (Chỉ hiển thị tĩnh trước khi click) --- */
+.boot-logo {
+  position: absolute;
+  width: 384px; 
+  height: auto;
+  opacity: 1;
+}
+
+/* --- FIRST TEXT LAYER (0s to 3s) --- */
+.boot-text-one {
+  position: absolute;
+  color: #000;
+  font-size: 16px;
+  font-family: inherit;
+  opacity: 0;
+  /* Thay đổi: Chạy NGAY LẬP TỨC từ giây 0 và kéo dài trong 3s */
+  animation: textOneSequence 3s linear forwards;
+}
+
+@keyframes textOneSequence {
+  0%, 99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --- SECOND TEXT LAYER (3s to 6s) --- */
+.boot-text-two {
+  position: absolute;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  padding: 0 20px;
+  opacity: 0;
+  /* Thay đổi: Chạy từ giây thứ 3 và kéo dài trong 3s */
+  animation: textTwoSequence 3s linear 3s forwards;
+}
+
+@keyframes textTwoSequence {
+  0%, 99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --- FINISHING BLACK OVERLAY CURTAIN SLIDE (6s to 7s) --- */
+.boot-curtain-overlay {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 999;
+  /* Thay đổi: Hạ rèm đen ở giây thứ 6 (chạy trong 1s) trước khi đóng Scene ở giây thứ 7 */
+  animation: curtainDrop 1s cubic-bezier(0.4, 0, 0.2, 1) 6s forwards;
+}
+
+@keyframes curtainDrop {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+
+/* --- CHỮ NHẤN ĐỂ TIẾP TỤC --- */
+.boot-click-trigger {
+  position: absolute;
+  bottom: 15%;
+  font-family: inherit;
+  font-size: 16px;
+  color: #000;
+  animation: bootTriggerBlink 1.2s infinite steps(2, start);
+  user-select: none;
+  z-index: 10;
+}
+
+@keyframes bootTriggerBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

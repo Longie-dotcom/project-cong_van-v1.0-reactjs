@@ -1,0 +1,181 @@
+.paper {
+  position: absolute;
+  width: 374px;
+  height: 544px;
+  user-select: none;
+  touch-action: none;
+  
+  /* 🌟 FIX: Force a base stacking context for the document structure */
+  z-index: 10; 
+}
+
+.paper:active {
+  cursor: grabbing;
+}
+
+/* ==========================================================================
+   📊 MECHANICAL SLIDE-OUT STAT ICON TABS PANEL (LEFT SIDE)
+   ========================================================================== */
+
+/* 📦 Master Container for left-side indicator nodes */
+.paper-side-stat-tabs {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  height: 100px;
+  width: 0; /* Let children expand purely outward to the left */
+  
+  /* 🌟 FIX: Sit safely above the desk, but tucked right under .paper-image (z-index: 2) */
+  z-index: 1; 
+}
+
+/* Individual layout rows matching side tab behaviors */
+.side-stat-tab-item {
+  /* 📐 MATCH THE ICON SIZE: Expanded to handle your 112px x 64px rectangular pixel assets */
+  width: 112px;
+  height: 64px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.4s ease; 
+}
+
+/* 📥 HIDDEN STATE: Half overlap right side tucked under paper edge */
+.side-stat-tab-item.slide-hidden {
+  /* Slides back until only about half the icon peaks out from the paper rim */
+  transform: translateX(-40px); 
+  opacity: 0.5;
+}
+
+/* 📤 SLIDE OUT STATE: Moves outward to the left fully exposing the values */
+.side-stat-tab-item.slide-out {
+  /* Slides further left out past the border frame to expose badge offsets cleanly */
+  transform: translateX(-106px); 
+  opacity: 1;
+}
+
+/* Icon box structuring rules */
+.stat-icon-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.stat-pixel-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* 🔢 Pixel Digital Dynamic Text Badge Overlays */
+.stat-badge-overlay {
+  position: absolute;
+  /* 🎯 FIXED POSITIONING: Now securely references the true boundaries of your 112px wide asset */
+  bottom: 18px;
+  right: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 1px 5px;  
+  /* 🌟 FIX: Make sure the text badge stands above everything else on the tab */
+  z-index: 5; 
+}
+
+/* Color engine variables matching positive/negative branches */
+.stat-badge-overlay.stat-inc {
+  color: rgb(0, 0, 0);
+}
+
+.stat-badge-overlay.stat-dec {
+  color: rgb(0, 0, 0);
+}
+
+
+/* ==========================================================================
+   📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
+   ========================================================================== */
+
+.paper-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  
+  /* 🌟 FIX: Base paper texture sheet sits above the side icon indicators (z-index: 1) */
+  z-index: 2; 
+  cursor: grab;
+}
+
+.paper-image:active {
+  cursor: grabbing;
+}
+
+.paper-text-layer {
+  position: absolute;
+  margin-top: 65px;
+  top: 72px;
+  left: 56px;
+  width: 250px;
+  height: 400px;
+  
+  /* Sits directly over the paper background canvas layout texture */
+  z-index: 3; 
+  pointer-events: none;
+  color: #111;
+}
+
+.paper-title {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 8px;
+}
+
+.paper-content {
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* ==========================================================================
+   🗂️ TAB CONTAINER (RIGHT SIDE CHOICES: A, B, C)
+   ========================================================================== */
+
+.paper-tabs {
+  position: absolute;
+  top: 44px;
+  right: -24px;
+  width: 120px;
+  height: 300px;
+  
+  /* Tucked directly underneath the main document board sheet surface layer */
+  z-index: 1; 
+}
+
+.paper-tab {
+  position: absolute;
+  right: 0;
+  width: 84px;
+  image-rendering: pixelated;
+  transition: transform 180ms ease, filter 180ms ease;
+  cursor: pointer;
+}
+
+.tab-hovered {
+  transform: translateX(22px);
+  filter: brightness(1.05);
+}
+
+.rendered-stamp-ink {
+  width: 150px;
+  height: 84px;
+  opacity: 0.85;
+  
+  /* Keeps layout visible between document background canvas and text layout elements */
+  z-index: 2; 
+  image-rendering: pixelated;
+}

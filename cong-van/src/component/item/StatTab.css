@@ -1,0 +1,82 @@
+.stat-tab-row-container {
+  position: absolute;
+  /* Positions the bar near the bottom-right of your 1920x1080 canvas */
+  bottom: -10px;
+  right: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px; /* Space between each icon stat group */
+  padding: 8px 16px;
+  z-index: 100;
+  user-select: none;
+  font-family: inherit;
+}
+
+/* 🌟 DEDICATED CANVAS OVERLAY LAYER 🌟 */
+.stat-particle-canvas {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /* height calculation compensates for the -200px shift in JS size updating setup */
+  height: calc(100% + 200px);
+  pointer-events: none; /* Crucial: stops the canvas from intercepting mouse clicks or drags */
+  z-index: 110; /* Places particles directly on top of the icon artwork and numeric values */
+}
+
+.stat-tab-icon-item {
+  position: relative; /* Allows absolute tracking for the child text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 112px; /* Lock widths to match asset sizes */
+  will-change: transform; /* Hint to the browser for sub-pixel animation tracking */
+}
+
+/* 🌟 HORIZONTAL BOUNCY SWING ANIMATION LAYER 🌟 */
+.stat-tab-icon-item.horizontal-bounce-active {
+  animation: horizontalSwingBounce 0.6s cubic-bezier(0.25, 1.5, 0.5, 1) both;
+}
+
+.stat-tab-pixel-icon {
+  width: 100%;
+  height: auto; 
+  display: block;
+  
+  /* Forces rendering engines to keep the asset textures integer sharp */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+.stat-tab-value-text {
+  position: absolute; /* Pulls text out of layout flow to lay dead center over image */
+  color: rgb(0, 0, 0);
+  top: 24px;
+  right: 14px;
+  font-size: 16px;
+  text-align: center;
+  pointer-events: none; /* Prevents text elements from blocking cursor drag behaviors */
+}
+
+/* 🧱 Snappy custom horizontal translation keyframe timeline */
+@keyframes horizontalSwingBounce {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-14px); /* Initial sharp recoil shift left */
+  }
+  35% {
+    transform: translateX(10px);  /* Snapback rebound right past center */
+  }
+  55% {
+    transform: translateX(-6px);  /* Secondary damping recovery bounce left */
+  }
+  75% {
+    transform: translateX(3px);   /* Minor micro-stabilization right */
+  }
+  100% {
+    transform: translateX(0);     /* Settle back at default position balance */
+  }
+}

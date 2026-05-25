@@ -1,0 +1,103 @@
+/* Nút bấm chuyên dụng xuất hiện đè lên phong thư khi Hover */
+.mail-action-open-btn {
+  position: absolute;
+  bottom: 28px; /* Đẩy nút nằm ngay dưới rìa phong thư */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 1005;
+  image-rendering: pixelated;
+}
+
+.mail-action-open-btn:hover {
+  color: #aeaeae;
+}
+
+.mail-action-open-btn:active {
+  transform: translate(-50%, 2px); /* Hiệu ứng lún nút khi click */
+  box-shadow: 0px 1px 0px #000000;
+}
+
+/* Giữ nguyên các thuộc tính Modal ở tầng trên cùng */
+.mail-modal-blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 14, 0.88);
+  z-index: 99999 !important; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mail-letter-reading-desk {
+  background-color: #f7f5ee;
+  border: 3px solid #1a1a24;
+  width: 550px;
+  max-width: 90%;
+  padding: 30px;
+  box-shadow: 8px 8px 0px #000000;
+  animation: mail-pop 0.12s ease-out;
+}
+
+@keyframes mail-pop {
+  0% { transform: scale(0.96); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.mail-letter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed #3f3f5a;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.mail-letter-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1a24;
+}
+
+.mail-letter-close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #8f929e;
+  cursor: pointer;
+}
+
+.mail-letter-close-btn:hover {
+  color: #ff4141;
+}
+
+.mail-letter-text-content {
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px;
+  color: #242424;
+  white-space: pre-wrap;
+}
+
+.mail-letter-footer {
+  text-align: center;
+  border-top: 1px solid #d4d1c5;
+  padding-top: 12px;
+  margin-top: 20px;
+}
+
+.footer-dismiss-prompt {
+  font-family: inherit;
+  font-size: 8px;
+  color: #8f929e;
+}
