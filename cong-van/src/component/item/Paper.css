@@ -6,7 +6,7 @@
   touch-action: none;
   
   /* 🌟 FIX: Force a base stacking context for the document structure */
-  z-index: 10; 
+  z-index: 2; 
 }
 
 .paper:active {
@@ -80,7 +80,7 @@
   font-size: 16px;
   padding: 1px 5px;  
   /* 🌟 FIX: Make sure the text badge stands above everything else on the tab */
-  z-index: 5; 
+  z-index: 2; 
 }
 
 /* Color engine variables matching positive/negative branches */

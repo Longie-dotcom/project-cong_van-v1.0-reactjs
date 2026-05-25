@@ -1,6 +1,6 @@
 .stamper-tool {
   position: absolute;
-  z-index: 50;
+  z-index: 6;
   width: 120px;
 }
 
@@ -68,5 +68,5 @@
   pointer-events: none; /* Allows clicks to pass through if interacting near edges */
   
   /* 4. Critical: Must be lower than .stamper-tool (50) so tool sits on top */
-  z-index: 35; 
+  z-index: 5; 
 }

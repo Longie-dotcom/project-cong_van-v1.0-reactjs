@@ -2,7 +2,7 @@
   position: absolute;
   /* 📍 Match your chosen layout desk position coordinates */
   right: 60px;
-  top: 38px; 
+  top: 100px; 
   width: 436px;  /* Matches your original obstacle component size profile */
   height: 736px;
   display: inline-block;
