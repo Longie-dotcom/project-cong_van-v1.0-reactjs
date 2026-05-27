@@ -1,36 +1,36 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from "react";
 
-import Logo from './../../assets/image/logo.png';
+import Logo from "./../../assets/image/logo.png";
 
-import BernardHale from './../../assets/image/character/bernard-hale.png';
-import AlexanderWhitmore from './../../assets/image/character/alexander-whitmore.png';
-import EleanorWentworth from './../../assets/image/character/eleanor-wentworth.png';
+import BernardHale from "./../../assets/image/character/bernard-hale.png";
+import AlexanderWhitmore from "./../../assets/image/character/alexander-whitmore.png";
+import EleanorWentworth from "./../../assets/image/character/eleanor-wentworth.png";
 
-import AlexanderWhitmoreSound from './../../assets/sound/alexander-whitmore.mp3';
-import BernardHaleSound from './../../assets/sound/bernard-hale.mp3';
-import EleanorWentworthSound from './../../assets/sound/eleanor-wentworth.mp3';
+import AlexanderWhitmoreSound from "./../../assets/sound/alexander-whitmore.mp3";
+import BernardHaleSound from "./../../assets/sound/bernard-hale.mp3";
+import EleanorWentworthSound from "./../../assets/sound/eleanor-wentworth.mp3";
 
-import './IntroScene.css';
+import "./IntroScene.css";
 
 const SPEAKER_SOUNDS = {
   "Bernard Hale": BernardHaleSound,
   "Alexander Whitmore": AlexanderWhitmoreSound,
-  "Eleanor Wentworth": EleanorWentworthSound
+  "Eleanor Wentworth": EleanorWentworthSound,
 };
 
 const dialogues = [
   {
     speaker: "Bernard Hale",
-    text: "Chúc mừng ngài Patrick. Quốc hội đã đặt niềm tin vào ngài."
+    text: "Chúc mừng ngài Patrick. Quốc hội đã đặt niềm tin vào ngài.",
   },
   {
     speaker: "Eleanor Wentworth",
-    text: "Mùa đông năm nay sẽ rất khắc nghiệt... người dân cần một nhà lãnh đạo dám thực hiện những \"hy sinh cần thiết\"."
+    text: 'Mùa đông năm nay sẽ rất khắc nghiệt... người dân cần một nhà lãnh đạo dám thực hiện những "hy sinh cần thiết".',
   },
   {
     speaker: "Alexander Whitmore",
-    text: "Đừng để cảm xúc cản trở \"lợi ích quốc gia\". Than đá phải được đưa vào các lò luyện thép trước khi quá muộn."
-  }
+    text: 'Đừng để cảm xúc cản trở "lợi ích quốc gia". Than đá phải được đưa vào các lò luyện thép trước khi quá muộn.',
+  },
 ];
 
 export default function IntroScene({ onFinish }) {
@@ -39,7 +39,7 @@ export default function IntroScene({ onFinish }) {
   const [scene, setScene] = useState("menu");
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
-  
+
   const [isTyping, setIsTyping] = useState(false);
 
   // 🛠️ Sử dụng hệ thống Audio Pool đa kênh để tránh nghẹt âm thanh
@@ -66,16 +66,21 @@ export default function IntroScene({ onFinish }) {
     const speakerSoundFile = SPEAKER_SOUNDS[currentDialogue.speaker];
     let index = 0;
 
-    setTypedText("");
-    setIsTyping(true);
+    const resetTimer = setTimeout(() => {
+      setTypedText("");
+      setIsTyping(true);
+    }, 0);
 
     // Kích thước Pool (4 kênh giúp phân phối tải phát âm thanh cực tốt ở tốc độ cao)
     const POOL_SIZE = 4;
 
     // Khởi tạo hoặc tái cấu trúc Pool nếu nhân vật thay đổi giọng thoại
-    if (blipPoolRef.current.length === 0 || activeBlipSourceRef.current !== speakerSoundFile) {
+    if (
+      blipPoolRef.current.length === 0 ||
+      activeBlipSourceRef.current !== speakerSoundFile
+    ) {
       // Dừng toàn bộ âm thanh cũ
-      blipPoolRef.current.forEach(audio => audio.pause());
+      blipPoolRef.current.forEach((audio) => audio.pause());
       blipPoolRef.current = [];
 
       // Tạo các kênh âm thanh mới cho nhân vật hiện tại
@@ -89,21 +94,26 @@ export default function IntroScene({ onFinish }) {
 
     const typewriterInterval = setInterval(() => {
       const nextChar = currentDialogue.text.charAt(index);
-      
+
       setTypedText(currentDialogue.text.slice(0, index + 1));
       index++;
 
       // 🔊 Phát âm thanh luân phiên qua các kênh (bỏ qua khoảng trắng)
-      if (nextChar && nextChar.trim() !== "" && blipPoolRef.current.length > 0) {
+      if (
+        nextChar &&
+        nextChar.trim() !== "" &&
+        blipPoolRef.current.length > 0
+      ) {
         const activeBlip = blipPoolRef.current[blipIndexRef.current];
-        
+
         if (activeBlip) {
-          activeBlip.currentTime = 0; 
-          activeBlip.play().catch(err => console.log("Blip block:", err));
+          activeBlip.currentTime = 0;
+          activeBlip.play().catch((err) => console.log("Blip block:", err));
         }
 
         // Chuyển chỉ số sang kênh tiếp theo trong Pool (0 -> 1 -> 2 -> 3 -> 0)
-        blipIndexRef.current = (blipIndexRef.current + 1) % blipPoolRef.current.length;
+        blipIndexRef.current =
+          (blipIndexRef.current + 1) % blipPoolRef.current.length;
       }
 
       if (index >= currentDialogue.text.length) {
@@ -113,6 +123,7 @@ export default function IntroScene({ onFinish }) {
     }, 25); // ⚡ Tốc độ chạy chữ 25ms siêu mượt
 
     return () => {
+      clearTimeout(resetTimer);
       clearInterval(typewriterInterval);
     };
   }, [scene, dialogueIndex]);
@@ -121,7 +132,7 @@ export default function IntroScene({ onFinish }) {
   useEffect(() => {
     return () => {
       if (blipPoolRef.current.length > 0) {
-        blipPoolRef.current.forEach(audio => audio.pause());
+        blipPoolRef.current.forEach((audio) => audio.pause());
         blipPoolRef.current = [];
       }
     };
@@ -149,7 +160,7 @@ export default function IntroScene({ onFinish }) {
     if (isTyping) return;
 
     if (dialogueIndex < dialogues.length - 1) {
-      setDialogueIndex(prev => prev + 1);
+      setDialogueIndex((prev) => prev + 1);
       return;
     }
 
@@ -169,10 +180,10 @@ export default function IntroScene({ onFinish }) {
           <img
             src={Logo}
             alt="Logo"
-            className={`intro-logo ${showStart ? 'logo-up' : ''}`}
+            className={`intro-logo ${showStart ? "logo-up" : ""}`}
           />
           <div
-            className={`start-text ${showStart ? 'show-start' : ''}`}
+            className={`start-text ${showStart ? "show-start" : ""}`}
             onClick={handleStart}
           >
             Bắt đầu
@@ -186,24 +197,24 @@ export default function IntroScene({ onFinish }) {
             <img
               src={BernardHale}
               alt="Bernard Hale"
-              className={`character-image ${currentSpeaker === "Bernard Hale" ? 'active-character' : 'inactive-character'}`}
+              className={`character-image ${currentSpeaker === "Bernard Hale" ? "active-character" : "inactive-character"}`}
             />
             <img
               src={AlexanderWhitmore}
               alt="Alexander Whitmore"
-              className={`character-image ${currentSpeaker === "Alexander Whitmore" ? 'active-character' : 'inactive-character'}`}
+              className={`character-image ${currentSpeaker === "Alexander Whitmore" ? "active-character" : "inactive-character"}`}
             />
             <img
               src={EleanorWentworth}
               alt="Eleanor Wentworth"
-              className={`character-image ${currentSpeaker === "Eleanor Wentworth" ? 'active-character' : 'inactive-character'}`}
+              className={`character-image ${currentSpeaker === "Eleanor Wentworth" ? "active-character" : "inactive-character"}`}
             />
           </div>
 
           <div className="speaker-name">{currentSpeaker}</div>
 
-          <div 
-            className={`dialogue-click-zone ${isTyping ? 'zone-locked' : 'zone-clickable'}`}
+          <div
+            className={`dialogue-click-zone ${isTyping ? "zone-locked" : "zone-clickable"}`}
             onClick={handleNextDialogue}
           >
             <div className="dialogue-box">{typedText}</div>
@@ -212,7 +223,7 @@ export default function IntroScene({ onFinish }) {
         </div>
       )}
 
-      <div className={`fade-layer ${fadeOut ? 'fade-out' : ''}`} />
+      <div className={`fade-layer ${fadeOut ? "fade-out" : ""}`} />
     </div>
   );
 }
