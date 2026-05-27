@@ -24,8 +24,8 @@ export const PHASE3_EVENTS = Object.freeze({
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
             "Theodore đã sống sót qua mùa đông đầu tiên.",
-            "Nhưng sống sót không có nghĩa là chiến thắng.",
-            "Thành phố này cần một hướng đi rõ ràng.",
+            "Nhưng sống sót không tạo ra thặng dư.",
+            "Cỗ máy này cần một hướng đi rõ ràng.",
           ],
         },
         {
@@ -34,8 +34,8 @@ export const PHASE3_EVENTS = Object.freeze({
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
             "Kho vận đang kiệt sức.",
-            "Chúng ta không thể tiếp tục đổi hướng chính sách mỗi tháng.",
-            "Hệ thống cần sự ổn định.",
+            "Chúng ta không thể đổi hướng chính sách mỗi tháng.",
+            "Hệ thống cần ổn định như dây chuyền.",
           ],
         },
         {
@@ -119,8 +119,8 @@ export const PHASE3_EVENTS = Object.freeze({
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
             "Có những cuộc họp đang diễn ra sau lưng anh.",
-            "Một số người tin Theodore cần lãnh đạo mạnh tay hơn.",
-            "Thị trường không thích sự bất ổn kéo dài.",
+            "Một số người tin Theodore cần bàn tay sắt hơn.",
+            "Thị trường không chờ đợi sự bất ổn kéo dài.",
           ],
         },
       ],
@@ -189,8 +189,8 @@ export const PHASE3_EVENTS = Object.freeze({
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
             "Một lò luyện ở Blackforge vừa phát nổ.",
-            "Chúng tôi cần tài nguyên để sửa chữa ngay lập tức.",
-            "Nếu sản xuất dừng lại, toàn bộ Theodore sẽ trả giá.",
+            "Chúng tôi cần tài nguyên để khôi phục ngay.",
+            "Nếu sản xuất dừng, toàn bộ Theodore sẽ trả giá bằng lợi nhuận.",
           ],
         },
       ],
@@ -321,9 +321,9 @@ export const PHASE3_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Các quỹ đầu tư từ phương Bắc muốn vào Theodore.",
+            "Vốn phương Bắc muốn vào Theodore.",
             "Nhưng họ cần một tín hiệu rõ ràng từ anh.",
-            "Không ai đầu tư vào một thành phố lưỡng lự.",
+            "Không ai rót vốn vào một thành phố lưỡng lự.",
           ],
         },
       ],

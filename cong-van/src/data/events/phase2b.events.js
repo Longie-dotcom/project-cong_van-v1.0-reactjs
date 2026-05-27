@@ -40,9 +40,9 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Chúng ta đã giảm được áp lực sản xuất.",
-            "Nhưng thị trường không thích sự chậm lại.",
-            "Blackforge đang mất lợi thế từng ngày.",
+            "Chúng ta đã hạ áp lực sản xuất.",
+            "Thị trường trừng phạt kẻ chậm lại.",
+            "Blackforge đang mất lợi thế từng giờ.",
           ],
         },
         {
@@ -50,9 +50,9 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderImage: IMG.BERNARD_HALE,
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
-            "Hệ thống vận tải ổn định hơn, nhưng không đủ nhanh.",
-            "Chúng ta đang sống sót, không phải tăng trưởng.",
-            "Đó là một sự khác biệt nguy hiểm.",
+            "Hệ thống vận tải ổn định hơn, nhưng chưa đủ nhanh.",
+            "Chúng ta đang chỉ sống sót, không phải tăng trưởng.",
+            "Đó là khác biệt giữa máy còn chạy và máy chết.",
           ],
         },
         {
@@ -70,9 +70,9 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Thị trường ghét sự tàn nhẫn.",
-            "Nhưng nó còn kinh tởm sự do dự hơn.",
-            "Giữ thăng bằng trên dây không phải là cách để cai trị một đế chế.",
+            "Thị trường không ghét tàn nhẫn.",
+            "Nhưng nó khinh sự do dự hơn.",
+            "Giữ thăng bằng trên dây không cai trị được một đế chế.",
           ],
         },
       ],
@@ -196,9 +196,9 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderImage: IMG.BERNARD_HALE,
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
-            "Tuyến vận tải đang mất hiệu suất nghiêm trọng.",
-            "Nếu không tăng đầu tư, hệ thống sẽ tụt dốc không thể đảo ngược.",
-            "Chúng ta đang đẩy giới hạn vật lý.",
+            "Tuyến vận tải đang sụt hiệu suất nghiêm trọng.",
+            "Không tăng đầu tư, hệ thống sẽ tụt dốc không thể đảo ngược.",
+            "Chúng ta đang ép giới hạn vật lý.",
           ],
         },
       ],

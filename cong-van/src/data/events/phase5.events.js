@@ -70,9 +70,9 @@ export const PHASE5_EVENTS = Object.freeze({
           senderImage: IMG.MIRA_VOLKOV,
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
-            "Người dân vẫn còn sống.",
-            "Sau tất cả những gì đã xảy ra... có lẽ đó đã là một chiến thắng.",
-            "Nhưng họ sẽ không quên những quyết định của anh.",
+            "Người dân còn sống, và họ đã nhìn thấy ai bóc lột họ.",
+            "Sau tất cả... có lẽ đó mới là khởi đầu của một chiến thắng.",
+            "Và họ sẽ không quên những quyết định đã giữ lại nhà máy trong tay ai.",
           ],
         },
       ],
@@ -219,8 +219,8 @@ export const PHASE5_EVENTS = Object.freeze({
           senderImage: IMG.MIRA_VOLKOV,
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
-            "Người dân bắt đầu dựng bia tưởng niệm cho những người không sống sót qua mùa đông.",
-            "Họ nói Theodore cần nhớ cái giá của sự sống còn.",
+            "Người dân dựng bia tưởng niệm cho những người không sống sót qua mùa đông.",
+            "Họ nói Theodore phải nhớ cái giá của lợi nhuận.",
             "Có những thứ còn quan trọng hơn tăng trưởng.",
           ],
         },
@@ -285,7 +285,7 @@ export const PHASE5_EVENTS = Object.freeze({
           senderText: [
             "Khủng hoảng nào rồi cũng kết thúc.",
             "Điều còn lại là ai kiểm soát tương lai sau đống tro tàn.",
-            "Theodore sẽ trở thành biểu tượng... hoặc lời cảnh báo.",
+            "Theodore sẽ trở thành biểu tượng... hoặc lời cảnh báo cho kẻ yếu.",
           ],
         },
       ],

@@ -37,15 +37,15 @@ export const PHASE1_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Patrick, thép là máu của Theodore.",
-            "Cắt máu, thành phố này sẽ chết cứng trong vòng một tuần.",
+            "Patrick, thép là huyết mạch của lợi nhuận ở Theodore.",
+            "Cắt dòng ấy, cỗ máy này sẽ đông cứng trong một tuần.",
           ],
         },
         {
           senderName: NAMES.ALEXANDER_WHITMORE,
           senderImage: IMG.ALEXANDER_WHITMORE_SERIOUS,
           senderBlip: SFX.ALEXANDER_WHITMORE,
-          senderText: ["Và khi lò nung tắt, thành phố này cũng tắt theo."],
+          senderText: ["Lò nung tắt, trật tự cũng tắt theo."],
         },
         {
           senderName: NAMES.BERNARD_HALE,
@@ -53,8 +53,8 @@ export const PHASE1_EVENTS = Object.freeze({
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
             "Các toa hàng đang kẹt cứng.",
-            "Chuỗi cung ứng đang đứng trên bờ vực sụp đổ.",
-            "Nền kinh tế này vận hành bằng than, không phải bằng lòng trắc ẩn.",
+            "Chuỗi cung ứng đang đứng trên bờ vực gãy rời.",
+            "Nền kinh tế này vận hành bằng than, không vận hành bằng lòng trắc ẩn.",
           ],
         },
         {
@@ -62,9 +62,9 @@ export const PHASE1_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Thị trường không quan tâm đạo đức.",
-            "Nó chỉ quan tâm trật tự.",
-            "Và trật tự luôn cần thép.",
+            "Thị trường không cần đạo đức.",
+            "Nó chỉ đo trật tự bằng lợi nhuận.",
+            "Và trật tự của nó luôn đúc bằng thép.",
           ],
         },
         {
@@ -267,9 +267,9 @@ export const PHASE1_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Thị trường không cần xin phép để tồn tại.",
-            "Nếu chính quyền không kiểm soát được than, thì thị trường sẽ làm điều đó thay họ.",
-            "Trật tự luôn đến từ kẻ mạnh nhất.",
+            "Thị trường không cần xin phép để thống trị.",
+            "Nếu chính quyền không giữ than, thị trường sẽ nắm luôn cả quyền lực.",
+            "Trật tự luôn thuộc về kẻ nắm vốn mạnh nhất.",
           ],
         },
       ],

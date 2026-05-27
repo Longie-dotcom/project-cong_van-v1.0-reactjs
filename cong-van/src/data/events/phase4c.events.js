@@ -68,8 +68,8 @@ export const PHASE4C_EVENTS = Object.freeze({
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
             "Lần đầu tiên sau nhiều tháng, các khu dân cư có đủ than để sống qua đêm.",
-            "Người dân bắt đầu tin chính quyền vẫn còn đứng về phía họ.",
-            "Đừng để những kẻ quyền lực cướp mất điều đó.",
+            "Người dân đang hiểu: than thuộc về ai đang nắm máy và kho.",
+            "Đừng để Cartel cướp lại nhà máy và phần sống của họ.",
           ],
         },
       ],
@@ -136,8 +136,8 @@ export const PHASE4C_EVENTS = Object.freeze({
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
             "Người dân đang tự dựng các bếp sưởi tập thể quanh South District.",
-            "Họ chia sẻ từng cục than còn sót lại với nhau.",
-            "Nhưng nguồn dự trữ sẽ không kéo dài mãi.",
+            "Họ chia sẻ từng cục than còn sót lại vì Cartel đã lấy phần của họ.",
+            "Nhưng nếu nhà máy còn thuộc Cartel, nguồn dự trữ sẽ luôn cạn.",
           ],
         },
       ],
@@ -267,7 +267,7 @@ export const PHASE4C_EVENTS = Object.freeze({
           senderText: [
             "Nhiệt độ đang tăng lên.",
             "Lần đầu tiên sau nhiều tháng, trẻ con có thể ra ngoài mà không đóng băng.",
-            "Có lẽ Theodore vẫn còn cơ hội.",
+            "Nhưng cơ hội chỉ đến khi công nhân nắm quyền sống của mình.",
           ],
         },
       ],

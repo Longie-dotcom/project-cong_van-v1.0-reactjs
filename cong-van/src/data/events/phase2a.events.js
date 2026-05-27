@@ -23,9 +23,9 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Các lò nung đang hát vang, Patrick.",
-            "Nhưng nếu dừng lại dù chỉ một ngày, chuỗi cung ứng sẽ sụp.",
-            "Đừng để tiếng khóc lóc của vài khu dân cư làm chệch hướng bánh răng vĩ đại này..",
+            "Lò nung đang hát bằng tiền, Patrick.",
+            "Dừng một ngày, chuỗi cung ứng sẽ gãy.",
+            "Đừng để tiếng khóc kéo chậm bánh răng lợi nhuận.",
           ],
         },
         {
@@ -34,8 +34,8 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
             "Đường sắt đang bị bào mòn từng giờ.",
-            "Chúng ta đang vận hành trên giới hạn an toàn.",
-            "Một sai lầm nhỏ sẽ làm tê liệt toàn bộ hệ thống.",
+            "Chúng ta đang ép máy vượt ngưỡng an toàn.",
+            "Một vết nứt nhỏ đủ làm tê liệt cả dây chuyền.",
           ],
         },
         {
@@ -166,9 +166,9 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderImage: IMG.BERNARD_HALE,
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
-            "Một tuyến đường sắt đã bị hỏng hoàn toàn.",
-            "Nếu không điều chuyển than, nhà máy phía bắc sẽ dừng.",
-            "Chúng ta đang chạy trên dây thép mỏng.",
+            "Một tuyến đường sắt vừa gãy sập.",
+            "Không điều chuyển than, nhà máy phía bắc sẽ dừng.",
+            "Chúng ta đang chạy trên dây thép, mỏng hơn cả lòng kiên nhẫn.",
           ],
         },
       ],
@@ -226,9 +226,9 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Chính quyền không thể điều hành nếu thiếu thị trường.",
-            "Chúng tôi chỉ yêu cầu hiệu quả.",
-            "Không phải cảm xúc.",
+            "Nhà nước không thể điều hành nếu thiếu thị trường.",
+            "Chúng tôi chỉ yêu cầu hiệu suất.",
+            "Không phải thương xót.",
           ],
         },
       ],

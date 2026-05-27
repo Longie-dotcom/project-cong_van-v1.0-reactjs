@@ -32,9 +32,9 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE_SERIOUS,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Các lò nung đang nguội dần, Patrick.",
-            "Anh đang sưởi ấm đám đông bằng cách đốt trụi tương lai của thành phố.",
-            "Khi tiền cạn và nhà máy rỉ sét, đám đông đó sẽ quay lại ăn thịt anh.",
+            "Lò nung đang nguội dần, Patrick.",
+            "Anh đang sưởi ấm đám đông bằng cách đốt trụi lợi nhuận tương lai.",
+            "Khi tiền cạn và máy rỉ sét, đám đông đó sẽ quay lại xé xác anh.",
           ],
         },
         {
@@ -42,8 +42,8 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderImage: IMG.BERNARD_HALE,
           senderBlip: SFX.BERNARD_HALE,
           senderText: [
-            "Các tuyến vận tải công nghiệp đã bắt đầu chậm lại.",
-            "Nếu chuỗi logistics đổ vỡ, sẽ không còn tài nguyên để cứu bất kỳ ai.",
+            "Vận tải công nghiệp đã bắt đầu chậm lại.",
+            "Nếu logistics đổ vỡ, sẽ không còn tài nguyên để cứu ai.",
             "Một thành phố không thể sống bằng lòng tốt.",
           ],
         },
@@ -53,8 +53,8 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
             "Thị trường đang hoảng loạn.",
-            "Các nhà đầu tư đã bắt đầu chuyển vốn khỏi Theodore.",
-            "Anh đang khiến giới tài phiệt tin rằng chính quyền này chống lại họ.",
+            "Vốn đã bắt đầu rời khỏi Theodore.",
+            "Anh đang dạy giới tài phiệt rằng Nhà nước này chống lại họ.",
           ],
         },
       ],
@@ -118,9 +118,9 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Blackforge vừa phải tắt thêm hai lò nung.",
-            "Công nhân đang bị cắt ca hàng loạt.",
-            "Anh nghĩ họ sẽ còn đứng về phía anh bao lâu nữa?",
+            "Blackforge vừa tắt thêm hai lò nung.",
+            "Công nhân bị cắt ca hàng loạt.",
+            "Anh nghĩ họ còn đốt mình cho lò của anh bao lâu nữa?",
           ],
         },
       ],
@@ -246,7 +246,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
             "Các quỹ đầu tư đang rút khỏi Theodore.",
-            "Không ai muốn đặt tiền vào một thành phố chống lại công nghiệp.",
+            "Không ai đặt tiền vào một thành phố chống lại công nghiệp.",
             "Thị trường luôn bỏ phiếu bằng tiền.",
           ],
         },
