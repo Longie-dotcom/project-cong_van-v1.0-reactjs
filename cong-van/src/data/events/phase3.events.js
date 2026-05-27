@@ -342,9 +342,9 @@ export const PHASE3_EVENTS = Object.freeze({
     },
 
     Newspaper: {
-      Title: "THEODORE THU HÚT NHÀ ĐẦU TƯ NƯỚC NGOÀI",
+      Title: "THEODORE VÀ NGUY CƠ LỆ THUỘC TƯ BẢN ĐẾ QUỐC",
       Content:
-        "Một số tập đoàn tài chính quốc tế bắt đầu quan tâm tới thị trường thép và logistics của Theodore.",
+        "Một số tập đoàn tài chính phương Bắc bắt đầu nhòm ngó thị trường thép của Theodore. Các nhà phân tích cảnh báo đây là bước đầu của quá trình xuất khẩu tư bản, biến người lao động thành công cụ bóc lột của ngoại bang",
     },
 
     Choices: [
