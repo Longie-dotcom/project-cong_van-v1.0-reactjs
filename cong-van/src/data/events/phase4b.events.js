@@ -23,7 +23,7 @@ export const PHASE4B_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Anh đang cố giữ cân bằng bằng những con số đẹp đẽ.",
+            "Trò chơi thăng bằng của anh chỉ đang bám víu vào mấy con số giả tạo",
             "Nhưng công nghiệp không thể sống bằng sự do dự.",
             "Sớm muộn gì Theodore cũng phải chọn phe.",
           ],
@@ -150,9 +150,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Cưỡng chế quay lại máy",
+        Title: "Cưỡng chế quay lại nhà máy",
         Content:
-          "Cưỡng chế quay lại máy để bảo vệ lợi nhuận. Kỷ luật tăng, lòng tin lao động sụp đổ.",
+          "Cưỡng chế quay lại nhà máy để bảo vệ lợi nhuận. Kỷ luật tăng, lòng tin lao động sụp đổ.",
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,

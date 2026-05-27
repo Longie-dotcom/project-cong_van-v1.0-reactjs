@@ -68,7 +68,7 @@ export const PHASE4C_EVENTS = Object.freeze({
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
             "Lần đầu tiên sau nhiều tháng, các khu dân cư có đủ than để sống qua đêm.",
-            "Người dân đang hiểu: than thuộc về ai đang nắm máy và kho.",
+            "Người dân đang hiểu: than thuộc về ai đang nắm nhà máy và kho.",
             "Đừng để Cartel cướp lại nhà máy và phần sống của họ.",
           ],
         },
@@ -84,9 +84,9 @@ export const PHASE4C_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Ban bố tước đoạt tư liệu sản xuất",
+        Title: "Ban bố tước đoạt vật tư sản xuất",
         Content:
-          "Ban bố tước đoạt tư liệu sản xuất, trao quyền cho hội đồng công nhân. Cartel bị sung công, đấu tranh giai cấp bùng lên.",
+          "Ban bố tước đoạt vật tư sản xuất, trao quyền cho hội đồng công nhân. Cartel bị sung công, đấu tranh giai cấp bùng lên.",
         Effects: {
           [E.EQUALITY]: 10,
           [E.TRUST]: 8,

@@ -163,9 +163,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Mua yên bằng thưởng ổn định lao động",
+        Title: "Mua yên bình bằng tiền thưởng để ổn định lao động",
         Content:
-          "Mua yên bằng thưởng để giữ kỷ luật sản xuất. Lao động dịu lại, ngân khố và lợi nhuận co lại.",
+          "Mua yên bình bằng tiền thưởng để giữ kỷ luật sản xuất. Lao động dịu lại, ngân khố và lợi nhuận co lại.",
         Effects: {
           [E.TRUST]: 5,
           [E.ECONOMY]: -4,

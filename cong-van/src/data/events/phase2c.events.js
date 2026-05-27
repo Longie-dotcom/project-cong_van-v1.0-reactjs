@@ -23,7 +23,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
             "Lần đầu tiên sau nhiều tuần, trẻ em ở South District có thể ngủ mà không bị cóng.",
-            "Bọn trẻ con ở South District đang hát những bài hát về ngài Theodore đấy, Patrick.",
+            "Bọn trẻ con ở South District đang hát những bài hát về thành phố Theodore đấy, thưa ngài Patrick.",
             "Đừng để bài hát đó trở thành khúc vãn ca.",
           ],
         },
