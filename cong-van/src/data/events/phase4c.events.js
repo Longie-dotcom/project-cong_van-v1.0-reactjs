@@ -86,7 +86,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban bố tước đoạt tư liệu sản xuất",
         Content:
-          "Tịch thu nhà máy từ Cartel và trao quyền điều hành cho hội đồng công nhân, chấp nhận suy giảm kinh tế trong quá trình quá độ.",
+          "Ban bố tước đoạt tư liệu sản xuất, trao quyền cho hội đồng công nhân. Cartel bị sung công, đấu tranh giai cấp bùng lên.",
         Effects: {
           [E.EQUALITY]: 10,
           [E.TRUST]: 8,
@@ -99,7 +99,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Duy trì cơ chế đồng quản có giám sát công nhân",
         Content:
-          "Giữ cứu trợ và sản xuất hạn chế, mở rộng quyền giám sát của công nhân nhưng chưa phá vỡ sở hữu tư bản.",
+          "Duy trì đồng quản có giám sát công nhân để giữ cứu trợ. Người lao động được bảo vệ hơn, sản xuất chậm lại.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 5,
@@ -111,7 +111,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Khôi phục đặc quyền sở hữu của Cartel",
         Content:
-          "Chuyển than và quyền kiểm soát lại cho doanh nghiệp, đổi lấy tăng trưởng nhưng làm phong trào lao động mất thế.",
+          "Khôi phục đặc quyền sở hữu của Cartel để lấy tăng trưởng. Tư bản phục hồi, phong trào lao động mất thế.",
         Effects: {
           [E.ECONOMY]: 7,
           [E.TRUST]: -4,
@@ -154,7 +154,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Trưng dụng kho than cho hội đồng khu phố",
         Content:
-          "Cấp than kèm quyền phân phối cho tổ chức lao động địa phương, biến cứu trợ thành bước đầu làm chủ.",
+          "Trưng dụng kho than giao cho hội đồng khu phố. Dân nghèo được sưởi ấm, dự trữ nhà nước hao hụt.",
         Effects: {
           [E.TRUST]: 7,
           [E.EQUALITY]: 6,
@@ -166,7 +166,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Ủy quyền tự quản của hội đồng công nhân",
         Content:
-          "Trao quyền điều hành cộng đồng cho công nhân, củng cố ý thức làm chủ dù nguồn lực hạn chế.",
+          "Ủy quyền tự quản có giới hạn cho công nhân. Trật tự tạm ổn, quyền lực vẫn chia sẻ nửa vời.",
         Effects: {
           [E.TRUST]: 3,
           [E.ECONOMY]: 1,
@@ -177,7 +177,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Cắt viện trợ, dồn than cho tư bản",
         Content:
-          "Ưu tiên sản xuất tư bản, khiến khu lao động bị bỏ rơi và lòng tin suy sụp.",
+          "Cắt viện trợ, dồn than cho tư bản. Lợi nhuận được cứu, khu lao động bị bỏ rơi.",
         Effects: {
           [E.ECONOMY]: 5,
           [E.TRUST]: -5,
@@ -219,7 +219,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Áp thuế trưng thu vốn tháo chạy",
         Content:
-          "Cưỡng chế giữ của cải ở lại thành phố để bảo vệ lao động, chấp nhận giảm lợi nhuận và phản ứng của tư bản.",
+          "Áp thuế trưng thu vốn tháo chạy để giữ của cải ở lại. Lao động được che chở, tư bản phản ứng và tăng trưởng giảm.",
         Effects: {
           [E.EQUALITY]: 5,
           [E.ECONOMY]: -6,
@@ -231,7 +231,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Ký kết thỏa hiệp giữ vốn ngoại bang",
         Content:
-          "Nhượng bộ tư bản phương Bắc để giữ đầu tư, biến xung đột giai cấp thành lệ thuộc dân tộc và công nhân thành lao dịch.",
+          "Ký thỏa hiệp giữ vốn ngoại bang để đổi lấy đầu tư. Lợi nhuận được giữ, công nhân phải nhượng bộ.",
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: 2,
@@ -242,7 +242,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Chấp nhận rút vốn, dồn lực cho hội đồng lao động",
         Content:
-          "Cắt đứt lệ thuộc tư bản, tập trung nguồn lực vào quyền làm chủ của công nhân dù kinh tế suy giảm.",
+          "Chấp nhận rút vốn, dồn lực cho hội đồng lao động. Quyền làm chủ của công nhân tăng, kinh tế suy yếu thêm.",
         Effects: {
           [E.EQUALITY]: 4,
           [E.ECONOMY]: -5,
@@ -284,7 +284,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban lệnh khôi phục sản xuất vì tích lũy",
         Content:
-          "Tận dụng thời tiết để chạy máy, ưu tiên lợi nhuận và kỷ luật lao động hơn phúc lợi.",
+          "Thiết lập kho dự trữ do nhân dân giám sát để kỷ luật phân phối. An ninh tài nguyên tăng, phục hồi kinh tế chậm.",
         Effects: {
           [E.ECONOMY]: 7,
           [E.RESOURCE]: -3,
@@ -295,7 +295,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Phát động tái thiết dưới hội đồng công nhân",
         Content:
-          "Đầu tư phục hồi khu lao động và trao quyền kiểm soát sản xuất, củng cố ý thức giai cấp.",
+          "Tái thiết dưới hội đồng công nhân, ưu tiên khu lao động. Người dân được nâng đỡ, tăng trưởng bị kìm lại.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
@@ -306,7 +306,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Thiết lập kho dự trữ do nhân dân kiểm soát",
         Content:
-          "Giữ tài nguyên dưới cơ chế giám sát lao động, chấp nhận tăng trưởng chậm để bảo toàn quyền sống.",
+          "Thiết lập kho dự trữ dưới giám sát nhân dân để kỷ luật phân phối. An ninh tài nguyên tăng, phục hồi kinh tế chậm.",
         Effects: {
           [E.RESOURCE]: 6,
           [E.ECONOMY]: -2,

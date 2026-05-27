@@ -72,7 +72,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban hành ưu đãi tài phiệt chiến lược",
         Content:
-          "Dồn trợ cấp cho Cartel, đổi lấy tăng trưởng nhưng bất bình đẳng và sự phẫn nộ của công nhân.",
+          "Ban hành ưu đãi tài phiệt để kéo tăng trưởng. Cartel hưởng lợi, công nhân chịu bất bình đẳng.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.TRUST]: -4,
@@ -84,7 +84,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Duy trì thỏa ước đình chiến giai cấp",
         Content:
-          "Giữ phân phối và nhịp sản xuất tối thiểu để kìm xung đột, cả hai bên đều phải nhượng bộ.",
+          "Duy trì thỏa ước đình chiến để giữ thế cân bằng. Thành phố cầm cự, bế tắc tiếp tục kéo dài.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
@@ -96,7 +96,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Trưng dụng ngân khố cứu trợ lao động",
         Content:
-          "Ưu tiên phúc lợi công nhân, làm suy giảm tích lũy tư bản và sức ép từ giới tài phiệt.",
+          "Trưng dụng ngân khố cứu trợ lao động. Người dân được giữ ấm, tích lũy tư bản suy giảm.",
         Effects: {
           [E.TRUST]: 8,
           [E.EQUALITY]: 7,
@@ -138,7 +138,8 @@ export const PHASE4B_EVENTS = Object.freeze({
       {
         ChoiceID: "A",
         Title: "Chấp thuận yêu sách và bù khẩu phần",
-        Content: "Nhượng bộ công nhân để ổn định, hao hụt tài nguyên dự trữ.",
+        Content:
+          "Chấp thuận yêu sách và bù khẩu phần cho công nhân. Đời sống lao động ổn định hơn, dự trữ tài nguyên giảm.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
@@ -150,7 +151,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Cưỡng chế quay lại máy",
         Content:
-          "Đe dọa cắt lương, sa thải để bảo vệ lợi nhuận, làm lòng tin lao động sụp đổ.",
+          "Cưỡng chế quay lại máy để bảo vệ lợi nhuận. Kỷ luật tăng, lòng tin lao động sụp đổ.",
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,
@@ -161,7 +162,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Áp đặt thương lượng có kiểm soát",
         Content:
-          "Mở bàn đàm phán dưới sự giám sát nhà nước, giữ sản xuất nhưng không giải quyết tận gốc.",
+          "Áp đặt thương lượng có kiểm soát để giữ sản xuất. Thỏa hiệp hình thức, mâu thuẫn vẫn chưa được giải.",
         Effects: {
           [E.TRUST]: 3,
           [E.ECONOMY]: 1,
@@ -214,7 +215,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ký ưu đãi cho tư bản ngoại bang",
         Content:
-          "Mở cửa cho vốn phương Bắc đổi lấy tăng trưởng, biến công nhân Theodore thành lao dịch rẻ mạt và đẩy mâu thuẫn giai cấp thành mâu thuẫn dân tộc.",
+          "Ký ưu đãi cho tư bản ngoại bang để hút vốn. Lợi nhuận tăng, công nhân bị ép giá.",
         Effects: {
           [E.ECONOMY]: 7,
           [E.EQUALITY]: -4,
@@ -225,7 +226,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Công bố kế hoạch tự lực quốc gia",
         Content:
-          "Trấn an thị trường bằng cam kết phục hồi do nhà nước dẫn dắt, hạn chế lệ thuộc tư bản ngoại bang.",
+          "Công bố kế hoạch tự lực quốc gia để trấn an thị trường. Ổn định bề mặt, cải cách thực chất bị trì hoãn.",
         Effects: {
           [E.TRUST]: 5,
           [E.ECONOMY]: 2,
@@ -236,7 +237,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Im lặng để thị trường tự tháo chạy",
         Content:
-          "Không cam kết gì, chấp nhận suy giảm và sự hoài nghi của cả tư bản lẫn công nhân.",
+          "Im lặng để thị trường tự tháo chạy. Dòng vốn rút đi, khu lao động chịu suy thoái sâu.",
         Effects: {
           [E.ECONOMY]: -3,
           [E.TRUST]: -2,

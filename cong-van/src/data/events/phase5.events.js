@@ -89,7 +89,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban bố sắc lệnh tích lũy tư bản",
         Content:
-          "Đặt kỷ luật thị trường và lợi nhuận lên trên sinh mạng, củng cố quyền lực cưỡng bức của nhà nước cho Cartel.",
+          "Ban sắc lệnh tích lũy tư bản, đặt lợi nhuận lên trên sinh mạng. Cartel củng cố quyền lực, người lao động bị hy sinh.",
         Effects: {
           [E.ECONOMY]: 12,
           [E.SECURITY]: 5,
@@ -107,7 +107,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Duy trì thỏa ước đình chiến giai cấp",
         Content:
-          "Giữ hiện trạng bằng thỏa hiệp, kìm xung đột nhưng không giải quyết nguồn gốc bóc lột.",
+          "Duy trì thỏa ước đình chiến để giữ hiện trạng. Thành phố ổn định hơn, bế tắc giai cấp kéo dài.",
         Effects: {
           [E.TRUST]: 8,
           [E.ECONOMY]: 4,
@@ -125,7 +125,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Ban hành sắc lệnh tước đoạt Cartel",
         Content:
-          "Tước quyền sở hữu tư liệu sản xuất, đặt nhà máy dưới quyền hội đồng công nhân và ưu tiên tái thiết giai cấp.",
+          "Tước đoạt Cartel, trao nhà máy cho hội đồng công nhân. Tư liệu sản xuất bị sung công, đấu tranh giai cấp bước sang thời kỳ mới.",
         Effects: {
           [E.TRUST]: 10,
           [E.EQUALITY]: 12,
@@ -174,7 +174,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban lệnh khôi phục thương mại tư bản",
         Content:
-          "Mở luồng hàng hóa để cứu lợi nhuận, đẩy gánh nặng tài nguyên lên người lao động.",
+          "Khôi phục thương mại tư bản để cứu lợi nhuận. Người lao động gánh thêm thiếu hụt tài nguyên.",
         Effects: {
           [E.ECONOMY]: 6,
           [E.RESOURCE]: -2,
@@ -185,7 +185,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Trưng dụng vận tải cho hội đồng lao động",
         Content:
-          "Ưu tiên đoàn tàu cứu trợ và tái thiết dưới sự kiểm soát của công nhân.",
+          "Trưng dụng vận tải cho cứu trợ do công nhân giám sát. Người lao động được ưu tiên, dòng tiền phục hồi chậm.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
@@ -196,7 +196,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Thiết lập tích trữ chiến lược do nhà nước kiểm soát",
         Content:
-          "Gom dự trữ để bảo toàn an ninh nhiên liệu, chấp nhận phục hồi chậm và kỷ luật phân phối.",
+          "Thiết lập tích trữ chiến lược dưới kiểm soát nhà nước. An ninh nhiên liệu tăng, thị trường phục hồi chậm.",
         Effects: {
           [E.RESOURCE]: 6,
           [E.ECONOMY]: -2,
@@ -238,7 +238,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Trưng dụng ngân quỹ tưởng niệm giai cấp",
         Content:
-          "Công khai thừa nhận hy sinh của lao động và củng cố ký ức đấu tranh.",
+          "Trưng dụng ngân quỹ tưởng niệm để ghi nhận hy sinh lao động. Ký ức đấu tranh được giữ, giai cấp vô sản được củng cố.",
         Effects: {
           [E.TRUST]: 7,
           [E.EQUALITY]: 4,
@@ -249,7 +249,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Ra tuyên cáo khép lại đấu tranh",
         Content:
-          "Ép xã hội quên đi mất mát để phục hồi, ưu tiên ổn định cho giới có của.",
+          "Ra tuyên cáo khép lại đấu tranh để phục hồi theo lợi nhuận. Giới có của yên ổn, người lao động bị buộc im lặng.",
         Effects: {
           [E.ECONOMY]: 3,
           [E.TRUST]: -2,
@@ -260,7 +260,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Ban hành lệnh siết truyền thông",
         Content:
-          "Dập mọi tiếng nói dễ châm ngòi phản kháng, bảo vệ trật tự bằng cưỡng bức.",
+          "Siết truyền thông để dập tiếng nói phản kháng. Trật tự cưỡng bức được giữ, lòng tin xã hội sụt mạnh.",
         Effects: {
           [E.SECURITY]: 5,
           [E.TRUST]: -5,
@@ -302,7 +302,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban hành sắc lệnh mở rộng tư bản công nghiệp",
         Content:
-          "Dồn vốn cho thép và vận tải, tăng tích lũy tư bản nhưng nới rộng bất bình đẳng.",
+          "Mở rộng tư bản công nghiệp, dồn vốn vào thép và vận tải. Lợi nhuận tăng, bất bình đẳng nới rộng.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.EQUALITY]: -4,
@@ -313,7 +313,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "B",
         Title: "Phát động cải cách phúc lợi do công nhân giám sát",
         Content:
-          "Ưu tiên nhà ở và phúc lợi dưới quyền giám sát của hội đồng lao động, chấp nhận tăng trưởng chậm.",
+          "Phát động cải cách phúc lợi dưới giám sát công nhân. Đời sống lao động tốt hơn, tăng trưởng giảm.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 7,
@@ -325,7 +325,7 @@ export const PHASE5_EVENTS = Object.freeze({
         ChoiceID: "C",
         Title: "Tập trung quyền lực trung ương",
         Content:
-          "Siết kiểm soát để ngăn khủng hoảng tái diễn, hy sinh lòng tin xã hội.",
+          "Tập trung quyền lực trung ương để ngăn khủng hoảng tái diễn. Trật tự được siết chặt, niềm tin xã hội mất dần.",
         Effects: {
           [E.SECURITY]: 7,
           [E.TRUST]: -4,
