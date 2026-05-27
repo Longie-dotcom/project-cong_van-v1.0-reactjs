@@ -1,39 +1,45 @@
-import { useState, useEffect } from 'react';
-import { DndContext } from '@dnd-kit/core';
+import { useEffect, useRef, useState } from "react";
+import { DndContext } from "@dnd-kit/core";
 
-import Frame from './../../assets/image/frame.png';
-import Paper from '../item/Paper';
-import StamperTool from '../item/StamperTool';
-import StamperContainer from '../item/StamperContainer';
-import Mail from '../item/Mail'; // 🆕 Import Component Mail mới
-import ReorganizeNormal from './../../assets/image/button/reorganize1.png';
-import ReorganizeHovered from './../../assets/image/button/reorganize2.png';
-import ReorganizeClicked from './../../assets/image/button/reorganize3.png';
+import Frame from "./../../assets/image/frame.png";
+import Paper from "../item/Paper";
+import StamperTool from "../item/StamperTool";
+import StamperContainer from "../item/StamperContainer";
+import Mail from "../item/Mail"; // 🆕 Import Component Mail mới
+import ReorganizeNormal from "./../../assets/image/button/reorganize1.png";
+import ReorganizeHovered from "./../../assets/image/button/reorganize2.png";
+import ReorganizeClicked from "./../../assets/image/button/reorganize3.png";
 
-import StampingSound from './../../assets/sound/stamp.mp3';
-import { getEventByPhase, EVENTS_DATABASE } from '../../data/gameEvents'; 
+import StampingSound from "./../../assets/sound/stamp.mp3";
+import { getEventByPhase, EVENTS_DATABASE } from "../../data/gameEvents";
 
-import './GameScene.css';
-import News from '../item/News';
-import Telephone from '../item/Telephone';
-import StatTab from '../item/StatTab';
+import "./GameScene.css";
+import News from "../item/News";
+import Telephone from "../item/Telephone";
+import StatTab from "../item/StatTab";
 
 export default function GameScene({
   currentPhaseID = "PHASE_1",
-  currentEventID = null, 
+  currentEventID = null,
   eventHistory = [],
   onGameStateUpdate,
-  onGameEnd 
+  onGameEnd,
 }) {
   // 🎯 NEW STATE: Tracks if the stamper is active
   const [isStamperDragging, setIsStamperDragging] = useState(false);
 
   const [stampedDocuments, setStampedDocuments] = useState([]);
-  const [fadePhase, setFadePhase] = useState('in'); 
+  const [fadePhase, setFadePhase] = useState("in");
   const [paperVisualStamps, setPaperVisualStamps] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(true);
-  
-  const [playerStats, setPlayerStats] = useState({ Resource: 50, Security: 50, Trust: 50, Economy: 50, Equality: 50 });
+
+  const [playerStats, setPlayerStats] = useState({
+    Resource: 50,
+    Security: 50,
+    Trust: 50,
+    Economy: 50,
+    Equality: 50,
+  });
 
   const INITIAL_PAPER_POS = { x: 500, y: 200 };
   const [paperPos, setPaperPos] = useState(INITIAL_PAPER_POS);
@@ -44,57 +50,97 @@ export default function GameScene({
   const [liveMailDelta, setLiveMailDelta] = useState({ x: 0, y: 0 });
   const [activeMailDragID, setActiveMailDragID] = useState(null);
 
-  const [activeTab, setActiveTab] = useState('A');
-  const [btnState, setBtnState] = useState('normal'); 
+  const [activeTab, setActiveTab] = useState("A");
+  const [btnState, setBtnState] = useState("normal");
+  const hasReportedStateRef = useRef(false);
 
   const [gameEventID, setGameEventID] = useState(() => {
     if (currentEventID) return currentEventID;
-    const initialEvent = getEventByPhase(currentPhaseID, { currentPhaseID, currentEventID: null, eventHistory });
+    const initialEvent = getEventByPhase(currentPhaseID, {
+      currentPhaseID,
+      currentEventID: null,
+      eventHistory,
+    });
     return initialEvent ? initialEvent.EventID : null;
   });
 
-  useEffect(() => {
-    if (currentEventID && currentEventID !== gameEventID) {
-      setGameEventID(currentEventID);
-    }
-  }, [currentEventID]);
-
-  const currentEventData = EVENTS_DATABASE[gameEventID];
+  const effectiveEventID = currentEventID ?? gameEventID;
+  const currentEventData = EVENTS_DATABASE[effectiveEventID];
 
   useEffect(() => {
-    if (currentEventData?.MailsList) {
-      setActiveMailsList(prevMails => {
+    if (!currentEventData?.MailsList) return;
+
+    const updateTimer = setTimeout(() => {
+      setActiveMailsList((prevMails) => {
         const updatedMails = [...prevMails];
-        const newPositions = { ...mailPositions };
+        const newMailEntries = [];
+
         currentEventData.MailsList.forEach((newMail, idx) => {
-          const exists = updatedMails.some(m => m.id === newMail.id);
+          const exists = updatedMails.some((m) => m.id === newMail.id);
           if (!exists) {
             updatedMails.push(newMail);
-            if (!newPositions[newMail.id]) {
-              newPositions[newMail.id] = { x: 950 + (idx * 30), y: 400 + (idx * 20) };
-            }
+            newMailEntries.push({ id: newMail.id, idx });
           }
         });
+
+        if (newMailEntries.length === 0) {
+          return prevMails;
+        }
+
+        setMailPositions((prevPositions) => {
+          const nextPositions = { ...prevPositions };
+          newMailEntries.forEach(({ id, idx }) => {
+            if (!nextPositions[id]) {
+              nextPositions[id] = { x: 950 + idx * 30, y: 400 + idx * 20 };
+            }
+          });
+          return nextPositions;
+        });
+
         return updatedMails;
       });
-    }
-  }, [gameEventID, currentEventData]);
+    }, 0);
 
-  const currentDocumentsList = currentEventData?.Choices.map(choice => ({
-    id: choice.ChoiceID,      
-    title: choice.Title,      
-    content: choice.Content,   
-    effects: choice.Effects,
-    nextPhaseID: choice.NextPhaseID,
-    EndingPayload: choice.EndingPayload 
-  })) || [];
+    return () => clearTimeout(updateTimer);
+  }, [currentEventData]);
+
+  const currentDocumentsList =
+    currentEventData?.Choices.map((choice) => ({
+      id: choice.ChoiceID,
+      title: choice.Title,
+      content: choice.Content,
+      effects: choice.Effects,
+      nextPhaseID: choice.NextPhaseID,
+      EndingPayload: choice.EndingPayload,
+    })) || [];
 
   useEffect(() => {
-    if (!currentEventID && gameEventID && typeof onGameStateUpdate === 'function') {
-      onGameStateUpdate({ currentPhaseID, currentEventID: gameEventID, eventHistory });
+    if (hasReportedStateRef.current) return;
+
+    if (currentEventID || typeof onGameStateUpdate !== "function") {
+      hasReportedStateRef.current = true;
+      return;
     }
+
+    if (effectiveEventID) {
+      onGameStateUpdate({
+        currentPhaseID,
+        currentEventID: effectiveEventID,
+        eventHistory,
+      });
+      hasReportedStateRef.current = true;
+    }
+  }, [
+    currentEventID,
+    currentPhaseID,
+    effectiveEventID,
+    eventHistory,
+    onGameStateUpdate,
+  ]);
+
+  useEffect(() => {
     const introTimer = setTimeout(() => {
-      setFadePhase('idle');
+      setFadePhase("idle");
       setIsTransitioning(false);
     }, 800);
     return () => clearTimeout(introTimer);
@@ -108,22 +154,40 @@ export default function GameScene({
   const DESK_HEIGHT = 1080;
 
   const OBSTACLES = [
-    { id: 'news-board', left: 1360, top: 300, width: 436, height: 736 },
-    { id: 'stamper-container', left: STAMPERX - 28, top: STAMPERY + 90, width: 192, height: 122 },
-    { id: 'wall-left',   left: -100, top: 0, width: 100, height: DESK_HEIGHT },
-    { id: 'wall-right',  left: DESK_WIDTH, top: 0, width: 100, height: DESK_HEIGHT },
-    { id: 'wall-top',    left: 0, top: -100, width: DESK_WIDTH, height: 100 },
-    { id: 'wall-bottom', left: 0, top: DESK_HEIGHT, width: DESK_WIDTH, height: 100 }
+    { id: "news-board", left: 1360, top: 300, width: 436, height: 736 },
+    {
+      id: "stamper-container",
+      left: STAMPERX - 28,
+      top: STAMPERY + 90,
+      width: 192,
+      height: 122,
+    },
+    { id: "wall-left", left: -100, top: 0, width: 100, height: DESK_HEIGHT },
+    {
+      id: "wall-right",
+      left: DESK_WIDTH,
+      top: 0,
+      width: 100,
+      height: DESK_HEIGHT,
+    },
+    { id: "wall-top", left: 0, top: -100, width: DESK_WIDTH, height: 100 },
+    {
+      id: "wall-bottom",
+      left: 0,
+      top: DESK_HEIGHT,
+      width: DESK_WIDTH,
+      height: 100,
+    },
   ];
 
   function handleReorganizeDesk() {
     if (isTransitioning) return;
     setPaperPos(INITIAL_PAPER_POS);
-    setLivePaperDelta({ x: 0, y: 0 }); 
-    setMailPositions(prev => {
+    setLivePaperDelta({ x: 0, y: 0 });
+    setMailPositions((prev) => {
       const resetPositions = { ...prev };
       activeMailsList.forEach((mail, idx) => {
-        resetPositions[mail.id] = { x: 950 + (idx * 20), y: 400 };
+        resetPositions[mail.id] = { x: 950 + idx * 20, y: 400 };
       });
       return resetPositions;
     });
@@ -131,18 +195,18 @@ export default function GameScene({
   }
 
   function handleDragStart(event) {
-    if (isTransitioning) return; 
+    if (isTransitioning) return;
     const { active } = event;
 
     // ⚡ DETECT IF STAMPER WAS PICKED UP
-    if (active.id === 'stamper-tool') {
+    if (active.id === "stamper-tool") {
       setIsStamperDragging(true);
     }
 
-    if (active.id === 'paper-1') {
+    if (active.id === "paper-1") {
       setLivePaperDelta({ x: 0, y: 0 });
     }
-    if (typeof active.id === 'string' && active.id.startsWith('mail-')) {
+    if (typeof active.id === "string" && active.id.startsWith("mail-")) {
       setActiveMailDragID(active.id);
       setLiveMailDelta({ x: 0, y: 0 });
     }
@@ -158,28 +222,43 @@ export default function GameScene({
   }
 
   function handleDragMove(event) {
-    if (isTransitioning) return; 
+    if (isTransitioning) return;
     const { active, delta } = event;
 
-    if (active.id === 'paper-1') {
+    if (active.id === "paper-1") {
       let adjustedDelta = { x: delta.x, y: delta.y };
       let targetX = paperPos.x + adjustedDelta.x;
       let targetY = paperPos.y + adjustedDelta.y;
-      let paperRect = { left: targetX, top: targetY, width: PAPER_SIZE.width, height: PAPER_SIZE.height };
+      let paperRect = {
+        left: targetX,
+        top: targetY,
+        width: PAPER_SIZE.width,
+        height: PAPER_SIZE.height,
+      };
 
       for (let pass = 0; pass < 2; pass++) {
         for (const obstacle of OBSTACLES) {
           if (checkAABBCollision(paperRect, obstacle)) {
-            const overlapLeft = (paperRect.left + paperRect.width) - obstacle.left;
-            const overlapRight = (obstacle.left + obstacle.width) - paperRect.left;
-            const overlapTop = (paperRect.top + paperRect.height) - obstacle.top;
-            const overlapBottom = (obstacle.top + obstacle.height) - paperRect.top;
-            const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
+            const overlapLeft =
+              paperRect.left + paperRect.width - obstacle.left;
+            const overlapRight =
+              obstacle.left + obstacle.width - paperRect.left;
+            const overlapTop = paperRect.top + paperRect.height - obstacle.top;
+            const overlapBottom =
+              obstacle.top + obstacle.height - paperRect.top;
+            const minOverlap = Math.min(
+              overlapLeft,
+              overlapRight,
+              overlapTop,
+              overlapBottom,
+            );
 
             if (minOverlap === overlapLeft) adjustedDelta.x -= overlapLeft;
-            else if (minOverlap === overlapRight) adjustedDelta.x += overlapRight;
+            else if (minOverlap === overlapRight)
+              adjustedDelta.x += overlapRight;
             else if (minOverlap === overlapTop) adjustedDelta.y -= overlapTop;
-            else if (minOverlap === overlapBottom) adjustedDelta.y += overlapBottom;
+            else if (minOverlap === overlapBottom)
+              adjustedDelta.y += overlapBottom;
 
             paperRect.left = paperPos.x + adjustedDelta.x;
             paperRect.top = paperPos.y + adjustedDelta.y;
@@ -191,22 +270,37 @@ export default function GameScene({
 
     if (active.id === activeMailDragID) {
       let adjustedDelta = { x: delta.x, y: delta.y };
-      const currentMailOrigin = mailPositions[activeMailDragID] || { x: 950, y: 400 };
-      let mailRect = { left: currentMailOrigin.x + adjustedDelta.x, top: currentMailOrigin.y + adjustedDelta.y, width: MAIL_SIZE.width, height: MAIL_SIZE.height };
+      const currentMailOrigin = mailPositions[activeMailDragID] || {
+        x: 950,
+        y: 400,
+      };
+      let mailRect = {
+        left: currentMailOrigin.x + adjustedDelta.x,
+        top: currentMailOrigin.y + adjustedDelta.y,
+        width: MAIL_SIZE.width,
+        height: MAIL_SIZE.height,
+      };
 
       for (let pass = 0; pass < 2; pass++) {
         for (const obstacle of OBSTACLES) {
           if (checkAABBCollision(mailRect, obstacle)) {
-            const overlapLeft = (mailRect.left + mailRect.width) - obstacle.left;
-            const overlapRight = (obstacle.left + obstacle.width) - mailRect.left;
-            const overlapTop = (mailRect.top + mailRect.height) - obstacle.top;
-            const overlapBottom = (obstacle.top + obstacle.height) - mailRect.top;
-            const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
+            const overlapLeft = mailRect.left + mailRect.width - obstacle.left;
+            const overlapRight = obstacle.left + obstacle.width - mailRect.left;
+            const overlapTop = mailRect.top + mailRect.height - obstacle.top;
+            const overlapBottom = obstacle.top + obstacle.height - mailRect.top;
+            const minOverlap = Math.min(
+              overlapLeft,
+              overlapRight,
+              overlapTop,
+              overlapBottom,
+            );
 
             if (minOverlap === overlapLeft) adjustedDelta.x -= overlapLeft;
-            else if (minOverlap === overlapRight) adjustedDelta.x += overlapRight;
+            else if (minOverlap === overlapRight)
+              adjustedDelta.x += overlapRight;
             else if (minOverlap === overlapTop) adjustedDelta.y -= overlapTop;
-            else if (minOverlap === overlapBottom) adjustedDelta.y += overlapBottom;
+            else if (minOverlap === overlapBottom)
+              adjustedDelta.y += overlapBottom;
 
             mailRect.left = currentMailOrigin.x + adjustedDelta.x;
             mailRect.top = currentMailOrigin.y + adjustedDelta.y;
@@ -218,30 +312,33 @@ export default function GameScene({
   }
 
   function handleDragEnd(event) {
-    if (isTransitioning) return; 
+    if (isTransitioning) return;
     const { active } = event;
-    
+
     // ⚡ RESET TRACKING STATE REGARDLESS OF WHERE IT DROPPED
-    if (active.id === 'stamper-tool') {
+    if (active.id === "stamper-tool") {
       setIsStamperDragging(false);
     }
 
-    if (active.id === 'stamper-tool' && active.data.current?.onDragEndCustom) {
+    if (active.id === "stamper-tool" && active.data.current?.onDragEndCustom) {
       active.data.current.onDragEndCustom(event.delta.x, event.delta.y);
     }
 
-    if (active.id === 'paper-1') {
-      setPaperPos(prev => ({ x: prev.x + livePaperDelta.x, y: prev.y + livePaperDelta.y }));
+    if (active.id === "paper-1") {
+      setPaperPos((prev) => ({
+        x: prev.x + livePaperDelta.x,
+        y: prev.y + livePaperDelta.y,
+      }));
       setLivePaperDelta({ x: 0, y: 0 });
     }
 
     if (active.id === activeMailDragID) {
-      setMailPositions(prev => ({
+      setMailPositions((prev) => ({
         ...prev,
         [activeMailDragID]: {
           x: (prev[activeMailDragID]?.x || 950) + liveMailDelta.x,
-          y: (prev[activeMailDragID]?.y || 400) + liveMailDelta.y
-        }
+          y: (prev[activeMailDragID]?.y || 400) + liveMailDelta.y,
+        },
       }));
       setLiveMailDelta({ x: 0, y: 0 });
       setActiveMailDragID(null);
@@ -260,71 +357,95 @@ export default function GameScene({
     const hitTop = sy >= totalPaperY;
     const hitBottom = sy <= totalPaperY + PAPER_SIZE.height;
 
-    if (hitLeft && hitRight && hitTop && hitBottom && currentEventData) {      
-      const currentSelectedDoc = currentDocumentsList.find(doc => doc.id === activeTab);
+    if (hitLeft && hitRight && hitTop && hitBottom && currentEventData) {
+      const currentSelectedDoc = currentDocumentsList.find(
+        (doc) => doc.id === activeTab,
+      );
 
       if (currentSelectedDoc) {
         setIsTransitioning(true);
 
         const audio = new Audio(StampingSound);
-        audio.volume = 0.8; 
-        audio.play().catch(err => console.log("Sound error:", err));
+        audio.volume = 0.8;
+        audio.play().catch((err) => console.log("Sound error:", err));
 
         const localX = sx - totalPaperX;
         const localY = sy - totalPaperY;
 
-        setPaperVisualStamps(prev => [...prev, { x: localX, y: localY + 150, tab: activeTab }]);
+        setPaperVisualStamps((prev) => [
+          ...prev,
+          { x: localX, y: localY + 150, tab: activeTab },
+        ]);
 
-        setPlayerStats(prev => {
+        setPlayerStats((prev) => {
           const updated = { ...prev };
           const modifications = currentSelectedDoc.effects;
-          Object.keys(updated).forEach(key => {
+          Object.keys(updated).forEach((key) => {
             if (modifications[key] !== undefined) {
-              updated[key] = Math.max(0, Math.min(100, updated[key] + modifications[key]));
+              updated[key] = Math.max(
+                0,
+                Math.min(100, updated[key] + modifications[key]),
+              );
             }
           });
           return updated;
         });
 
         if (!stampedDocuments.includes(activeTab)) {
-          setStampedDocuments(prev => [...prev, activeTab]);
+          setStampedDocuments((prev) => [...prev, activeTab]);
         }
 
-        setTimeout(() => { setFadePhase('out'); }, 1200);
+        setTimeout(() => {
+          setFadePhase("out");
+        }, 1200);
 
         setTimeout(() => {
-          const updatedHistory = [...eventHistory, gameEventID];
+          const updatedHistory = [...eventHistory, effectiveEventID];
           const targetedPhaseID = currentSelectedDoc.nextPhaseID;
 
-          if (targetedPhaseID === "ENDING" || currentSelectedDoc.EndingPayload) {
-            if (typeof onGameEnd === 'function') {
+          if (
+            targetedPhaseID === "ENDING" ||
+            currentSelectedDoc.EndingPayload
+          ) {
+            if (typeof onGameEnd === "function") {
               onGameEnd(currentSelectedDoc.EndingPayload);
             }
-            return; 
+            return;
           }
 
-          const temporaryStatePayload = { currentPhaseID: targetedPhaseID, currentEventID: gameEventID, eventHistory: updatedHistory };
-          const nextEventObj = getEventByPhase(targetedPhaseID, temporaryStatePayload);
+          const temporaryStatePayload = {
+            currentPhaseID: targetedPhaseID,
+            currentEventID: effectiveEventID,
+            eventHistory: updatedHistory,
+          };
+          const nextEventObj = getEventByPhase(
+            targetedPhaseID,
+            temporaryStatePayload,
+          );
 
-          setActiveTab('A');
+          setActiveTab("A");
           setPaperVisualStamps([]);
           setPaperPos(INITIAL_PAPER_POS);
           setLivePaperDelta({ x: 0, y: 0 });
 
           if (nextEventObj) {
             setGameEventID(nextEventObj.EventID);
-            if (typeof onGameStateUpdate === 'function') {
-              onGameStateUpdate({ currentPhaseID: targetedPhaseID, currentEventID: nextEventObj.EventID, eventHistory: updatedHistory });
+            if (typeof onGameStateUpdate === "function") {
+              onGameStateUpdate({
+                currentPhaseID: targetedPhaseID,
+                currentEventID: nextEventObj.EventID,
+                eventHistory: updatedHistory,
+              });
             }
           }
 
-          setFadePhase('in');
+          setFadePhase("in");
         }, 2200);
 
         setTimeout(() => {
           if (currentSelectedDoc.nextPhaseID !== "ENDING") {
-            setFadePhase('idle');
-            setIsTransitioning(false); 
+            setFadePhase("idle");
+            setIsTransitioning(false);
           }
         }, 3200);
       }
@@ -332,12 +453,16 @@ export default function GameScene({
   }
 
   let currentBtnSrc = ReorganizeNormal;
-  if (btnState === 'hover') currentBtnSrc = ReorganizeHovered;
-  if (btnState === 'click') currentBtnSrc = ReorganizeClicked;
+  if (btnState === "hover") currentBtnSrc = ReorganizeHovered;
+  if (btnState === "click") currentBtnSrc = ReorganizeClicked;
 
   return (
-    <div className={`game-screen ${isTransitioning ? 'desk-frozen' : ''}`}>
-      <DndContext onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
+    <div className={`game-screen ${isTransitioning ? "desk-frozen" : ""}`}>
+      <DndContext
+        onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
+        onDragEnd={handleDragEnd}
+      >
         <div className="desk-area">
           <img src={Frame} alt="Desk Frame" className="desk-frame" />
           <StatTab stats={playerStats} />
@@ -354,7 +479,7 @@ export default function GameScene({
                 documents={currentDocumentsList}
                 visualStamps={paperVisualStamps}
                 onStampDropped={handleStampDropped}
-                isStamperDragging={isStamperDragging} 
+                isStamperDragging={isStamperDragging}
               />
 
               {activeMailsList.map((mailItem) => {
@@ -362,15 +487,17 @@ export default function GameScene({
                 const isCurrentMailDragging = activeMailDragID === mailItem.id;
 
                 return (
-                  <Mail 
+                  <Mail
                     key={mailItem.id}
                     id={mailItem.id}
                     currentX={pos.x}
                     currentY={pos.y}
-                    liveDelta={isCurrentMailDragging ? liveMailDelta : { x: 0, y: 0 }}
+                    liveDelta={
+                      isCurrentMailDragging ? liveMailDelta : { x: 0, y: 0 }
+                    }
                     title={mailItem.Title}
                     content={mailItem.Content}
-                    normalImg={mailItem.NormalAsset} 
+                    normalImg={mailItem.NormalAsset}
                     hoverImg={mailItem.HoverAsset}
                     disabled={isTransitioning}
                   />
@@ -378,32 +505,52 @@ export default function GameScene({
               })}
 
               {currentEventData.Newspaper && (
-                <News title={currentEventData.Newspaper.Title} content={currentEventData.Newspaper.Content} onGameEnd={onGameEnd} />
+                <News
+                  title={currentEventData.Newspaper.Title}
+                  content={currentEventData.Newspaper.Content}
+                  onGameEnd={onGameEnd}
+                />
               )}
 
-              <Telephone key={`phone-node-reset-${currentEventData.EventID}`} phoneCalls={currentEventData.Telephone?.phoneCalls || []} />
+              <Telephone
+                key={`phone-node-reset-${currentEventData.EventID}`}
+                phoneCalls={currentEventData.Telephone?.phoneCalls || []}
+              />
             </>
           ) : (
-            <div className="desk-loading-indicator">Đang nạp dữ liệu từ kho lưu trữ...</div>
+            <div className="desk-loading-indicator">
+              Đang nạp dữ liệu từ kho lưu trữ...
+            </div>
           )}
 
-          <StamperTool x={STAMPERX} y={STAMPERY} onStampDropped={handleStampDropped} disabled={isTransitioning} />
+          <StamperTool
+            x={STAMPERX}
+            y={STAMPERY}
+            onStampDropped={handleStampDropped}
+            disabled={isTransitioning}
+          />
           <StamperContainer />
 
-          <button 
-            className={`reorganize-image-btn ${isTransitioning ? 'btn-disabled' : ''}`} 
+          <button
+            className={`reorganize-image-btn ${isTransitioning ? "btn-disabled" : ""}`}
             onClick={handleReorganizeDesk}
-            onMouseEnter={() => !isTransitioning && setBtnState('hover')}
-            onMouseLeave={() => setBtnState('normal')}
-            onMouseDown={() => !isTransitioning && setBtnState('click')}
-            onMouseUp={() => !isTransitioning && setBtnState('hover')}
+            onMouseEnter={() => !isTransitioning && setBtnState("hover")}
+            onMouseLeave={() => setBtnState("normal")}
+            onMouseDown={() => !isTransitioning && setBtnState("click")}
+            onMouseUp={() => !isTransitioning && setBtnState("hover")}
             disabled={isTransitioning}
           >
-            <img src={currentBtnSrc} alt="Reorganize Desk" className="pixel-button-art" />
+            <img
+              src={currentBtnSrc}
+              alt="Reorganize Desk"
+              className="pixel-button-art"
+            />
           </button>
-        
-          {fadePhase !== 'idle' && (
-            <div className={`retro-scene-overlay ${fadePhase === 'out' ? 'fade-out-world' : 'fade-in-new-world'}`} />
+
+          {fadePhase !== "idle" && (
+            <div
+              className={`retro-scene-overlay ${fadePhase === "out" ? "fade-out-world" : "fade-in-new-world"}`}
+            />
           )}
         </div>
       </DndContext>

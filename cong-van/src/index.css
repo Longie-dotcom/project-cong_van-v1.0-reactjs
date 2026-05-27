@@ -1,14 +1,23 @@
 @font-face {
-  font-family: 'PixelOperator';
+  font-family: "PixelOperator";
 
-  src: url('./assets/font/shroomfall-vn.ttf') format('truetype');
+  src: url("./assets/font/shroomfall-vn.ttf") format("truetype");
 
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'PixelOperator', sans-serif;
+  font-family: "PixelOperator", sans-serif;
   image-rendering: pixelated;
   margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+#root {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }

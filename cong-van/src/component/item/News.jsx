@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
-import NewsPaper from './../../assets/image/newspaper.png';
-import './News.css';
+import { useEffect, useState } from "react";
+import NewsPaper from "./../../assets/image/newspaper.png";
+import "./News.css";
 
-export default function News({ 
-    title = "TIN MỚI", 
-    content = "Nội dung thông báo hôm nay..." }) {
-  
+export default function News({
+  title = "TIN MỚI",
+  content = "Nội dung thông báo hôm nay...",
+}) {
   const [typedContent, setTypedContent] = useState("");
 
   // Run typing animation whenever a new content scenario arrives
   useEffect(() => {
     let index = 0;
-    setTypedContent("");
 
     const interval = setInterval(() => {
       setTypedContent(content.slice(0, index));
