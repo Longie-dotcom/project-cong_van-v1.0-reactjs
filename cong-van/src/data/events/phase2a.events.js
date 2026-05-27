@@ -23,9 +23,9 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderImage: IMG.ALEXANDER_WHITMORE,
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
-            "Sản lượng thép đang vượt mọi dự báo.",
+            "Các lò nung đang hát vang, Patrick.",
             "Nhưng nếu dừng lại dù chỉ một ngày, chuỗi cung ứng sẽ sụp.",
-            "Không có chỗ cho sự chậm trễ.",
+            "Đừng để tiếng khóc lóc của vài khu dân cư làm chệch hướng bánh răng vĩ đại này..",
           ],
         },
         {
@@ -54,14 +54,15 @@ export const PHASE2A_EVENTS = Object.freeze({
     Newspaper: {
       Title: "THEODORE TRỞ THÀNH TRUNG TÂM CÔNG NGHIỆP MIỀN BẮC",
       Content:
-        "Whitmore Steel đạt sản lượng kỷ lục. Tuy nhiên các báo cáo nội bộ cho thấy tỷ lệ tai nạn lao động tăng mạnh và hệ thống logistics bắt đầu xuống cấp.",
+        "Báo cáo chính thức ca ngợi sản lượng thép đạt đỉnh. Những tin đồn về số ca tử vong vì kiệt sức và kẹt máy móc trong ca ba đã bị kiểm duyệt gắt gao",
     },
 
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Ép tối đa sản xuất",
-        Content: "Duy trì công suất cao bất chấp rủi ro.",
+        Title: `Ban Hành Sắc Lệnh "Không Ngày Nghỉ"`,
+        Content:
+          "Ép công nhân làm việc cạn kiệt sinh lực để giữ lò nung rực lửa",
         Effects: {
           [E.ECONOMY]: 12,
           [E.EQUALITY]: -10,
@@ -81,8 +82,9 @@ export const PHASE2A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Tăng kiểm soát lao động",
-        Content: "Siết kỷ luật công nhân để tránh đình trệ.",
+        Title: "Thiết lập kỷ luật thép",
+        Content:
+          "Triển khai lực lượng an ninh vào xưởng máy, dập tắt mọi ý định lãn công từ trong trứng nước",
         Effects: {
           [E.SECURITY]: 8,
           [E.TRUST]: -8,
@@ -105,9 +107,9 @@ export const PHASE2A_EVENTS = Object.freeze({
           senderImage: IMG.MIRA_VOLKOV,
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
-            "Có nhóm công nhân đang tụ tập sau ca làm.",
-            "Họ không nói lớn, nhưng ánh mắt không còn sợ nữa.",
-            "Tôi nghĩ họ sắp dừng máy.",
+            "Một đốc công ở xưởng số 4 vừa bị ném mỏ lết vỡ đầu",
+            "Bọn họ không còn sợ nhà giam nữa đâu, vì làm việc trong đó cũng chẳng khác gì đi tù.",
+            "Máu đã đổ rồi.",
           ],
         },
       ],
@@ -122,7 +124,7 @@ export const PHASE2A_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Thương lượng",
+        Title: "Hạ Mình Mở Phiên Đối Thoại",
         Content: "Cử đại diện đối thoại với công nhân.",
         Effects: {
           [E.TRUST]: 6,
@@ -132,7 +134,7 @@ export const PHASE2A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Phớt lờ",
+        Title: "Để Mặc Xung Đột Tự Sinh Tự Diệt",
         Content: "Tiếp tục sản xuất như bình thường.",
         Effects: {
           [E.ECONOMY]: 4,
@@ -142,7 +144,7 @@ export const PHASE2A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Trấn áp nhẹ",
+        Title: "Triển Khai Cảnh Sát Chống Bạo Động.",
         Content: "Tăng giám sát khu công nghiệp.",
         Effects: {
           [E.SECURITY]: 5,

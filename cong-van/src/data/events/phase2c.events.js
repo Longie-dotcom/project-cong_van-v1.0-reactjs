@@ -23,8 +23,8 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
             "Lần đầu tiên sau nhiều tuần, trẻ em ở South District có thể ngủ mà không bị cóng.",
-            "Người dân đang gọi anh là vị thống đốc của nhân dân.",
-            "Đừng để họ thất vọng lần nữa.",
+            "Bọn trẻ con ở South District đang hát những bài hát về ngài Theodore đấy, Patrick.",
+            "Đừng để bài hát đó trở thành khúc vãn ca.",
           ],
         },
         {
@@ -33,8 +33,8 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderBlip: SFX.ALEXANDER_WHITMORE,
           senderText: [
             "Các lò nung đang nguội dần, Patrick.",
-            "Anh đang đốt tương lai công nghiệp của Theodore để mua vài ngày yên bình.",
-            "Lịch sử không thưởng cho lòng thương hại.",
+            "Anh đang sưởi ấm đám đông bằng cách đốt trụi tương lai của thành phố.",
+            "Khi tiền cạn và nhà máy rỉ sét, đám đông đó sẽ quay lại ăn thịt anh.",
           ],
         },
         {
@@ -61,9 +61,9 @@ export const PHASE2C_EVENTS = Object.freeze({
     },
 
     Newspaper: {
-      Title: "CHÍNH PHỦ CHUYỂN THAN CHO KHU DÂN CƯ",
+      Title: "ĐÊM ẤM ÁP TẠI SOUTH DISTRICT, NHƯNG THỊ TRƯỜNG ĐÓNG BĂNG.",
       Content:
-        "Sau quyết định cắt giảm sản lượng công nghiệp, hàng loạt khu dân cư tại Theodore đã được khôi phục điện và sưởi ấm.\n\nTỷ lệ bất ổn xã hội giảm mạnh trong tuần qua.\n\nTuy nhiên, các tập đoàn công nghiệp cảnh báo rằng nền kinh tế thành phố đang tiến gần tới suy thoái nếu sản lượng thép tiếp tục giảm.",
+        "Điện và hệ thống sưởi được khôi phục tại các khu lao động. Phố Wall của Theodore chìm trong hoảng loạn khi chứng khoán ngành thép chạm đáy.\n\nCác nhà phân tích cảnh báo rằng nếu tình trạng này kéo dài, Theodore có thể mất vị thế công nghiệp và rơi vào khủng hoảng kinh tế toàn diện.",
     },
 
     Choices: [
@@ -147,20 +147,24 @@ export const PHASE2C_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giữ nguyên chính sách",
-        Content: "Tiếp tục ưu tiên dân sinh.",
+        Title: "Phớt lờ lời cảnh báo",
+        Content:
+          "Từ chối can thiệp. Để thị trường tự giải quyết trong khi vẫn giữ than cho dân sinh.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
+          [E.ECONOMY]: -2,
         },
         NextPhaseID: P.PHASE_2C,
       },
       {
         ChoiceID: "C",
-        Title: "Bắt Blackforge tự cắt giảm",
-        Content: "Ép Whitmore tự hấp thụ tổn thất.",
+        Title: "Cưỡng chế mở kho dự trữ tư nhân",
+        Content:
+          "Ký lệnh thanh tra, ép The Cartel phải nhả nguồn than găm trữ trong các kho riêng để duy trì lò nung tối thiểu, thay vì dùng ngân sách nhà nước.",
         Effects: {
-          [E.EQUALITY]: 6,
+          [E.EQUALITY]: 8,
+          [E.TRUST]: 3,
           [E.ECONOMY]: -5,
           [E.SECURITY]: -2,
         },
@@ -182,7 +186,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           senderImage: IMG.MIRA_VOLKOV,
           senderBlip: SFX.MIRA_VOLKOV,
           senderText: [
-            "Các bếp ăn cộng đồng đang hoạt động trở lại.",
+            "Các bếp ăn cộng đồng đang bắt đầu hoạt động trên diện rộng.",
             "Người dân bắt đầu tin rằng chính quyền vẫn còn nhìn thấy họ.",
             "Niềm tin đó rất mong manh.",
           ],
@@ -199,7 +203,7 @@ export const PHASE2C_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Mở rộng chương trình cứu trợ",
+        Title: "Dốc Cạn Kho Lương Quốc Gia",
         Content: "Tăng thêm hỗ trợ cho người dân.",
         Effects: {
           [E.TRUST]: 7,
@@ -210,7 +214,7 @@ export const PHASE2C_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giữ quy mô hiện tại",
+        Title: "Duy Trì Mức Cứu Trợ Tối Thiểu",
         Content: "Duy trì hỗ trợ ở mức ổn định.",
         Effects: {
           [E.TRUST]: 3,
@@ -219,7 +223,7 @@ export const PHASE2C_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Cắt giảm trợ cấp",
+        Title: "Tước Đoạt Khẩu Phần Sưởi Ấm",
         Content: "Chuyển tài nguyên về ngân sách công nghiệp.",
         Effects: {
           [E.ECONOMY]: 5,
@@ -261,7 +265,7 @@ export const PHASE2C_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Xoa dịu giới đầu tư",
+        Title: "Cúi Đầu Hứa Hẹn Với Phố Wall",
         Content: "Cam kết khôi phục tăng trưởng công nghiệp.",
         Effects: {
           [E.ECONOMY]: 8,
@@ -271,7 +275,7 @@ export const PHASE2C_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Phớt lờ thị trường",
+        Title: "Quay Lưng Với Tiền Bản",
         Content: "Tiếp tục chính sách dân sinh.",
         Effects: {
           [E.EQUALITY]: 6,
@@ -282,7 +286,7 @@ export const PHASE2C_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Kiểm soát dòng vốn",
+        Title: "Đóng Băng Tài Khoản Tư Nhân",
         Content: "Áp đặt hạn chế tài chính khẩn cấp.",
         Effects: {
           [E.SECURITY]: 5,

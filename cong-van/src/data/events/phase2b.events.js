@@ -30,7 +30,10 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderName: NAMES.ELIAS,
           senderImage: IMG.ELIAS_SAD,
           senderBlip: SFX.ELIAS,
-          senderText: ["Con hơi nhớ những ngày bình thường trước đây."],
+          senderText: [
+            "Trong nhà dạo này lạnh lẽo quá cha ạ.",
+            "Không phải vì thiếu lò sưởi... mà vì ánh mắt mọi người nhìn nhau.",
+          ],
         },
         {
           senderName: NAMES.ALEXANDER_WHITMORE,
@@ -67,24 +70,24 @@ export const PHASE2B_EVENTS = Object.freeze({
           senderImage: IMG.ELEANOR_WENTWORTH,
           senderBlip: SFX.ELEANOR_WENTWORTH,
           senderText: [
-            "Thị trường ghét sự do dự.",
-            "Nhưng nó còn ghét hỗn loạn hơn.",
-            "Giữ cân bằng là một chiến lược, không phải yếu đuối.",
+            "Thị trường ghét sự tàn nhẫn.",
+            "Nhưng nó còn kinh tởm sự do dự hơn.",
+            "Giữ thăng bằng trên dây không phải là cách để cai trị một đế chế.",
           ],
         },
       ],
     },
 
     Newspaper: {
-      Title: "THEODORE TẠM GIẢM ÁP LỰC CÔNG NGHIỆP",
+      Title: "THEODORE BƯỚC ĐI TRONG LÀN SƯƠNG MÙ",
       Content:
-        "Chính quyền Theodore công bố chính sách cân bằng tạm thời giữa công nghiệp thép và nhu cầu dân sinh.\n\nCác nhà máy giảm tốc độ sản xuất để ổn định nguồn than.\n\nTuy nhiên, giới công nghiệp cảnh báo rằng việc này có thể khiến Theodore mất vị thế cạnh tranh trong khu vực.",
+        "Các chuyên gia kinh tế cảnh báo chính sách nửa vời đang bào mòn nguồn lực. Thành phố đang thoi thóp thay vì sống sót.\n\nTrong khi đó, các tổ chức lao động ca ngợi sự nhượng bộ của chính quyền, cho rằng đây là bước đi cần thiết để tránh thảm họa nhân đạo.",
     },
 
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Tiếp tục chính sách cân bằng",
+        Title: "Bảo Vệ Ranh Giới Đỏ",
         Content: "Giữ ổn định xã hội thay vì tối đa hóa sản lượng.",
         Effects: {
           [E.TRUST]: 6,
@@ -148,7 +151,7 @@ export const PHASE2B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Nhượng bộ người dân",
+        Title: "Rút Lõi Ngân Khố Xoa Dịu Đám Đông",
         Content: "Tăng phân bổ than cho dân sinh.",
         Effects: {
           [E.TRUST]: 8,
@@ -159,7 +162,7 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giải tán biểu tình",
+        Title: "Dùng Bạo Lực Dọn Dẹp Quảng Trường",
         Content: "Dùng lực lượng kiểm soát đám đông.",
         Effects: {
           [E.TRUST]: -8,
@@ -170,7 +173,7 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Phớt lờ yêu cầu",
+        Title: "Để Mặc Họ Kêu Gào Trong Tuyết",
         Content: "Không thay đổi chính sách hiện tại.",
         Effects: {
           [E.TRUST]: -3,
