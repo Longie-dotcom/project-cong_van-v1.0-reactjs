@@ -86,8 +86,8 @@ export const PHASE4B_EVENTS = Object.freeze({
         Content:
           "Duy trì thỏa ước đình chiến để giữ thế cân bằng. Thành phố cầm cự, bế tắc tiếp tục kéo dài.",
         Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 4,
+          [E.TRUST]: -5,
+          [E.EQUALITY]: -6,
           [E.ECONOMY]: 2,
         },
         NextPhaseID: P.PHASE_5,
@@ -144,6 +144,7 @@ export const PHASE4B_EVENTS = Object.freeze({
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
           [E.RESOURCE]: -4,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_4B,
       },
@@ -165,8 +166,9 @@ export const PHASE4B_EVENTS = Object.freeze({
         Content:
           "Áp đặt thương lượng có kiểm soát để giữ sản xuất. Thỏa hiệp hình thức, mâu thuẫn vẫn chưa được giải.",
         Effects: {
-          [E.TRUST]: 3,
+          [E.TRUST]: -5,
           [E.ECONOMY]: 1,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_4B,
       },
@@ -220,6 +222,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 7,
           [E.EQUALITY]: -4,
+          [E.TRUST]: -5,
         },
         NextPhaseID: P.PHASE_4B,
       },
@@ -229,8 +232,9 @@ export const PHASE4B_EVENTS = Object.freeze({
         Content:
           "Công bố kế hoạch tự lực quốc gia để trấn an thị trường. Ổn định bề mặt, cải cách thực chất bị trì hoãn.",
         Effects: {
-          [E.TRUST]: 5,
+          [E.TRUST]: -5,
           [E.ECONOMY]: 2,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_4B,
       },

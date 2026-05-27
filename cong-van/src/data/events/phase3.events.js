@@ -86,9 +86,9 @@ export const PHASE3_EVENTS = Object.freeze({
         Content:
           "Chỉ thị duy trì cân bằng để kéo dài trạng thái trung lập. Thành phố cầm cự, mâu thuẫn giai cấp bị trì hoãn.",
         Effects: {
-          [E.TRUST]: 5,
+          [E.TRUST]: -5,
           [E.ECONOMY]: 3,
-          [E.EQUALITY]: 4,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_4B,
       },
@@ -101,7 +101,7 @@ export const PHASE3_EVENTS = Object.freeze({
           [E.TRUST]: 8,
           [E.EQUALITY]: 10,
           [E.ECONOMY]: -8,
-          [E.SECURITY]: -4,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.PHASE_4C,
       },
@@ -154,6 +154,7 @@ export const PHASE3_EVENTS = Object.freeze({
           "Triệu tập đối thoại chính trị để xoa dịu phe phái. Khủng hoảng tạm lắng, nguy cơ vẫn treo.",
         Effects: {
           [E.TRUST]: 5,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -305,6 +306,7 @@ export const PHASE3_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -370,6 +372,7 @@ export const PHASE3_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 5,
           [E.ECONOMY]: -2,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_3,
       },

@@ -78,6 +78,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 6,
           [E.ECONOMY]: -5,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -132,6 +133,7 @@ export const PHASE2A_EVENTS = Object.freeze({
           [E.TRUST]: 6,
           [E.SECURITY]: -2,
           [E.EQUALITY]: 2,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -155,7 +157,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 5,
           [E.EQUALITY]: -4,
-          [E.TRUST]: -6,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -210,6 +212,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 4,
           [E.EQUALITY]: 2,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -286,6 +289,7 @@ export const PHASE2A_EVENTS = Object.freeze({
           "Bác bỏ yêu sách, giữ quyền phân phối nhà nước. Dân sinh được trấn an, thị trường tiếp tục nghi ngờ.",
         Effects: {
           [E.TRUST]: 5,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2A,
       },

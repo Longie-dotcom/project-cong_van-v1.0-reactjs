@@ -103,7 +103,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 5,
-          [E.ECONOMY]: -3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -159,6 +159,7 @@ export const PHASE4C_EVENTS = Object.freeze({
           [E.TRUST]: 7,
           [E.EQUALITY]: 6,
           [E.RESOURCE]: -5,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_4C,
       },
@@ -236,7 +237,8 @@ export const PHASE4C_EVENTS = Object.freeze({
           "Ký thỏa hiệp giữ vốn ngoại bang để đổi lấy đầu tư. Lợi nhuận được giữ, công nhân phải nhượng bộ.",
         Effects: {
           [E.ECONOMY]: 4,
-          [E.TRUST]: 2,
+          [E.TRUST]: -5,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_4C,
       },
@@ -313,7 +315,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         Content:
           "Thiết lập kho dự trữ dưới giám sát nhân dân để kỷ luật phân phối. An ninh tài nguyên tăng, phục hồi kinh tế chậm.",
         Effects: {
-          [E.RESOURCE]: 6,
+          [E.RESOURCE]: 5,
           [E.ECONOMY]: -2,
         },
         NextPhaseID: P.PHASE_4C,

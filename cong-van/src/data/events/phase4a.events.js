@@ -101,6 +101,7 @@ export const PHASE4A_EVENTS = Object.freeze({
           [E.TRUST]: 6,
           [E.EQUALITY]: 4,
           [E.SECURITY]: -5,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -156,7 +157,7 @@ export const PHASE4A_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 4,
           [E.EQUALITY]: 5,
-          [E.ECONOMY]: -3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_4A,
       },
@@ -222,6 +223,7 @@ export const PHASE4A_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 5,
           [E.SECURITY]: -3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_4A,
       },

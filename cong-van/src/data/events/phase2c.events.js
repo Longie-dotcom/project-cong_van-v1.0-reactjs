@@ -77,6 +77,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           [E.EQUALITY]: 8,
           [E.ECONOMY]: -8,
           [E.RESOURCE]: -4,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -87,8 +88,8 @@ export const PHASE2C_EVENTS = Object.freeze({
           "Cân chỉnh sản xuất - dân sinh để giữ thế trung dung. Không bên nào hài lòng, khủng hoảng bị kéo dài.",
         Effects: {
           [E.ECONOMY]: 5,
-          [E.TRUST]: 3,
-          [E.EQUALITY]: 2,
+          [E.TRUST]: -5,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -156,7 +157,7 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
-          [E.ECONOMY]: -2,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2C,
       },
@@ -213,6 +214,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           [E.TRUST]: 7,
           [E.EQUALITY]: 7,
           [E.RESOURCE]: -5,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2C,
       },
@@ -223,6 +225,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           "Giữ cứu trợ tối thiểu để tránh xáo trộn ngân khố. Ổn định hình thức, thiếu thốn vẫn dai dẳng.",
         Effects: {
           [E.TRUST]: 3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2C,
       },
@@ -277,6 +280,7 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 8,
           [E.TRUST]: -3,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_2C,
       },
@@ -300,7 +304,7 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 5,
           [E.ECONOMY]: -4,
-          [E.TRUST]: -2,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_2C,
       },

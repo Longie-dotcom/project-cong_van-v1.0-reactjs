@@ -94,7 +94,7 @@ export const PHASE5_EVENTS = Object.freeze({
           [E.ECONOMY]: 12,
           [E.SECURITY]: 5,
           [E.EQUALITY]: -10,
-          [E.TRUST]: -6,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.ENDING,
         EndingPayload: {
@@ -110,9 +110,9 @@ export const PHASE5_EVENTS = Object.freeze({
         Content:
           "Duy trì thỏa ước đình chiến để giữ hiện trạng. Thành phố ổn định hơn, bế tắc giai cấp kéo dài.",
         Effects: {
-          [E.TRUST]: 5,
+          [E.TRUST]: -5,
           [E.ECONOMY]: 4,
-          [E.EQUALITY]: 4,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.ENDING,
         EndingPayload: {
@@ -193,6 +193,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -202,7 +203,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Content:
           "Thiết lập tích trữ chiến lược dưới kiểm soát nhà nước. An ninh nhiên liệu tăng, thị trường phục hồi chậm.",
         Effects: {
-          [E.RESOURCE]: 6,
+          [E.RESOURCE]: 5,
           [E.ECONOMY]: -2,
         },
         NextPhaseID: P.PHASE_5,
@@ -257,7 +258,7 @@ export const PHASE5_EVENTS = Object.freeze({
           "Ra tuyên cáo khép lại đấu tranh để phục hồi theo lợi nhuận. Giới có của yên ổn, người lao động bị buộc im lặng.",
         Effects: {
           [E.ECONOMY]: 3,
-          [E.TRUST]: -2,
+          [E.TRUST]: -5,
           [E.EQUALITY]: -4,
         },
         NextPhaseID: P.PHASE_5,
@@ -269,7 +270,7 @@ export const PHASE5_EVENTS = Object.freeze({
           "Siết truyền thông để dập tiếng nói phản kháng. Trật tự cưỡng bức được giữ, lòng tin xã hội sụt mạnh.",
         Effects: {
           [E.SECURITY]: 5,
-          [E.TRUST]: -5,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -324,7 +325,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 5,
-          [E.ECONOMY]: -3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -335,7 +336,7 @@ export const PHASE5_EVENTS = Object.freeze({
           "Tập trung quyền lực trung ương để ngăn khủng hoảng tái diễn. Trật tự được siết chặt, niềm tin xã hội mất dần.",
         Effects: {
           [E.SECURITY]: 7,
-          [E.TRUST]: -4,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_5,
       },

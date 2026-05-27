@@ -93,7 +93,7 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
-          [E.ECONOMY]: -2,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -115,9 +115,9 @@ export const PHASE2B_EVENTS = Object.freeze({
         Content:
           "Gia tăng kiểm soát nhà nước để điều phối tài nguyên. Sản xuất nhích lên, công nhân chịu kỷ luật chặt hơn.",
         Effects: {
-          [E.TRUST]: 3,
+          [E.TRUST]: -5,
           [E.ECONOMY]: 4,
-          [E.EQUALITY]: -3,
+          [E.EQUALITY]: -6,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -237,6 +237,7 @@ export const PHASE2B_EVENTS = Object.freeze({
           "Duy trì định mức hiện hành để tránh xáo trộn. Tạm ổn về hành chính, đà suy giảm vẫn kéo dài.",
         Effects: {
           [E.TRUST]: 3,
+          [E.ECONOMY]: -6,
         },
         NextPhaseID: P.PHASE_2B,
       },
