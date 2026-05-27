@@ -87,9 +87,9 @@ export const PHASE5_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Xây dựng Theodore công nghiệp",
+        Title: "Ban bố sắc lệnh tích lũy tư bản",
         Content:
-          "Đặt tăng trưởng kinh tế làm ưu tiên tối thượng cho tương lai.",
+          "Đặt kỷ luật thị trường và lợi nhuận lên trên sinh mạng, củng cố quyền lực cưỡng bức của nhà nước cho Cartel.",
         Effects: {
           [E.ECONOMY]: 12,
           [E.SECURITY]: 5,
@@ -105,8 +105,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Tái thiết cân bằng quốc gia",
-        Content: "Cố gắng hòa giải giữa doanh nghiệp và người lao động.",
+        Title: "Duy trì thỏa ước đình chiến giai cấp",
+        Content:
+          "Giữ hiện trạng bằng thỏa hiệp, kìm xung đột nhưng không giải quyết nguồn gốc bóc lột.",
         Effects: {
           [E.TRUST]: 8,
           [E.ECONOMY]: 4,
@@ -122,8 +123,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Đặt người dân lên trên hết",
-        Content: "Ưu tiên phúc lợi xã hội và tái thiết cộng đồng lao động.",
+        Title: "Ban hành sắc lệnh tước đoạt Cartel",
+        Content:
+          "Tước quyền sở hữu tư liệu sản xuất, đặt nhà máy dưới quyền hội đồng công nhân và ưu tiên tái thiết giai cấp.",
         Effects: {
           [E.TRUST]: 10,
           [E.EQUALITY]: 12,
@@ -131,10 +133,10 @@ export const PHASE5_EVENTS = Object.freeze({
         },
         NextPhaseID: P.ENDING,
         EndingPayload: {
-          title: "THÀNH PHỐ CỦA NHÂN DÂN",
-          subtitle: "Phúc Lợi Xã Hội Chiến Thắng Khủng Hoảng",
+          title: "CHUYÊN CHÍNH VÔ SẢN",
+          subtitle: "Giải Phóng Tư Liệu Sản Xuất",
           description:
-            "Người dân ca ngợi tên bạn như một vị cứu tinh. Ngân khố trống rỗng và kinh tế đình trệ, nhưng ngọn lửa nhân văn đã sưởi ấm Theodore sau mùa đông đen tối.",
+            "Cartel bị xóa bỏ, các nhà máy chuyển sang do hội đồng công nhân (Soviet) điều hành. Lực lượng sản xuất được giải phóng trong một giai đoạn quá độ gian nan, nơi chính quyền công nhân vừa xây dựng vừa đấu tranh.",
         },
       },
     ],
@@ -170,8 +172,9 @@ export const PHASE5_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Khôi phục thương mại",
-        Content: "Tập trung đưa kinh tế trở lại bình thường.",
+        Title: "Ban lệnh khôi phục thương mại tư bản",
+        Content:
+          "Mở luồng hàng hóa để cứu lợi nhuận, đẩy gánh nặng tài nguyên lên người lao động.",
         Effects: {
           [E.ECONOMY]: 6,
           [E.RESOURCE]: -2,
@@ -180,8 +183,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Ưu tiên tái thiết dân cư",
-        Content: "Dùng tuyến vận tải để hỗ trợ các khu lao động.",
+        Title: "Trưng dụng vận tải cho hội đồng lao động",
+        Content:
+          "Ưu tiên đoàn tàu cứu trợ và tái thiết dưới sự kiểm soát của công nhân.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
@@ -190,8 +194,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Tích trữ dự phòng",
-        Content: "Chuẩn bị cho khủng hoảng tương lai.",
+        Title: "Thiết lập tích trữ chiến lược do nhà nước kiểm soát",
+        Content:
+          "Gom dự trữ để bảo toàn an ninh nhiên liệu, chấp nhận phục hồi chậm và kỷ luật phân phối.",
         Effects: {
           [E.RESOURCE]: 6,
           [E.ECONOMY]: -2,
@@ -231,8 +236,9 @@ export const PHASE5_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Tài trợ lễ tưởng niệm",
-        Content: "Công nhận mất mát của người dân.",
+        Title: "Trưng dụng ngân quỹ tưởng niệm giai cấp",
+        Content:
+          "Công khai thừa nhận hy sinh của lao động và củng cố ký ức đấu tranh.",
         Effects: {
           [E.TRUST]: 7,
           [E.EQUALITY]: 4,
@@ -241,8 +247,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Tập trung vào tương lai",
-        Content: "Kêu gọi người dân bỏ lại quá khứ.",
+        Title: "Ra tuyên cáo khép lại đấu tranh",
+        Content:
+          "Ép xã hội quên đi mất mát để phục hồi, ưu tiên ổn định cho giới có của.",
         Effects: {
           [E.ECONOMY]: 3,
           [E.TRUST]: -2,
@@ -251,8 +258,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Kiểm soát truyền thông",
-        Content: "Hạn chế các hoạt động dễ gây bất ổn.",
+        Title: "Ban hành lệnh siết truyền thông",
+        Content:
+          "Dập mọi tiếng nói dễ châm ngòi phản kháng, bảo vệ trật tự bằng cưỡng bức.",
         Effects: {
           [E.SECURITY]: 5,
           [E.TRUST]: -5,
@@ -292,8 +300,9 @@ export const PHASE5_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Mở rộng công nghiệp",
-        Content: "Đầu tư mạnh vào thép và vận tải.",
+        Title: "Ban hành sắc lệnh mở rộng tư bản công nghiệp",
+        Content:
+          "Dồn vốn cho thép và vận tải, tăng tích lũy tư bản nhưng nới rộng bất bình đẳng.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.EQUALITY]: -4,
@@ -302,8 +311,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Cải cách xã hội",
-        Content: "Tăng đầu tư cho nhà ở và phúc lợi.",
+        Title: "Phát động cải cách phúc lợi do công nhân giám sát",
+        Content:
+          "Ưu tiên nhà ở và phúc lợi dưới quyền giám sát của hội đồng lao động, chấp nhận tăng trưởng chậm.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 7,
@@ -313,8 +323,9 @@ export const PHASE5_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Củng cố quyền lực trung ương",
-        Content: "Tăng kiểm soát để tránh khủng hoảng tái diễn.",
+        Title: "Tập trung quyền lực trung ương",
+        Content:
+          "Siết kiểm soát để ngăn khủng hoảng tái diễn, hy sinh lòng tin xã hội.",
         Effects: {
           [E.SECURITY]: 7,
           [E.TRUST]: -4,

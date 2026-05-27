@@ -99,9 +99,8 @@ export const PHASE1_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Ban hành Lệnh Khẩn Cấp Công Nghiệp.",
-        Content:
-          "Cưỡng chế dồn toàn bộ dự trữ than cho lò nung Blackforge và hệ thống vận tải",
+        Title: "Ban bố Lệnh Ưu tiên Công nghiệp",
+        Content: "Cưỡng chế dồn than cho lò nung và tuyến vận tải tư bản.",
         Effects: {
           [E.ECONOMY]: 12,
           [E.EQUALITY]: -12,
@@ -112,9 +111,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Áp dụng Chính Sách Khẩu Phần Kép",
-        Content:
-          "Cố gắng duy trì hạn mức tối thiểu cho cả hai phía, chấp nhận sự trì trệ toàn hệ thống",
+        Title: "Ban hành Khẩu phần song đôi",
+        Content: "Giữ định mức tối thiểu cho cả hai phía, chấp nhận trì trệ.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 6,
@@ -124,9 +122,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Ban bố Tình Trạng Khẩn Cấp Dân Sinh",
-        Content:
-          "Đình chỉ một phần sản xuất, chuyển hướng than cứu trợ khẩn cấp cho các khu lao động",
+        Title: "Ban bố Khẩn cấp dân sinh",
+        Content: "Cắt sản xuất, chuyển than cứu trợ cho khu lao động.",
         Effects: {
           [E.TRUST]: 10,
           [E.EQUALITY]: 8,
@@ -167,8 +164,8 @@ export const PHASE1_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Trưng Dụng Tàu Cho Hale Logistics",
-        Content: "Dồn than cho hệ thống đường sắt của Hale.",
+        Title: "Trưng dụng vận tải cho Hale",
+        Content: "Dồn than cho tuyến hàng hóa tư bản.",
         Effects: {
           [E.ECONOMY]: 6,
           [E.RESOURCE]: -4,
@@ -178,8 +175,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Duy Trì Lịch Trình Hiện Tại",
-        Content: "Không thay đổi chính sách hiện tại.",
+        Title: "Giữ nguyên lịch trình",
+        Content: "Không thay đổi phân phối hiện tại.",
         Effects: {
           [E.TRUST]: 2,
         },
@@ -187,8 +184,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Cắt Chuyến Chở Hàng, Chở Người",
-        Content: "Giảm ưu tiên vận tải để tránh sụp hệ thống dân sinh.",
+        Title: "Ưu tiên vận tải dân sinh",
+        Content: "Hy sinh hàng hóa để cứu hệ thống dân cư.",
         Effects: {
           [E.EQUALITY]: 4,
           [E.ECONOMY]: -3,
@@ -227,8 +224,8 @@ export const PHASE1_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Ưu tiên dân sinh",
-        Content: "Chuyển than sang khu dân cư.",
+        Title: "Trưng dụng than cho dân cư",
+        Content: "Chuyển than sưởi về khu lao động.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
@@ -238,8 +235,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Không can thiệp",
-        Content: "Giữ nguyên phân phối hiện tại.",
+        Title: "Giữ nguyên phân phối",
+        Content: "Không can thiệp vào hiện trạng.",
         Effects: {
           [E.TRUST]: -2,
         },
@@ -247,8 +244,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Ưu tiên công nghiệp",
-        Content: "Duy trì điện cho nhà máy thép.",
+        Title: "Bảo hộ điện cho công nghiệp",
+        Content: "Duy trì điện cho lò thép.",
         Effects: {
           [E.ECONOMY]: 5,
           [E.EQUALITY]: -4,
@@ -287,8 +284,8 @@ export const PHASE1_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Ký Hiệp Ước Độc Quyền Với Giới Tài Phiệt",
-        Content: "Trao thêm quyền phân phối than cho doanh nghiệp.",
+        Title: "Ký độc quyền phân phối than",
+        Content: "Trao quyền than cho giới tài phiệt.",
         Effects: {
           [E.ECONOMY]: 7,
           [E.EQUALITY]: -6,
@@ -298,8 +295,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Bác Bỏ Tối Hậu Thư Của Wentworth",
-        Content: "Giữ quyền kiểm soát nhà nước.",
+        Title: "Tái khẳng định quyền nhà nước",
+        Content: "Giữ phân phối than trong tay nhà nước.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 3,
@@ -308,8 +305,8 @@ export const PHASE1_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Giữ Im Lặng Chiến Lược",
-        Content: "Không đưa ra phản hồi ngay lập tức.",
+        Title: "Hoãn quyết định chính thức",
+        Content: "Trì hoãn phản hồi, kéo dài bất định.",
         Effects: {
           [E.TRUST]: -1,
         },

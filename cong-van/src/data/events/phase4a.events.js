@@ -69,8 +69,9 @@ export const PHASE4A_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Mở rộng đàn áp",
-        Content: "Cho phép quân đội kiểm soát trực tiếp các khu lao động.",
+        Title: "Ban bố Thiết quân luật toàn khu lao động",
+        Content:
+          "Quân đội chiếm nhà máy và khu trọ, bóp nghẹt đình công để Cartel giữ sản lượng và giá trị thặng dư.",
         Effects: {
           [E.SECURITY]: 12,
           [E.ECONOMY]: 8,
@@ -81,8 +82,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giữ kiểm soát có giới hạn",
-        Content: "Duy trì thiết quân luật nhưng tránh leo thang bạo lực.",
+        Title: "Duy trì Thiết quân luật kiểm soát",
+        Content:
+          "Giữ kìm kẹp đủ mạnh để bảo vệ vận tải và lợi nhuận, nhưng tránh bùng nổ phản kháng công nhân.",
         Effects: {
           [E.SECURITY]: 6,
           [E.ECONOMY]: 5,
@@ -92,8 +94,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Bắt đầu nới lỏng",
-        Content: "Giảm hiện diện quân sự để xoa dịu công chúng.",
+        Title: "Ban lệnh rút bớt quân khỏi khu lao động",
+        Content:
+          "Nới đàn áp để xoa dịu công nhân, chấp nhận làm suy yếu quyền lực cưỡng bức của Cartel.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 4,
@@ -134,8 +137,9 @@ export const PHASE4A_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Tiếp tục tăng sản lượng",
-        Content: "Ép nhà máy vận hành tối đa.",
+        Title: "Cưỡng chế tăng nhịp lò nung",
+        Content:
+          "Ép công nhân kiệt sức để tối đa hóa sản lượng và lợi nhuận tư bản.",
         Effects: {
           [E.ECONOMY]: 9,
           [E.RESOURCE]: -7,
@@ -145,8 +149,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giảm ca làm",
-        Content: "Cho công nhân nghỉ luân phiên.",
+        Title: "Áp lệnh giảm ca bảo toàn sức lao động",
+        Content:
+          "Ưu tiên sức khỏe công nhân, đổi lại sản lượng và lợi nhuận giảm.",
         Effects: {
           [E.TRUST]: 4,
           [E.EQUALITY]: 5,
@@ -156,8 +161,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Thưởng cho công nhân",
-        Content: "Dùng ngân sách để giữ ổn định lao động.",
+        Title: "Mua yên bằng thưởng ổn định lao động",
+        Content:
+          "Dùng ngân sách trấn an công nhân, giữ kỷ luật sản xuất nhưng ngân khố chịu gánh nặng.",
         Effects: {
           [E.TRUST]: 5,
           [E.ECONOMY]: -4,
@@ -197,8 +203,9 @@ export const PHASE4A_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Giải tán bằng vũ lực",
-        Content: "Ra lệnh trấn áp đám đông.",
+        Title: "Cưỡng chế giải tán bằng vũ lực",
+        Content:
+          "Nhà nước trấn áp biểu tình để bảo vệ trật tự và quyền sở hữu tư bản.",
         Effects: {
           [E.SECURITY]: 10,
           [E.TRUST]: -12,
@@ -208,8 +215,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Đàm phán với đại diện lao động",
-        Content: "Cử người thương lượng để tránh bạo lực.",
+        Title: "Triệu tập đàm phán bắt buộc",
+        Content:
+          "Chấp nhận thương lượng để hạ nhiệt xung đột, tăng tiếng nói công nhân nhưng làm suy yếu uy quyền cưỡng bức.",
         Effects: {
           [E.TRUST]: 7,
           [E.SECURITY]: -3,
@@ -218,8 +226,9 @@ export const PHASE4A_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Phớt lờ cuộc biểu tình",
-        Content: "Không phản hồi công khai.",
+        Title: "Khoanh tay để mâu thuẫn tự bốc cháy",
+        Content:
+          "Không can thiệp, để khủng hoảng giai cấp âm ỉ và lòng tin sụt giảm.",
         Effects: {
           [E.TRUST]: -4,
           [E.SECURITY]: -2,

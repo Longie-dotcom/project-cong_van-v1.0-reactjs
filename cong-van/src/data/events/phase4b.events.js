@@ -70,8 +70,9 @@ export const PHASE4B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Nghiêng về công nghiệp",
-        Content: "Tăng hỗ trợ cho các tập đoàn để củng cố kinh tế.",
+        Title: "Ban hành ưu đãi tài phiệt chiến lược",
+        Content:
+          "Dồn trợ cấp cho Cartel, đổi lấy tăng trưởng nhưng bất bình đẳng và sự phẫn nộ của công nhân.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.TRUST]: -4,
@@ -81,8 +82,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Tiếp tục cân bằng",
-        Content: "Duy trì phân phối hiện tại dù áp lực tăng cao.",
+        Title: "Duy trì thỏa ước đình chiến giai cấp",
+        Content:
+          "Giữ phân phối và nhịp sản xuất tối thiểu để kìm xung đột, cả hai bên đều phải nhượng bộ.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
@@ -92,8 +94,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Mở rộng hỗ trợ dân sinh",
-        Content: "Đầu tư thêm vào các khu lao động và năng lượng dân dụng.",
+        Title: "Trưng dụng ngân khố cứu trợ lao động",
+        Content:
+          "Ưu tiên phúc lợi công nhân, làm suy giảm tích lũy tư bản và sức ép từ giới tài phiệt.",
         Effects: {
           [E.TRUST]: 8,
           [E.EQUALITY]: 7,
@@ -134,8 +137,8 @@ export const PHASE4B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Nhượng bộ yêu cầu",
-        Content: "Cấp thêm khẩu phần than cho công nhân.",
+        Title: "Chấp thuận yêu sách và bù khẩu phần",
+        Content: "Nhượng bộ công nhân để ổn định, hao hụt tài nguyên dự trữ.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
@@ -145,8 +148,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Ép họ quay lại làm việc",
-        Content: "Đe dọa cắt lương và sa thải.",
+        Title: "Cưỡng chế quay lại máy",
+        Content:
+          "Đe dọa cắt lương, sa thải để bảo vệ lợi nhuận, làm lòng tin lao động sụp đổ.",
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,
@@ -155,8 +159,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Đàm phán trung lập",
-        Content: "Tổ chức thương lượng giữa công đoàn và doanh nghiệp.",
+        Title: "Áp đặt thương lượng có kiểm soát",
+        Content:
+          "Mở bàn đàm phán dưới sự giám sát nhà nước, giữ sản xuất nhưng không giải quyết tận gốc.",
         Effects: {
           [E.TRUST]: 3,
           [E.ECONOMY]: 1,
@@ -207,8 +212,9 @@ export const PHASE4B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Cam kết bảo vệ doanh nghiệp",
-        Content: "Đưa ra ưu đãi cho các tập đoàn lớn.",
+        Title: "Ký ưu đãi cho tư bản ngoại bang",
+        Content:
+          "Mở cửa cho vốn phương Bắc đổi lấy tăng trưởng, biến công nhân Theodore thành lao dịch rẻ mạt và đẩy mâu thuẫn giai cấp thành mâu thuẫn dân tộc.",
         Effects: {
           [E.ECONOMY]: 7,
           [E.EQUALITY]: -4,
@@ -217,8 +223,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Trấn an công chúng",
-        Content: "Công bố kế hoạch phục hồi quốc gia.",
+        Title: "Công bố kế hoạch tự lực quốc gia",
+        Content:
+          "Trấn an thị trường bằng cam kết phục hồi do nhà nước dẫn dắt, hạn chế lệ thuộc tư bản ngoại bang.",
         Effects: {
           [E.TRUST]: 5,
           [E.ECONOMY]: 2,
@@ -227,8 +234,9 @@ export const PHASE4B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Không phản hồi",
-        Content: "Để thị trường tự điều chỉnh.",
+        Title: "Im lặng để thị trường tự tháo chạy",
+        Content:
+          "Không cam kết gì, chấp nhận suy giảm và sự hoài nghi của cả tư bản lẫn công nhân.",
         Effects: {
           [E.ECONOMY]: -3,
           [E.TRUST]: -2,

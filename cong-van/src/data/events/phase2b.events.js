@@ -87,8 +87,8 @@ export const PHASE2B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Bảo Vệ Ranh Giới Đỏ",
-        Content: "Giữ ổn định xã hội thay vì tối đa hóa sản lượng.",
+        Title: "Ban hành ranh giới an sinh",
+        Content: "Giữ ổn định xã hội, chấp nhận chậm sản xuất.",
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
@@ -98,7 +98,7 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Quay lại công nghiệp hóa mạnh",
+        Title: "Phát lệnh tái công nghiệp hóa",
         Content: "Khôi phục sản lượng thép tối đa.",
         Effects: {
           [E.ECONOMY]: 10,
@@ -109,8 +109,8 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Thắt chặt kiểm soát nhà nước",
-        Content: "Chính phủ can thiệp sâu vào phân phối tài nguyên.",
+        Title: "Gia tăng kiểm soát nhà nước",
+        Content: "Can thiệp sâu vào phân phối tài nguyên.",
         Effects: {
           [E.TRUST]: 3,
           [E.ECONOMY]: 4,
@@ -151,8 +151,8 @@ export const PHASE2B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Rút Lõi Ngân Khố Xoa Dịu Đám Đông",
-        Content: "Tăng phân bổ than cho dân sinh.",
+        Title: "Xả kho cứu trợ dân sinh",
+        Content: "Tăng phân bổ than cho dân cư.",
         Effects: {
           [E.TRUST]: 8,
           [E.ECONOMY]: -5,
@@ -162,8 +162,8 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Dùng Bạo Lực Dọn Dẹp Quảng Trường",
-        Content: "Dùng lực lượng kiểm soát đám đông.",
+        Title: "Thiết quân luật quảng trường",
+        Content: "Dùng lực lượng trấn áp đám đông.",
         Effects: {
           [E.TRUST]: -8,
           [E.EQUALITY]: -6,
@@ -173,8 +173,8 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Để Mặc Họ Kêu Gào Trong Tuyết",
-        Content: "Không thay đổi chính sách hiện tại.",
+        Title: "Phớt lờ yêu sách",
+        Content: "Giữ nguyên chính sách hiện tại.",
         Effects: {
           [E.TRUST]: -3,
         },
@@ -213,8 +213,8 @@ export const PHASE2B_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Đầu tư mạnh trở lại công nghiệp",
-        Content: "Khôi phục tốc độ sản xuất tối đa.",
+        Title: "Bơm vốn khôi phục công nghiệp",
+        Content: "Tăng tốc sản xuất tối đa.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.RESOURCE]: -5,
@@ -223,8 +223,8 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Giữ ổn định hiện tại",
-        Content: "Không thay đổi chính sách.",
+        Title: "Duy trì định mức hiện hành",
+        Content: "Không đổi chính sách.",
         Effects: {
           [E.TRUST]: 3,
         },
@@ -232,7 +232,7 @@ export const PHASE2B_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Chuyển ưu tiên sang dân sinh",
+        Title: "Chuyển hướng an sinh",
         Content: "Giảm áp lực sản xuất.",
         Effects: {
           [E.EQUALITY]: 6,

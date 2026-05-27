@@ -70,8 +70,8 @@ export const PHASE3_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Trao thêm quyền cho The Cartel",
-        Content: "Hợp tác sâu hơn với giới tài phiệt để tái thiết công nghiệp.",
+        Title: "Nhượng quyền Cartel",
+        Content: "Hợp tác sâu với tài phiệt để tái thiết.",
         Effects: {
           [E.ECONOMY]: 10,
           [E.EQUALITY]: -8,
@@ -81,8 +81,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Duy trì chính quyền cân bằng",
-        Content: "Giữ Theodore ở trạng thái ổn định trung lập.",
+        Title: "Chỉ thị duy trì cân bằng",
+        Content: "Giữ Theodore ổn định trung lập.",
         Effects: {
           [E.TRUST]: 5,
           [E.ECONOMY]: 3,
@@ -92,8 +92,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Đẩy mạnh cải cách dân sinh",
-        Content: "Giảm quyền lực giới tài phiệt để mở rộng phúc lợi xã hội.",
+        Title: "Phát động cải cách dân sinh",
+        Content: "Giảm quyền tài phiệt, mở rộng phúc lợi.",
         Effects: {
           [E.TRUST]: 8,
           [E.EQUALITY]: 10,
@@ -135,7 +135,7 @@ export const PHASE3_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Tăng kiểm soát an ninh",
+        Title: "Ban hành giám sát an ninh",
         Content: "Theo dõi các nhóm chống đối.",
         Effects: {
           [E.SECURITY]: 7,
@@ -145,8 +145,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Mở đối thoại chính trị",
-        Content: "Cố gắng xoa dịu các phe phái.",
+        Title: "Triệu tập đối thoại chính trị",
+        Content: "Xoa dịu các phe phái.",
         Effects: {
           [E.TRUST]: 5,
         },
@@ -154,8 +154,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Phớt lờ tin đồn",
-        Content: "Không phản ứng công khai.",
+        Title: "Không phản hồi chính thức",
+        Content: "Bỏ qua tin đồn.",
         Effects: {
           [E.SECURITY]: -3,
         },
@@ -205,8 +205,8 @@ export const PHASE3_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Cứu nhà máy bằng mọi giá",
-        Content: "Dồn tài nguyên sửa chữa Blackforge.",
+        Title: "Trưng dụng cứu Blackforge",
+        Content: "Dồn nguồn lực sửa chữa.",
         Effects: {
           [E.ECONOMY]: 8,
           [E.RESOURCE]: -6,
@@ -215,8 +215,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Điều tra an toàn lao động",
-        Content: "Tạm đóng nhà máy để thanh tra.",
+        Title: "Ra lệnh thanh tra an toàn",
+        Content: "Tạm đóng để kiểm tra.",
         Effects: {
           [E.TRUST]: 5,
           [E.EQUALITY]: 4,
@@ -226,8 +226,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Bắt Whitmore tự chịu trách nhiệm",
-        Content: "Không hỗ trợ tài chính.",
+        Title: "Tước hỗ trợ tài phiệt",
+        Content: "Buộc Whitmore tự gánh.",
         Effects: {
           [E.ECONOMY]: -7,
           [E.EQUALITY]: 5,
@@ -276,8 +276,8 @@ export const PHASE3_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Phân phát lương thực khẩn cấp",
-        Content: "Dùng ngân sách cứu trợ người dân.",
+        Title: "Xả kho lương thực khẩn",
+        Content: "Dùng ngân sách cứu trợ.",
         Effects: {
           [E.TRUST]: 7,
           [E.EQUALITY]: 6,
@@ -287,8 +287,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Ưu tiên ổn định kinh tế",
-        Content: "Không can thiệp mạnh.",
+        Title: "Ưu tiên ổn định thị trường",
+        Content: "Giữ ngân sách, không can thiệp mạnh.",
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,
@@ -297,8 +297,8 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Thiết quân luật phân phối",
-        Content: "Quân đội kiểm soát thực phẩm.",
+        Title: "Thiết quân luật lương thực",
+        Content: "Quân đội kiểm soát phân phối.",
         Effects: {
           [E.SECURITY]: 7,
           [E.TRUST]: -3,
@@ -338,8 +338,8 @@ export const PHASE3_EVENTS = Object.freeze({
     Choices: [
       {
         ChoiceID: "A",
-        Title: "Mở cửa đầu tư hoàn toàn",
-        Content: "Cho phép vốn ngoại vào Theodore.",
+        Title: "Mở cửa vốn ngoại toàn phần",
+        Content: "Cho phép tư bản ngoại vào Theodore.",
         Effects: {
           [E.ECONOMY]: 10,
           [E.EQUALITY]: -5,
@@ -348,7 +348,7 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "B",
-        Title: "Kiểm soát đầu tư",
+        Title: "Siết kiểm soát vốn ngoại",
         Content: "Giới hạn ảnh hưởng nước ngoài.",
         Effects: {
           [E.SECURITY]: 5,
@@ -358,7 +358,7 @@ export const PHASE3_EVENTS = Object.freeze({
       },
       {
         ChoiceID: "C",
-        Title: "Từ chối hợp tác",
+        Title: "Từ chối vốn ngoại",
         Content: "Giữ Theodore độc lập.",
         Effects: {
           [E.TRUST]: 4,
