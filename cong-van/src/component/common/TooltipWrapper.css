@@ -1,0 +1,33 @@
+.tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pixel-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  background: #f2e2b6;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0 #000000;
+  color: #1a1a1a;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 130;
+  image-rendering: pixelated;
+}
+
+.tooltip-wrapper:hover .pixel-tooltip {
+  opacity: 1;
+}
+
+.tooltip-wrapper.tooltip-top .pixel-tooltip {
+  bottom: 100%;
+}

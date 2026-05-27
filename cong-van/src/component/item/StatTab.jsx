@@ -13,6 +13,7 @@ import TrustParticle from "./../../assets/image/icon/trust-particle.png";
 import EqualityParticle from "./../../assets/image/icon/equality-particle.png";
 
 import "./StatTab.css";
+import TooltipWrapper from "../common/TooltipWrapper";
 
 // Helper to safely load image elements for our canvas rendering engine
 const createParticleImage = (src) => {
@@ -45,6 +46,14 @@ export default function StatTab({ stats }) {
     Trust: TrustIcon,
     Economy: EconomyIcon,
     Equality: EqualityIcon,
+  };
+
+  const tooltipTextMap = {
+    Resource: "Tài nguyên",
+    Security: "An ninh thành phố",
+    Trust: "Lòng tin của dân",
+    Economy: "Tài chính / Kinh tế",
+    Equality: "Sự công bằng",
   };
 
   const spawnParticles = useCallback((key, x, y, type) => {
@@ -225,18 +234,19 @@ export default function StatTab({ stats }) {
       <canvas ref={canvasRef} className="stat-particle-canvas" />
 
       {Object.entries(stats).map(([key, value]) => (
-        <div
-          key={key}
-          data-stat-key={key}
-          className={`stat-tab-icon-item ${animatingKeys[key] ? "horizontal-bounce-active" : ""}`}
-        >
-          <img
-            src={iconMap[key]}
-            alt={`${key} icon`}
-            className="stat-tab-pixel-icon"
-          />
-          <span className="stat-tab-value-text">{value}</span>
-        </div>
+        <TooltipWrapper key={key} text={tooltipTextMap[key]} position="top">
+          <div
+            data-stat-key={key}
+            className={`stat-tab-icon-item ${animatingKeys[key] ? "horizontal-bounce-active" : ""}`}
+          >
+            <img
+              src={iconMap[key]}
+              alt={`${key} icon`}
+              className="stat-tab-pixel-icon"
+            />
+            <span className="stat-tab-value-text">{value}</span>
+          </div>
+        </TooltipWrapper>
       ))}
     </div>
   );
