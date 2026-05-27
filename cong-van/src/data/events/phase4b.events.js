@@ -98,8 +98,8 @@ export const PHASE4B_EVENTS = Object.freeze({
         Content:
           "Trưng dụng ngân khố cứu trợ lao động. Người dân được giữ ấm, tích lũy tư bản suy giảm.",
         Effects: {
-          [E.TRUST]: 8,
-          [E.EQUALITY]: 7,
+          [E.TRUST]: 5,
+          [E.EQUALITY]: 5,
           [E.ECONOMY]: -5,
         },
         NextPhaseID: P.PHASE_5,
@@ -155,6 +155,7 @@ export const PHASE4B_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 4,
           [E.TRUST]: -5,
+          [E.EQUALITY]: -5,
         },
         NextPhaseID: P.PHASE_4B,
       },

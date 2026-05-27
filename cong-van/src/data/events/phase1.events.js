@@ -116,9 +116,9 @@ export const PHASE1_EVENTS = Object.freeze({
         Content:
           "Ấn định khẩu phần tối thiểu cho cả hai phía để giữ guồng máy khỏi vỡ. Cả tư bản lẫn dân nghèo mắc kẹt trong trì trệ kéo dài.",
         Effects: {
-          [E.TRUST]: 6,
-          [E.EQUALITY]: 6,
           [E.ECONOMY]: 3,
+          [E.EQUALITY]: -3,
+          [E.TRUST]: -3,
         },
         NextPhaseID: P.PHASE_2B,
       },
@@ -172,8 +172,9 @@ export const PHASE1_EVENTS = Object.freeze({
           "Trưng dụng vận tải cho Hale, ưu tiên than cho tuyến hàng hóa. Lợi nhuận được cứu, nhu cầu dân sinh bị đẩy lùi.",
         Effects: {
           [E.ECONOMY]: 6,
+          [E.EQUALITY]: -5,
           [E.RESOURCE]: -4,
-          [E.TRUST]: -2,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_1,
       },
@@ -193,6 +194,7 @@ export const PHASE1_EVENTS = Object.freeze({
         Content:
           "Ưu tiên vận tải dân sinh, cắt bớt hàng hóa công nghiệp. Dân cư được cứu, tăng trưởng chậm lại.",
         Effects: {
+          [E.TRUST]: 4,
           [E.EQUALITY]: 4,
           [E.ECONOMY]: -3,
         },
@@ -258,6 +260,7 @@ export const PHASE1_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 5,
           [E.EQUALITY]: -4,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_1,
       },

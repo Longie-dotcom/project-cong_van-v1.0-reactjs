@@ -101,7 +101,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           [E.TRUST]: 6,
           [E.EQUALITY]: 10,
           [E.ECONOMY]: -10,
-          [E.SECURITY]: -4,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -168,8 +168,8 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: {
           [E.EQUALITY]: 8,
           [E.TRUST]: 3,
-          [E.ECONOMY]: -5,
-          [E.SECURITY]: -2,
+          [E.ECONOMY]: -10,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.PHASE_2C,
       },
@@ -286,7 +286,7 @@ export const PHASE2C_EVENTS = Object.freeze({
         Content:
           "Khước từ yêu sách tư bản, tiếp tục cứu trợ dân sinh. Sinh mạng công nhân được giữ, dòng vốn rút lui mạnh hơn.",
         Effects: {
-          [E.EQUALITY]: 6,
+          [E.EQUALITY]: 5,
           [E.TRUST]: 5,
           [E.ECONOMY]: -6,
         },

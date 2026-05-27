@@ -91,7 +91,7 @@ export const PHASE4C_EVENTS = Object.freeze({
           [E.EQUALITY]: 10,
           [E.TRUST]: 8,
           [E.ECONOMY]: -10,
-          [E.SECURITY]: -3,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -169,7 +169,8 @@ export const PHASE4C_EVENTS = Object.freeze({
           "Ủy quyền tự quản có giới hạn cho công nhân. Trật tự tạm ổn, quyền lực vẫn chia sẻ nửa vời.",
         Effects: {
           [E.TRUST]: 3,
-          [E.ECONOMY]: 1,
+          [E.ECONOMY]: -4,
+          [E.EQUALITY]: 2,
         },
         NextPhaseID: P.PHASE_4C,
       },
@@ -180,6 +181,7 @@ export const PHASE4C_EVENTS = Object.freeze({
           "Cắt viện trợ, dồn than cho tư bản. Lợi nhuận được cứu, khu lao động bị bỏ rơi.",
         Effects: {
           [E.ECONOMY]: 5,
+          [E.EQUALITY]: -5,
           [E.TRUST]: -5,
         },
         NextPhaseID: P.PHASE_4C,
@@ -284,10 +286,12 @@ export const PHASE4C_EVENTS = Object.freeze({
         ChoiceID: "A",
         Title: "Ban lệnh khôi phục sản xuất vì tích lũy",
         Content:
-          "Thiết lập kho dự trữ do nhân dân giám sát để kỷ luật phân phối. An ninh tài nguyên tăng, phục hồi kinh tế chậm.",
+          "Ban lệnh ép phục hồi sản xuất, dồn toàn bộ nguồn lực để tái khởi động lò nung. Lợi nhuận phục hồi nhanh chóng, nhưng công nhân bị tước đoạt cơ hội nghỉ ngơ",
         Effects: {
           [E.ECONOMY]: 7,
+          [E.EQUALITY]: -5,
           [E.RESOURCE]: -3,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_4C,
       },
@@ -299,6 +303,7 @@ export const PHASE4C_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 6,
           [E.EQUALITY]: 5,
+          [E.ECONOMY]: -4,
         },
         NextPhaseID: P.PHASE_4C,
       },

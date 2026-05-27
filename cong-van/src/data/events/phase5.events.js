@@ -94,6 +94,7 @@ export const PHASE5_EVENTS = Object.freeze({
           [E.ECONOMY]: 12,
           [E.SECURITY]: 5,
           [E.EQUALITY]: -10,
+          [E.TRUST]: -6,
         },
         NextPhaseID: P.ENDING,
         EndingPayload: {
@@ -109,7 +110,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Content:
           "Duy trì thỏa ước đình chiến để giữ hiện trạng. Thành phố ổn định hơn, bế tắc giai cấp kéo dài.",
         Effects: {
-          [E.TRUST]: 8,
+          [E.TRUST]: 5,
           [E.ECONOMY]: 4,
           [E.EQUALITY]: 4,
         },
@@ -130,6 +131,7 @@ export const PHASE5_EVENTS = Object.freeze({
           [E.TRUST]: 10,
           [E.EQUALITY]: 12,
           [E.ECONOMY]: -8,
+          [E.SECURITY]: -8,
         },
         NextPhaseID: P.ENDING,
         EndingPayload: {
@@ -177,7 +179,9 @@ export const PHASE5_EVENTS = Object.freeze({
           "Khôi phục thương mại tư bản để cứu lợi nhuận. Người lao động gánh thêm thiếu hụt tài nguyên.",
         Effects: {
           [E.ECONOMY]: 6,
+          [E.EQUALITY]: -5,
           [E.RESOURCE]: -2,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -242,6 +246,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 7,
           [E.EQUALITY]: 4,
+          [E.ECONOMY]: -4,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -253,6 +258,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 3,
           [E.TRUST]: -2,
+          [E.EQUALITY]: -4,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -306,6 +312,7 @@ export const PHASE5_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 8,
           [E.EQUALITY]: -4,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -315,8 +322,8 @@ export const PHASE5_EVENTS = Object.freeze({
         Content:
           "Phát động cải cách phúc lợi dưới giám sát công nhân. Đời sống lao động tốt hơn, tăng trưởng giảm.",
         Effects: {
-          [E.TRUST]: 6,
-          [E.EQUALITY]: 7,
+          [E.TRUST]: 5,
+          [E.EQUALITY]: 5,
           [E.ECONOMY]: -3,
         },
         NextPhaseID: P.PHASE_5,

@@ -131,6 +131,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.TRUST]: 6,
           [E.SECURITY]: -2,
+          [E.EQUALITY]: 2,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -141,6 +142,7 @@ export const PHASE2A_EVENTS = Object.freeze({
           "Ra lệnh tiếp tục sản xuất bất chấp bất ổn. Lợi nhuận được giữ, sinh mạng lao động bị xem như chi phí.",
         Effects: {
           [E.ECONOMY]: 4,
+          [E.EQUALITY]: -5,
           [E.TRUST]: -3,
         },
         NextPhaseID: P.PHASE_2A,
@@ -153,6 +155,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 5,
           [E.EQUALITY]: -4,
+          [E.TRUST]: -6,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -195,6 +198,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 6,
           [E.EQUALITY]: -5,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -205,6 +209,7 @@ export const PHASE2A_EVENTS = Object.freeze({
           "Ban hành phân bổ chia đều để giữ cân bằng hình thức. Căng thẳng tạm lắng, hiệu suất vẫn ì ạch.",
         Effects: {
           [E.TRUST]: 4,
+          [E.EQUALITY]: 2,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -216,6 +221,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 6,
           [E.ECONOMY]: -4,
+          [E.TRUST]: -8,
         },
         NextPhaseID: P.PHASE_2A,
       },
@@ -269,6 +275,7 @@ export const PHASE2A_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 7,
           [E.EQUALITY]: -6,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_2A,
       },

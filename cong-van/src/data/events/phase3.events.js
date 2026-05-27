@@ -143,7 +143,7 @@ export const PHASE3_EVENTS = Object.freeze({
           "Ban hành giám sát an ninh để dập các nhóm chống đối. Trật tự cưỡng bức tăng, lòng tin sụt mạnh.",
         Effects: {
           [E.SECURITY]: 7,
-          [E.TRUST]: -4,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -216,7 +216,9 @@ export const PHASE3_EVENTS = Object.freeze({
           "Trưng dụng nguồn lực cứu Blackforge để khôi phục sản xuất. Lợi nhuận tư bản được cứu, tài nguyên xã hội bị hút cạn.",
         Effects: {
           [E.ECONOMY]: 8,
+          [E.EQUALITY]: -5,
           [E.RESOURCE]: -6,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -313,7 +315,7 @@ export const PHASE3_EVENTS = Object.freeze({
           "Thiết quân luật lương thực để kiểm soát phân phối. An ninh tăng bằng cưỡng bức, lòng tin xã hội giảm.",
         Effects: {
           [E.SECURITY]: 7,
-          [E.TRUST]: -3,
+          [E.TRUST]: -10,
         },
         NextPhaseID: P.PHASE_3,
       },
@@ -356,6 +358,7 @@ export const PHASE3_EVENTS = Object.freeze({
         Effects: {
           [E.ECONOMY]: 10,
           [E.EQUALITY]: -5,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_3,
       },

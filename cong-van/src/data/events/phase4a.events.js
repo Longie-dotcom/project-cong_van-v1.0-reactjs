@@ -88,7 +88,7 @@ export const PHASE4A_EVENTS = Object.freeze({
         Effects: {
           [E.SECURITY]: 6,
           [E.ECONOMY]: 5,
-          [E.TRUST]: -3,
+          [E.TRUST]: -8,
         },
         NextPhaseID: P.PHASE_5,
       },
@@ -144,6 +144,7 @@ export const PHASE4A_EVENTS = Object.freeze({
           [E.ECONOMY]: 9,
           [E.RESOURCE]: -7,
           [E.EQUALITY]: -6,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_4A,
       },
@@ -219,7 +220,7 @@ export const PHASE4A_EVENTS = Object.freeze({
         Content:
           "Triệu tập đàm phán bắt buộc để hạ nhiệt xung đột. Công nhân có tiếng nói hơn, uy quyền cưỡng bức suy giảm.",
         Effects: {
-          [E.TRUST]: 7,
+          [E.TRUST]: 5,
           [E.SECURITY]: -3,
         },
         NextPhaseID: P.PHASE_4A,

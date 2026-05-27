@@ -224,7 +224,9 @@ export const PHASE2B_EVENTS = Object.freeze({
           "Bơm vốn khôi phục công nghiệp để tăng tốc sản xuất. Lợi nhuận tăng, dự trữ tài nguyên cạn.",
         Effects: {
           [E.ECONOMY]: 8,
+          [E.EQUALITY]: -5,
           [E.RESOURCE]: -5,
+          [E.TRUST]: -4,
         },
         NextPhaseID: P.PHASE_2B,
       },
@@ -244,7 +246,7 @@ export const PHASE2B_EVENTS = Object.freeze({
         Content:
           "Chuyển hướng an sinh, giảm áp lực sản xuất. Người lao động được bảo vệ hơn, tăng trưởng suy yếu rõ rệt.",
         Effects: {
-          [E.EQUALITY]: 6,
+          [E.EQUALITY]: 5,
           [E.ECONOMY]: -6,
           [E.TRUST]: 4,
         },
