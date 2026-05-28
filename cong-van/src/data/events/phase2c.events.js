@@ -75,23 +75,23 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 10 },
-            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+            text: "Chủ trương 'ban hành ưu tiên dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.EQUALITY]: 8 },
-            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành ưu tiên dân sinh'."
           },
           {
             effect: { [E.ECONOMY]: -8 },
-            text: "Sản xuất đình trệ do lò nung thiếu than vận hành."
+            text: "Việc 'ban hành ưu tiên dân sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           },
           {
             effect: { [E.RESOURCE]: -4 },
-            text: "Kho dự trữ than nhà nước cạn kiệt do xả kho cứu trợ."
+            text: "Quy luật giá trị trừng phạt giới tài phiệt sau sách lược 'ban hành ưu tiên dân sinh'."
           },
           {
             effect: { [E.SECURITY]: -8 },
-            text: "Thợ mỏ nổi dậy đấu tranh chống lại ách cai trị tàn khốc."
+            text: "Quần chúng nổi dậy làm lung lay thiết chế cai trị sau vụ 'ban hành ưu tiên dân sinh'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -104,15 +104,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 5 },
-            text: "Tăng trưởng công nghiệp giúp tích lũy thêm thặng dư tư bản."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'cân chỉnh sản xuất - dân sinh'."
           },
           {
             effect: { [E.TRUST]: -5 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Hậu quả của 'cân chỉnh sản xuất - dân sinh' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.EQUALITY]: -6 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'cân chỉnh sản xuất - dân sinh'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -125,19 +125,19 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 6 },
-            text: "Công nhân được cứu tế than sưởi ấm trong mùa đông buốt giá."
+            text: "Chủ trương 'ban hành quốc hữu hóa phân phối than' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.EQUALITY]: 10 },
-            text: "Công nhân được cứu tế than sưởi ấm trong mùa đông buốt giá."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành quốc hữu hóa phân phối than'."
           },
           {
             effect: { [E.ECONOMY]: -10 },
-            text: "Sản xuất đình trệ do lò nung thiếu than vận hành."
+            text: "Việc 'ban hành quốc hữu hóa phân phối than' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           },
           {
             effect: { [E.SECURITY]: -8 },
-            text: "Mất kiểm soát xã hội do mâu thuẫn giai cấp leo thang cực điểm."
+            text: "Khủng hoảng thiết chế toàn diện bùng nổ do sức ép từ 'ban hành quốc hữu hóa phân phối than'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -181,15 +181,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 7 },
-            text: "Cartel thu lợi nhuận lớn nhờ phân phối than công nghiệp."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'lệnh ưu tiên than cho Blackforge'."
           },
           {
             effect: { [E.EQUALITY]: -5 },
-            text: "Dân nghèo khốn cùng vì chịu cảnh rét lạnh thiếu sưởi ấm."
+            text: "Hậu quả của 'lệnh ưu tiên than cho Blackforge' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.TRUST]: -3 },
-            text: "Dân nghèo khốn cùng vì chịu cảnh rét lạnh thiếu sưởi ấm."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'lệnh ưu tiên than cho Blackforge'."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -202,15 +202,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 5 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'giữ than cho dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'giữ than cho dân sinh'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Sản xuất đình trệ do lò nung thiếu than vận hành."
+            text: "Việc 'giữ than cho dân sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -223,19 +223,19 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.EQUALITY]: 8 },
-            text: "Công nhân được cứu tế than sưởi ấm trong mùa đông buốt giá."
+            text: "Chủ trương 'cưỡng chế kho than tư nhân' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.TRUST]: 3 },
-            text: "Công nhân được cứu tế than sưởi ấm trong mùa đông buốt giá."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'cưỡng chế kho than tư nhân'."
           },
           {
             effect: { [E.ECONOMY]: -10 },
-            text: "Sản xuất đình trệ do lò nung thiếu than vận hành."
+            text: "Việc 'cưỡng chế kho than tư nhân' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           },
           {
             effect: { [E.SECURITY]: -8 },
-            text: "Mất kiểm soát xã hội do mâu thuẫn giai cấp leo thang cực điểm."
+            text: "Khủng hoảng thiết chế toàn diện bùng nổ do sức ép từ 'cưỡng chế kho than tư nhân'."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -279,19 +279,19 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 7 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'xả kho cứu trợ tối đa' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.EQUALITY]: 7 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'xả kho cứu trợ tối đa'."
           },
           {
             effect: { [E.RESOURCE]: -5 },
-            text: "Ngân khố quốc gia hao hụt nghiêm trọng để duy trì hệ thống."
+            text: "Việc 'xả kho cứu trợ tối đa' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Quy luật giá trị trừng phạt giới tài phiệt sau sách lược 'xả kho cứu trợ tối đa'."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -304,11 +304,11 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 3 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'giữ cứu trợ tối thiểu' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Quyết định 'giữ cứu trợ tối thiểu' chịu tác động từ quy luật giá trị khắc nghiệt."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -321,15 +321,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 5 },
-            text: "Cartel thu lợi nhuận lớn nhờ phân phối than công nghiệp."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'cắt khẩu phần sưởi dân cư'."
           },
           {
             effect: { [E.TRUST]: -5 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Hậu quả của 'cắt khẩu phần sưởi dân cư' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.EQUALITY]: -4 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'cắt khẩu phần sưởi dân cư'."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -373,15 +373,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 8 },
-            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'cam kết phục vụ Phố Wall'."
           },
           {
             effect: { [E.TRUST]: -3 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Hậu quả của 'cam kết phục vụ Phố Wall' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.EQUALITY]: -6 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'cam kết phục vụ Phố Wall'."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -394,15 +394,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'khước từ yêu sách tư bản' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.TRUST]: 5 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'khước từ yêu sách tư bản'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Dòng vốn tháo chạy khỏi thành phố do siết chặt quản lý."
+            text: "Việc 'khước từ yêu sách tư bản' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           }
         ],
         NextPhaseID: P.PHASE_2C,
@@ -415,15 +415,15 @@ export const PHASE2C_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.SECURITY]: 5 },
-            text: "Trật tự cưỡng chế được tăng cường tại các khu công nghiệp."
+            text: "Quyết sách 'phong tỏa tài khoản tư nhân' tăng cường công cụ bạo lực để duy trì trật tự."
           },
           {
             effect: { [E.ECONOMY]: -4 },
-            text: "Dòng vốn tháo chạy khỏi thành phố do siết chặt quản lý."
+            text: "Quyết định 'phong tỏa tài khoản tư nhân' chịu tác động từ quy luật giá trị khắc nghiệt."
           },
           {
             effect: { [E.TRUST]: -10 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'phong tỏa tài khoản tư nhân'."
           }
         ],
         NextPhaseID: P.PHASE_2C,

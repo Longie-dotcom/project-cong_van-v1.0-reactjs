@@ -93,15 +93,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 6 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'ban hành ranh giới an sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành ranh giới an sinh'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Việc 'ban hành ranh giới an sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -114,15 +114,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 10 },
-            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'phát lệnh tái công nghiệp hóa'."
           },
           {
             effect: { [E.EQUALITY]: -8 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Hậu quả của 'phát lệnh tái công nghiệp hóa' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.TRUST]: -4 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'phát lệnh tái công nghiệp hóa'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -135,15 +135,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: -5 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quyết sách 'gia tăng kiểm soát nhà nước' đẩy nhanh tiến trình tha hóa lao động vô sản."
           },
           {
             effect: { [E.ECONOMY]: 4 },
-            text: "Tăng trưởng công nghiệp giúp tích lũy thêm thặng dư tư bản."
+            text: "Giá trị thặng dư được tối ưu hóa thông qua chủ trương 'gia tăng kiểm soát nhà nước'."
           },
           {
             effect: { [E.EQUALITY]: -6 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'gia tăng kiểm soát nhà nước'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -187,15 +187,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 8 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'xả kho cứu trợ dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.ECONOMY]: -5 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Quyết định 'xả kho cứu trợ dân sinh' chịu tác động từ quy luật giá trị khắc nghiệt."
           },
           {
             effect: { [E.EQUALITY]: 6 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Việc 'xả kho cứu trợ dân sinh' góp phần bảo vệ quyền làm chủ của người lao động."
           }
         ],
         NextPhaseID: P.PHASE_2B,
@@ -208,15 +208,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: -8 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Quyết sách 'thiết quân luật quảng trường' đẩy nhanh tiến trình tha hóa lao động vô sản."
           },
           {
             effect: { [E.EQUALITY]: -6 },
-            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+            text: "Hậu quả của 'thiết quân luật quảng trường' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.ECONOMY]: 4 },
-            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+            text: "Quyết sách 'thiết quân luật quảng trường' tăng cường bóc lột sức lao động của công nhân."
           }
         ],
         NextPhaseID: P.PHASE_2B,
@@ -229,7 +229,7 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: -3 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Quyết sách 'phớt lờ yêu sách' đẩy nhanh tiến trình tha hóa lao động vô sản."
           }
         ],
         NextPhaseID: P.PHASE_2B,
@@ -273,19 +273,19 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.ECONOMY]: 8 },
-            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'bơm vốn khôi phục công nghiệp'."
           },
           {
             effect: { [E.EQUALITY]: -5 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Hậu quả của 'bơm vốn khôi phục công nghiệp' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
           },
           {
             effect: { [E.RESOURCE]: -5 },
-            text: "Ngân khố quốc gia hao hụt nghiêm trọng để duy trì hệ thống."
+            text: "Việc 'bơm vốn khôi phục công nghiệp' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
           },
           {
             effect: { [E.TRUST]: -4 },
-            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+            text: "Quyết định 'bơm vốn khôi phục công nghiệp' chèn ép giai cấp tự nó của giới công nhân."
           }
         ],
         NextPhaseID: P.PHASE_2B,
@@ -298,11 +298,11 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.TRUST]: 3 },
-            text: "Nhượng bộ giai cấp tạm thời xoa dịu làn sóng bất mãn lao động."
+            text: "Chủ trương 'duy trì định mức hiện hành' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Quyết định 'duy trì định mức hiện hành' chịu tác động từ quy luật giá trị khắc nghiệt."
           }
         ],
         NextPhaseID: P.PHASE_2B,
@@ -315,15 +315,15 @@ export const PHASE2B_EVENTS = Object.freeze({
         Effects: [
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Chủ trương 'chuyển hướng an sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
           },
           {
             effect: { [E.ECONOMY]: -6 },
-            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+            text: "Quyết định 'chuyển hướng an sinh' chịu tác động từ quy luật giá trị khắc nghiệt."
           },
           {
             effect: { [E.TRUST]: 4 },
-            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+            text: "Việc 'chuyển hướng an sinh' góp phần bảo vệ quyền làm chủ của người lao động."
           }
         ],
         NextPhaseID: P.PHASE_2B,

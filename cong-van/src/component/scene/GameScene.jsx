@@ -27,6 +27,30 @@ export default function GameScene({
 }) {
   // 🎯 NEW STATE: Tracks if the stamper is active
   const [isStamperDragging, setIsStamperDragging] = useState(false);
+  const [isPhoneDialogueActive, setIsPhoneDialogueActive] = useState(false);
+  const [hoveredEffectText, setHoveredEffectText] = useState(null);
+
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (hoveredEffectText) {
+      timerRef.current = setTimeout(() => {
+        setHoveredEffectText(null);
+      }, 10000);
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [hoveredEffectText]);
+
 
   const [stampedDocuments, setStampedDocuments] = useState([]);
   const [fadePhase, setFadePhase] = useState("in");
@@ -113,6 +137,8 @@ export default function GameScene({
       nextPhaseID: choice.NextPhaseID,
       EndingPayload: choice.EndingPayload,
     })) || [];
+
+
 
   useEffect(() => {
     if (hasReportedStateRef.current) return;
@@ -380,16 +406,32 @@ export default function GameScene({
         setPlayerStats((prev) => {
           const updated = { ...prev };
           const modifications = currentSelectedDoc.effects;
-          Object.keys(updated).forEach((key) => {
-            if (modifications[key] !== undefined) {
-              updated[key] = Math.max(
-                0,
-                Math.min(100, updated[key] + modifications[key]),
-              );
-            }
-          });
+          if (Array.isArray(modifications)) {
+            modifications.forEach((mod) => {
+              if (mod.effect) {
+                Object.keys(mod.effect).forEach((statKey) => {
+                  if (updated[statKey] !== undefined) {
+                    updated[statKey] = Math.max(
+                      0,
+                      Math.min(100, updated[statKey] + mod.effect[statKey]),
+                    );
+                  }
+                });
+              }
+            });
+          } else if (modifications && typeof modifications === 'object') {
+            Object.keys(updated).forEach((key) => {
+              if (modifications[key] !== undefined) {
+                updated[key] = Math.max(
+                  0,
+                  Math.min(100, updated[key] + modifications[key]),
+                );
+              }
+            });
+          }
           return updated;
         });
+
 
         if (!stampedDocuments.includes(activeTab)) {
           setStampedDocuments((prev) => [...prev, activeTab]);
@@ -480,6 +522,8 @@ export default function GameScene({
                 visualStamps={paperVisualStamps}
                 onStampDropped={handleStampDropped}
                 isStamperDragging={isStamperDragging}
+                onChoiceHover={null}
+                onEffectHover={setHoveredEffectText}
               />
 
               {activeMailsList.map((mailItem) => {
@@ -515,7 +559,19 @@ export default function GameScene({
               <Telephone
                 key={`phone-node-reset-${currentEventData.EventID}`}
                 phoneCalls={currentEventData.Telephone?.phoneCalls || []}
+                onDialogueToggle={(isActive) => setIsPhoneDialogueActive(isActive)}
               />
+
+              {hoveredEffectText && !isTransitioning && (
+                <div className="telegraph-ticker-tape">
+                  <div className="ticker-tape-header">PHÂN TÍCH BIỆN CHỨNG</div>
+                  <div className="ticker-tape-content-wrapper">
+                    <div className="ticker-tape-text">
+                      DỰ BÁO BIỆN CHỨNG: {hoveredEffectText}
+                    </div>
+                  </div>
+                </div>
+              )}
             </>
           ) : (
             <div className="desk-loading-indicator">
