@@ -91,12 +91,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban bố sắc lệnh tích lũy tư bản",
         Content:
           "Ban sắc lệnh tích lũy tư bản, đặt lợi nhuận lên trên sinh mạng. Cartel củng cố quyền lực, người lao động bị hy sinh.",
-        Effects: {
-          [E.ECONOMY]: 12,
-          [E.SECURITY]: 5,
-          [E.EQUALITY]: -10,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 12 },
+            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+          },
+          {
+            effect: { [E.SECURITY]: 5 },
+            text: "Trật tự cưỡng chế được tăng cường tại các khu công nghiệp."
+          },
+          {
+            effect: { [E.EQUALITY]: -10 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.KY_NGUYEN_THEP,
       },
@@ -105,11 +117,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Duy trì thỏa ước đình chiến giai cấp",
         Content:
           "Duy trì thỏa ước đình chiến để giữ hiện trạng. Thành phố ổn định hơn, bế tắc giai cấp kéo dài.",
-        Effects: {
-          [E.TRUST]: -5,
-          [E.ECONOMY]: 4,
-          [E.EQUALITY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          },
+          {
+            effect: { [E.ECONOMY]: 4 },
+            text: "Tăng trưởng công nghiệp giúp tích lũy thêm thặng dư tư bản."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.BINH_MINH_HOA_GIAI,
       },
@@ -118,12 +139,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành sắc lệnh tước đoạt Cartel",
         Content:
           "Tước đoạt Cartel, trao nhà máy cho hội đồng công nhân. Tư liệu sản xuất bị sung công, đấu tranh giai cấp bước sang thời kỳ mới.",
-        Effects: {
-          [E.TRUST]: 10,
-          [E.EQUALITY]: 12,
-          [E.ECONOMY]: -8,
-          [E.SECURITY]: -8,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 10 },
+            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+          },
+          {
+            effect: { [E.EQUALITY]: 12 },
+            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+          },
+          {
+            effect: { [E.ECONOMY]: -8 },
+            text: "Dòng vốn tháo chạy khỏi thành phố do siết chặt quản lý."
+          },
+          {
+            effect: { [E.SECURITY]: -8 },
+            text: "Thợ mỏ nổi dậy đấu tranh chống lại ách cai trị tàn khốc."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.CHUYEN_CHINH_VO_SAN,
       },
@@ -163,12 +196,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban lệnh khôi phục thương mại tư bản",
         Content:
           "Khôi phục thương mại tư bản để cứu lợi nhuận. Người lao động gánh thêm thiếu hụt tài nguyên.",
-        Effects: {
-          [E.ECONOMY]: 6,
-          [E.EQUALITY]: -5,
-          [E.RESOURCE]: -2,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 6 },
+            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+          },
+          {
+            effect: { [E.EQUALITY]: -5 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          },
+          {
+            effect: { [E.RESOURCE]: -2 },
+            text: "Ngân khố quốc gia hao hụt nghiêm trọng để duy trì hệ thống."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -176,11 +221,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Trưng dụng vận tải cho hội đồng lao động",
         Content:
           "Trưng dụng vận tải cho cứu trợ do công nhân giám sát. Người lao động được ưu tiên, dòng tiền phục hồi chậm.",
-        Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 4,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 5 },
+            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+          },
+          {
+            effect: { [E.EQUALITY]: 4 },
+            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Khủng hoảng logistics gây thất thoát dòng vốn đầu tư nặng nề."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -188,10 +242,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Thiết lập tích trữ chiến lược do nhà nước kiểm soát",
         Content:
           "Thiết lập tích trữ chiến lược dưới kiểm soát nhà nước. An ninh nhiên liệu tăng, thị trường phục hồi chậm.",
-        Effects: {
-          [E.RESOURCE]: 5,
-          [E.ECONOMY]: -2,
-        },
+        Effects: [
+          {
+            effect: { [E.RESOURCE]: 5 },
+            text: "An ninh nhiên liệu được bảo đảm nhờ phân phối than hợp lý."
+          },
+          {
+            effect: { [E.ECONOMY]: -2 },
+            text: "Sản xuất đình trệ do lò nung thiếu than vận hành."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],
@@ -230,11 +290,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Trưng dụng ngân quỹ tưởng niệm giai cấp",
         Content:
           "Trưng dụng ngân quỹ tưởng niệm để ghi nhận hy sinh lao động. Ký ức đấu tranh được giữ, giai cấp vô sản được củng cố.",
-        Effects: {
-          [E.TRUST]: 7,
-          [E.EQUALITY]: 4,
-          [E.ECONOMY]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 7 },
+            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+          },
+          {
+            effect: { [E.EQUALITY]: 4 },
+            text: "Quyền lợi vô sản nâng cao qua các buổi đối thoại công đoàn."
+          },
+          {
+            effect: { [E.ECONOMY]: -4 },
+            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -242,11 +311,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ra tuyên cáo khép lại đấu tranh",
         Content:
           "Ra tuyên cáo khép lại đấu tranh để phục hồi theo lợi nhuận. Giới có của yên ổn, người lao động bị buộc im lặng.",
-        Effects: {
-          [E.ECONOMY]: 3,
-          [E.TRUST]: -5,
-          [E.EQUALITY]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 3 },
+            text: "Tích lũy tư bản tăng mạnh nhờ mở rộng nhà máy thép."
+          },
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          },
+          {
+            effect: { [E.EQUALITY]: -4 },
+            text: "Công nhân phẫn nộ vì bị vắt kiệt sức lao động."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -254,10 +332,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành lệnh siết truyền thông",
         Content:
           "Siết truyền thông để dập tiếng nói phản kháng. Trật tự cưỡng bức được giữ, lòng tin xã hội sụt mạnh.",
-        Effects: {
-          [E.SECURITY]: 5,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.SECURITY]: 5 },
+            text: "Trật tự cưỡng chế được tăng cường tại các khu công nghiệp."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],
@@ -296,11 +380,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành sắc lệnh mở rộng tư bản công nghiệp",
         Content:
           "Mở rộng tư bản công nghiệp, dồn vốn vào thép và vận tải. Lợi nhuận tăng, bất bình đẳng nới rộng.",
-        Effects: {
-          [E.ECONOMY]: 8,
-          [E.EQUALITY]: -4,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 8 },
+            text: "Tuyến logistics đường sắt thông suốt đem lại dòng vốn dồi dào."
+          },
+          {
+            effect: { [E.EQUALITY]: -4 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -308,11 +401,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Phát động cải cách phúc lợi do công nhân giám sát",
         Content:
           "Phát động cải cách phúc lợi dưới giám sát công nhân. Đời sống lao động tốt hơn, tăng trưởng giảm.",
-        Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 5,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 5 },
+            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+          },
+          {
+            effect: { [E.EQUALITY]: 5 },
+            text: "Phúc lợi lao động cải thiện nhờ các bếp sưởi ấm tập thể."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Đình trệ sản xuất làm thất thoát lượng lớn tư bản."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -320,10 +422,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Tập trung quyền lực trung ương",
         Content:
           "Tập trung quyền lực trung ương để ngăn khủng hoảng tái diễn. Trật tự được siết chặt, niềm tin xã hội mất dần.",
-        Effects: {
-          [E.SECURITY]: 7,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.SECURITY]: 7 },
+            text: "Trật tự cưỡng chế được tăng cường tại các khu công nghiệp."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Bất công giai cấp đè nặng khiến quần chúng vô sản căm phẫn."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],
