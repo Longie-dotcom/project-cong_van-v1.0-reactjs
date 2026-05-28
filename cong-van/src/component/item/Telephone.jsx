@@ -96,6 +96,8 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
   const [phoneState, setPhoneState] = useState("idle");
   const [ringFrame, setRingFrame] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const typewriterIntervalRef = useRef(null);
 
   const [currentCallIdx, setCurrentCallIdx] = useState(0);
   const [currentLineIdx, setCurrentLineIdx] = useState(0);
@@ -343,13 +345,15 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
   // TYPEWRITER EFFECT TICKER
   // ====================================================================
   useEffect(() => {
-    if (!isOpen || !currentLineText) return;
+    if (!isOpen || !currentLineText) {
+      setIsTyping(false);
+      return;
+    }
 
-    const resetTimer = setTimeout(() => {
-      setDisplayedText("");
-    }, 0);
+    setIsTyping(true);
+    setDisplayedText("");
+
     const POOL_SIZE = 4;
-
     if (
       blipPoolRef.current.length === 0 ||
       activeBlipSourceRef.current !== currentSpeakerBlip
@@ -365,30 +369,30 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
       activeBlipSourceRef.current = currentSpeakerBlip;
     }
 
+    let nextCharIndex = 0;
     const typewriterInterval = setInterval(() => {
-      setDisplayedText((prev) => {
-        const nextIdx = prev.length;
-        if (nextIdx < currentLineText.length) {
-          const nextChar = currentLineText.charAt(nextIdx);
-          if (nextChar.trim() !== "" && blipPoolRef.current.length > 0) {
-            const activeBlip = blipPoolRef.current[blipIndexRef.current];
-            if (activeBlip) {
-              activeBlip.currentTime = 0;
-              activeBlip.play().catch(() => {});
-            }
-            blipIndexRef.current =
-              (blipIndexRef.current + 1) % blipPoolRef.current.length;
+      if (nextCharIndex < currentLineText.length) {
+        const nextChar = currentLineText.charAt(nextCharIndex);
+        if (nextChar.trim() !== "" && blipPoolRef.current.length > 0) {
+          const activeBlip = blipPoolRef.current[blipIndexRef.current];
+          if (activeBlip) {
+            activeBlip.currentTime = 0;
+            activeBlip.play().catch(() => {});
           }
-          return prev + nextChar;
-        } else {
-          clearInterval(typewriterInterval);
-          return prev;
+          blipIndexRef.current =
+            (blipIndexRef.current + 1) % blipPoolRef.current.length;
         }
-      });
-    }, 40);
+        setDisplayedText((prev) => prev + nextChar);
+        nextCharIndex++;
+      } else {
+        clearInterval(typewriterInterval);
+        setIsTyping(false);
+      }
+    }, 25); // 25ms speed as requested
+
+    typewriterIntervalRef.current = typewriterInterval;
 
     return () => {
-      clearTimeout(resetTimer);
       clearInterval(typewriterInterval);
     };
   }, [
@@ -408,23 +412,44 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
     };
   }, []);
 
-  const isTextFinished = displayedText.length === currentLineText.length;
-
   function handleDialogueClick() {
-    if (!isTextFinished) {
+    if (isTyping) {
+      if (typewriterIntervalRef.current) {
+        clearInterval(typewriterIntervalRef.current);
+      }
       setDisplayedText(currentLineText);
-      return;
-    }
-    if (currentLineIdx < linesArray.length - 1) {
-      setCurrentLineIdx((prev) => prev + 1);
-    } else if (currentCallIdx < phoneCalls.length - 1) {
-      setCurrentCallIdx((prev) => prev + 1);
-      setCurrentLineIdx(0);
+      setIsTyping(false);
     } else {
-      setIsOpen(false);
-      setPhoneState("idle");
+      if (currentLineIdx < linesArray.length - 1) {
+        setCurrentLineIdx((prev) => prev + 1);
+      } else if (currentCallIdx < phoneCalls.length - 1) {
+        setCurrentCallIdx((prev) => prev + 1);
+        setCurrentLineIdx(0);
+      } else {
+        setIsOpen(false);
+        setPhoneState("idle");
+      }
     }
   }
+
+  // ====================================================================
+  // KEYBOARD DIALOGUE HOTKEYS (Space / Enter)
+  // ====================================================================
+  useEffect(() => {
+    if (!isOpen || !activeCallNode) return;
+
+    const handleDialogueKeyDown = (e) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault(); // Stop spacebar scrolling
+        handleDialogueClick();
+      }
+    };
+
+    window.addEventListener("keydown", handleDialogueKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleDialogueKeyDown);
+    };
+  }, [isOpen, activeCallNode, isTyping, currentLineText, currentLineIdx, linesArray.length, currentCallIdx, phoneCalls.length]);
 
   return (
     <div className="telephone-system-wrapper">
@@ -489,8 +514,9 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
 
       {isOpen && activeCallNode && (
         <div
-          className={`caller-dialogue-panel ${isTextFinished ? "dismissible" : ""}`}
+          className="caller-dialogue-panel"
           onClick={handleDialogueClick}
+          style={{ cursor: "pointer" }}
         >
           <div className="caller-profile-header">
             {currentSpeakerImage && (
@@ -502,11 +528,17 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
             )}
           </div>
 
-          <div className="caller-speech-bubble">
+          <div className="caller-speech-bubble" style={{ position: "relative" }}>
             <p className="caller-text-content">
               <span className="caller-identity-tag">{currentSpeakerName}:</span>{" "}
               {displayedText}
             </p>
+            {!isTyping && (
+              <div className="dialogue-helper-text">
+                <span className="dialogue-next-arrow">▼</span>
+                [Space] hoặc Click để tiếp tục
+              </div>
+            )}
           </div>
         </div>
       )}

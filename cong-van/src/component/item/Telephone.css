@@ -131,6 +131,7 @@
   padding: 25px;
   box-shadow: 4px 4px 0px #000000;
   align-items: center;
+  position: relative; /* 🆕 Anchors the absolute arrows and overlays inside the bubble */
 }
 
 .caller-text-content {
@@ -142,11 +143,48 @@
   word-break: break-word;
 }
 
-.caller-dialogue-panel.dismissible {
-  cursor: pointer;
-  transition: border-color 0.2s ease;
+/* 📥 VISUAL NOVEL: Bouncing Next Dialogue Arrow Indicator (top-right next to text) */
+.dialogue-next-arrow {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 11px;
+  color: #c08328; /* Golden tone matching visual identity */
+  animation: dialogue-arrow-bounce 0.8s infinite alternate ease-in-out;
+  user-select: none;
+  pointer-events: none;
 }
 
-.caller-dialogue-panel.dismissible:hover {
-  border-color: #2c2c00;
+@keyframes dialogue-arrow-bounce {
+  0% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+
+/* 📥 VISUAL NOVEL: Dimmed helper instruction text shown above the bubble */
+.dialogue-helper-text {
+  position: absolute;
+  top: -22px;
+  right: 4px;
+  font-size: 11px;
+  font-family: inherit;
+  color: #ffffff; /* Contrast on dark wood backdrop */
+  opacity: 0.6;
+  pointer-events: none;
+  animation: dialogue-helper-fade 1.5s infinite alternate ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes dialogue-helper-fade {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.8;
+  }
 }
