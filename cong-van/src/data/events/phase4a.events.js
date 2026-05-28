@@ -125,7 +125,7 @@ export const PHASE4A_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban lệnh rút bớt quân khỏi khu lao động'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban lệnh rút bớt quân khỏi khu lao động'."
           },
           {
             effect: { [E.SECURITY]: -5 },
@@ -206,7 +206,7 @@ export const PHASE4A_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'áp lệnh giảm ca bảo toàn sức lao động'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'áp lệnh giảm ca bảo toàn sức lao động'."
           },
           {
             effect: { [E.ECONOMY]: -6 },

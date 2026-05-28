@@ -122,7 +122,7 @@ export const PHASE3_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 10 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'phát động cải cách dân sinh'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'phát động cải cách dân sinh'."
           },
           {
             effect: { [E.ECONOMY]: -8 },
@@ -292,7 +292,7 @@ export const PHASE3_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ra lệnh thanh tra an toàn'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ra lệnh thanh tra an toàn'."
           },
           {
             effect: { [E.ECONOMY]: -5 },
@@ -313,7 +313,7 @@ export const PHASE3_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'tước hỗ trợ tài phiệt'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'tước hỗ trợ tài phiệt'."
           }
         ],
         NextPhaseID: P.PHASE_3,
@@ -370,7 +370,7 @@ export const PHASE3_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 6 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'xả kho lương thực khẩn'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'xả kho lương thực khẩn'."
           },
           {
             effect: { [E.ECONOMY]: -4 },

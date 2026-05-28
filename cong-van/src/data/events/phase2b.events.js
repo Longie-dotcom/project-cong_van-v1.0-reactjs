@@ -97,7 +97,7 @@ export const PHASE2B_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành ranh giới an sinh'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành ranh giới an sinh'."
           },
           {
             effect: { [E.ECONOMY]: -6 },

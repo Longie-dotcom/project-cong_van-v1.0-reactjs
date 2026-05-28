@@ -31,6 +31,9 @@ export default function StatTab({ stats }) {
   // State to track which icons should be shaking/bouncing horizontally
   const [animatingKeys, setAnimatingKeys] = useState({});
 
+  //  State to track floating delta indicators (+/- numbers) above icons
+  const [statDeltas, setStatDeltas] = useState({});
+
   // Mapping specifically to your Particle asset imports
   const particleImageMap = useRef({
     Resource: createParticleImage(ResourceParticle),
@@ -124,7 +127,7 @@ export default function StatTab({ stats }) {
 
       particlesRef.current.forEach((p) => {
         if (p.type === "add") {
-          // 🌟 COLLECTING MOVEMENT: Move towards target center
+          //  COLLECTING MOVEMENT: Move towards target center
           p.x += p.vx;
           p.y += p.vy;
 
@@ -138,7 +141,7 @@ export default function StatTab({ stats }) {
             p.isAlive = false;
           }
         } else {
-          // 💥 EXPLOSION MOVEMENT: Rapid spreading outbound with gravity & drag
+          //  EXPLOSION MOVEMENT: Rapid spreading outbound with gravity & drag
           p.x += p.vx;
           p.y += p.vy;
           p.vy += 0.15; // Gravity weight simulation
@@ -153,13 +156,13 @@ export default function StatTab({ stats }) {
         }
 
         ctx.save();
-        // 🛑 FIX: Forced 100% full solid opacity throughout the particle lifespan
+        //  FIX: Forced 100% full solid opacity throughout the particle lifespan
         ctx.globalAlpha = 1.0;
 
         // Retain pixelated crisp textures on scaling render transformations
         ctx.imageSmoothingEnabled = false;
 
-        // 🛑 FIX: Draws with fixed constant sizing structure (p.size never changes or scales down)
+        //  FIX: Draws with fixed constant sizing structure (p.size never changes or scales down)
         ctx.drawImage(
           p.img,
           p.x - p.size / 2,
@@ -212,6 +215,30 @@ export default function StatTab({ stats }) {
           setAnimatingKeys((prev) => ({ ...prev, [key]: false }));
         }, 600);
 
+        //  Set dynamic floating delta indicators (+/- value numbers)
+        const diff = newVal - prevVal;
+        const deltaId = Date.now() + Math.random();
+        setStatDeltas((prev) => ({
+          ...prev,
+          [key]: {
+            text: diff > 0 ? `+${diff}` : `${diff}`,
+            isPositive: diff > 0,
+            id: deltaId,
+          },
+        }));
+
+        // Clean up the delta indicators after 1 second (1000ms)
+        setTimeout(() => {
+          setStatDeltas((prev) => {
+            if (prev[key]?.id === deltaId) {
+              const newState = { ...prev };
+              delete newState[key];
+              return newState;
+            }
+            return prev;
+          });
+        }, 1000);
+
         const element = container.querySelector(`[data-stat-key="${key}"]`);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -245,6 +272,14 @@ export default function StatTab({ stats }) {
               className="stat-tab-pixel-icon"
             />
             <span className="stat-tab-value-text">{value}</span>
+            {statDeltas[key] && (
+              <span
+                key={statDeltas[key].id}
+                className={`delta-float ${statDeltas[key].isPositive ? "positive" : "negative"}`}
+              >
+                {statDeltas[key].text}
+              </span>
+            )}
           </div>
         </TooltipWrapper>
       ))}

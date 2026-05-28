@@ -40,9 +40,9 @@
 
 .stat-tab-pixel-icon {
   width: 100%;
-  height: auto; 
+  height: auto;
   display: block;
-  
+
   /* Forces rendering engines to keep the asset textures integer sharp */
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -68,15 +68,55 @@
     transform: translateX(-14px); /* Initial sharp recoil shift left */
   }
   35% {
-    transform: translateX(10px);  /* Snapback rebound right past center */
+    transform: translateX(10px); /* Snapback rebound right past center */
   }
   55% {
-    transform: translateX(-6px);  /* Secondary damping recovery bounce left */
+    transform: translateX(-6px); /* Secondary damping recovery bounce left */
   }
   75% {
-    transform: translateX(3px);   /* Minor micro-stabilization right */
+    transform: translateX(3px); /* Minor micro-stabilization right */
   }
   100% {
-    transform: translateX(0);     /* Settle back at default position balance */
+    transform: translateX(0); /* Settle back at default position balance */
+  }
+}
+
+/* Dynamic Floating Delta Value Indicators */
+.delta-float {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 120;
+  animation: floatUp 1s ease-out forwards;
+  text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; /* Rich pixel art black outline */
+}
+
+.delta-float.positive {
+  color: #38b000; /* Bright retro-pixel green */
+}
+
+.delta-float.negative {
+  color: #d90429; /* Crimson blood red */
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -32px);
+    opacity: 0;
   }
 }

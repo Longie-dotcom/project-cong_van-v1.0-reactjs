@@ -146,7 +146,7 @@ export const PHASE5_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 12 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành sắc lệnh tước đoạt Cartel'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành sắc lệnh tước đoạt Cartel'."
           },
           {
             effect: { [E.ECONOMY]: -8 },
@@ -228,7 +228,7 @@ export const PHASE5_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'trưng dụng vận tải cho hội đồng lao động'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng vận tải cho hội đồng lao động'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
@@ -297,7 +297,7 @@ export const PHASE5_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'trưng dụng ngân quỹ tưởng niệm giai cấp'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng ngân quỹ tưởng niệm giai cấp'."
           },
           {
             effect: { [E.ECONOMY]: -4 },
@@ -408,7 +408,7 @@ export const PHASE5_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'phát động cải cách phúc lợi do công nhân giám sát'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'phát động cải cách phúc lợi do công nhân giám sát'."
           },
           {
             effect: { [E.ECONOMY]: -6 },

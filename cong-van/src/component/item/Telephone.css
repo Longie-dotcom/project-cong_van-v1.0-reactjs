@@ -23,7 +23,7 @@
 
 .dialed-number-text {
   font-family: inherit;
-  color: #515151; 
+  color: #515151;
   font-size: 16px;
 }
 
@@ -70,7 +70,7 @@
 /* Keypad Layout placement overlaying telephone base */
 .telephone-keypad-grid {
   position: absolute; /* Set to absolute so it sits exactly on top of the base graphic */
-  top: 145px;           /* Adjust top and left percentages to align over your custom phone base */
+  top: 145px; /* Adjust top and left percentages to align over your custom phone base */
   left: 66px;
   transform: translate(-50%, -50%);
   display: grid;
@@ -85,8 +85,12 @@
 }
 
 @keyframes retro-vibrate-shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  100% { transform: translate(-1px, -1px) rotate(1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  100% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
 }
 
 /* 📟 Centered Dialogue HUD Box Overlay */
@@ -139,7 +143,7 @@
   font-family: inherit;
   font-size: 16px;
   color: #000000;
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
   word-break: break-word;
 }
 
@@ -186,5 +190,58 @@
   }
   100% {
     opacity: 0.8;
+  }
+}
+
+/*  Caller Profile Picture Wrapper */
+.caller-avatar-wrapper {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  display: block;
+}
+
+/*  Horizontal Scanline & Opacity Glitch Overlay */
+.avatar-glitch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.08),
+      rgba(0, 255, 0, 0.04),
+      rgba(0, 0, 255, 0.08)
+    );
+  background-size:
+    100% 4px,
+    6px 100%;
+  animation: glitch-blink 0.12s infinite alternate step-end;
+}
+
+@keyframes glitch-blink {
+  0% {
+    opacity: 0.2;
+    background-position: 0 0;
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+  33% {
+    opacity: 0.55;
+    background-position: 0 2px;
+    filter: hue-rotate(60deg) saturate(1.4) contrast(1.1);
+  }
+  66% {
+    opacity: 0.35;
+    background-position: 0 -1px;
+    filter: hue-rotate(120deg) saturate(1.7) contrast(1.2);
+  }
+  100% {
+    opacity: 0.45;
+    background-position: 0 1px;
+    filter: hue-rotate(240deg) saturate(2) contrast(1.3);
   }
 }

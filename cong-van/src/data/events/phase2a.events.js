@@ -279,7 +279,7 @@ export const PHASE2A_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 2 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành phân bổ chia đều'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành phân bổ chia đều'."
           },
           {
             effect: { [E.ECONOMY]: -6 },

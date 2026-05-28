@@ -95,7 +95,6 @@
   color: rgb(0, 0, 0);
 }
 
-
 /* ==========================================================================
    📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
    ========================================================================== */
@@ -185,4 +184,66 @@
   image-rendering: pixelated;
 }
 
+/*  retro-style transparent Stamp Dropzone Indicator */
+.stamp-indicator-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border: 2px dashed #c08328; /* Sharp gold pixel border */
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(
+    192,
+    131,
+    40,
+    0.04
+  ); /* Faint gold transparent interior tint */
+  z-index: 3;
+  pointer-events: none;
+  animation: stampPulse 2s infinite ease-in-out;
+  color: #c08328; /* Bright retro gold ink */
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6); /* Black outline shadow for extreme readability */
+  box-shadow:
+    inset 0 0 12px rgba(192, 131, 40, 0.25),
+    0 0 16px rgba(192, 131, 40, 0.4); /* Dual golden glow inside and out */
+}
 
+.stamp-indicator-text {
+  font-family: inherit;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+@keyframes stampPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/*  Retro warm golden glowing silhouette outline bo-sáng-theo-hình-dáng */
+.paper.paper-stamp-ready .paper-image {
+  animation: paperSilhouetteGlow 1.5s infinite alternate ease-in-out;
+  transition: filter 0.25s ease-in-out;
+}
+
+@keyframes paperSilhouetteGlow {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(192, 131, 40, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 12px rgba(217, 160, 78, 0.95));
+  }
+}

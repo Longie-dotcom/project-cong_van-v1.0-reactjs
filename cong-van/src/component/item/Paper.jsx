@@ -87,7 +87,7 @@ export default function Paper({
   }, []);
 
   return (
-    <div ref={setNodeRef} style={style} className="paper">
+    <div ref={setNodeRef} style={style} className={`paper ${isStamperDragging ? "paper-stamp-ready" : ""}`}>
       
       {/* Mechanical Side-Stat Tabs Panel */}
       <div className="paper-side-stat-tabs">
@@ -158,9 +158,9 @@ export default function Paper({
         })}
       </div>
 
-      {/* 🖼️ SWAP BACKGROUND ASSET DYNAMICALLY */}
+      {/* 🖼️ KEEP BEIGE PAPER BACKGROUND FOR THE DOSSIER */}
       <img
-        src={isStamperDragging ? PaperImage2 : PaperImage}
+        src={PaperImage}
         alt="Paper Asset Background"
         className="paper-image"
         {...listeners}
@@ -178,14 +178,19 @@ export default function Paper({
             position: 'absolute',
             left: `${stamp.x}px`,
             top: `${stamp.y}px`,
-            transform: 'translate(-50%, -50%)', 
+            transform: `translate(-50%, -50%) rotate(${stamp.rotation || 0}deg)`, 
+            opacity: stamp.opacity || 0.85,
             pointerEvents: 'none' 
           }}
         />
       ))}
 
-      {/* 📝 TEMPORARILY HIDE TEXT LAYER CONTAINER ON DRAG */}
-      {!isStamperDragging && (
+      {/* 📝 SHOW STAMP INDICATOR ZONE WHEN DRAGGING THE STAMPER TOOL */}
+      {isStamperDragging ? (
+        <div className="stamp-indicator-zone">
+          <span className="stamp-indicator-text">[ KHU VỰC ĐÓNG DẤU ]</span>
+        </div>
+      ) : (
         <div className="paper-text-layer">
           <div className="paper-title">{currentDocument?.title}</div>
           <div className="paper-content">{currentDocument?.content}</div>

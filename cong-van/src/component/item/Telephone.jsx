@@ -520,11 +520,13 @@ export default function Telephone({ phoneCalls = [], onCallDialed }) {
         >
           <div className="caller-profile-header">
             {currentSpeakerImage && (
-              <img
-                src={currentSpeakerImage}
-                alt={currentSpeakerName}
-                className="caller-avatar"
-              />
+              <div className={`caller-avatar-wrapper ${isTyping ? "avatar-glitch" : ""}`}>
+                <img
+                  src={currentSpeakerImage}
+                  alt={currentSpeakerName}
+                  className="caller-avatar"
+                />
+              </div>
             )}
           </div>
 

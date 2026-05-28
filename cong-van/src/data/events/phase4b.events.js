@@ -122,7 +122,7 @@ export const PHASE4B_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'trưng dụng ngân khố cứu trợ lao động'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng ngân khố cứu trợ lao động'."
           },
           {
             effect: { [E.ECONOMY]: -5 },
@@ -174,7 +174,7 @@ export const PHASE4B_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'chấp thuận yêu sách và bù khẩu phần'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'chấp thuận yêu sách và bù khẩu phần'."
           },
           {
             effect: { [E.RESOURCE]: -4 },

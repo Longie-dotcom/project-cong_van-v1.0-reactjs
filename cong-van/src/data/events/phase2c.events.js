@@ -79,7 +79,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 8 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành ưu tiên dân sinh'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành ưu tiên dân sinh'."
           },
           {
             effect: { [E.ECONOMY]: -8 },
@@ -129,7 +129,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 10 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'ban hành quốc hữu hóa phân phối than'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành quốc hữu hóa phân phối than'."
           },
           {
             effect: { [E.ECONOMY]: -10 },
@@ -206,7 +206,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 4 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'giữ than cho dân sinh'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'giữ than cho dân sinh'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
@@ -227,7 +227,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.TRUST]: 3 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'cưỡng chế kho than tư nhân'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'cưỡng chế kho than tư nhân'."
           },
           {
             effect: { [E.ECONOMY]: -10 },
@@ -283,7 +283,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.EQUALITY]: 7 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'xả kho cứu trợ tối đa'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'xả kho cứu trợ tối đa'."
           },
           {
             effect: { [E.RESOURCE]: -5 },
@@ -398,7 +398,7 @@ export const PHASE2C_EVENTS = Object.freeze({
           },
           {
             effect: { [E.TRUST]: 5 },
-            text: "Giai cấp vô sản đấu tranh tự phát phản đối việc 'khước từ yêu sách tư bản'."
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'khước từ yêu sách tư bản'."
           },
           {
             effect: { [E.ECONOMY]: -6 },
