@@ -91,12 +91,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban bố sắc lệnh tích lũy tư bản",
         Content:
           "Ban sắc lệnh tích lũy tư bản, đặt lợi nhuận lên trên sinh mạng. Cartel củng cố quyền lực, người lao động bị hy sinh.",
-        Effects: {
-          [E.ECONOMY]: 12,
-          [E.SECURITY]: 5,
-          [E.EQUALITY]: -10,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 12 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ban bố sắc lệnh tích lũy tư bản'."
+          },
+          {
+            effect: { [E.SECURITY]: 5 },
+            text: "Bộ máy trấn áp siết chặt kiểm soát sau khi triển khai 'ban bố sắc lệnh tích lũy tư bản'."
+          },
+          {
+            effect: { [E.EQUALITY]: -10 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'ban bố sắc lệnh tích lũy tư bản'."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Quyết định 'ban bố sắc lệnh tích lũy tư bản' chèn ép giai cấp tự nó của giới công nhân."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.KY_NGUYEN_THEP,
       },
@@ -105,11 +117,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Duy trì thỏa ước đình chiến giai cấp",
         Content:
           "Duy trì thỏa ước đình chiến để giữ hiện trạng. Thành phố ổn định hơn, bế tắc giai cấp kéo dài.",
-        Effects: {
-          [E.TRUST]: -5,
-          [E.ECONOMY]: 4,
-          [E.EQUALITY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Quyết sách 'duy trì thỏa ước đình chiến giai cấp' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: 4 },
+            text: "Giá trị thặng dư được tối ưu hóa thông qua chủ trương 'duy trì thỏa ước đình chiến giai cấp'."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'duy trì thỏa ước đình chiến giai cấp'."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.BINH_MINH_HOA_GIAI,
       },
@@ -118,12 +139,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành sắc lệnh tước đoạt Cartel",
         Content:
           "Tước đoạt Cartel, trao nhà máy cho hội đồng công nhân. Tư liệu sản xuất bị sung công, đấu tranh giai cấp bước sang thời kỳ mới.",
-        Effects: {
-          [E.TRUST]: 10,
-          [E.EQUALITY]: 12,
-          [E.ECONOMY]: -8,
-          [E.SECURITY]: -8,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 10 },
+            text: "Chủ trương 'ban hành sắc lệnh tước đoạt Cartel' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 12 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành sắc lệnh tước đoạt Cartel'."
+          },
+          {
+            effect: { [E.ECONOMY]: -8 },
+            text: "Việc 'ban hành sắc lệnh tước đoạt Cartel' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.SECURITY]: -8 },
+            text: "Khủng hoảng thiết chế toàn diện bùng nổ do sức ép từ 'ban hành sắc lệnh tước đoạt Cartel'."
+          }
+        ],
         NextPhaseID: P.ENDING,
         EndingPayload: ENDINGS.CHUYEN_CHINH_VO_SAN,
       },
@@ -163,12 +196,24 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban lệnh khôi phục thương mại tư bản",
         Content:
           "Khôi phục thương mại tư bản để cứu lợi nhuận. Người lao động gánh thêm thiếu hụt tài nguyên.",
-        Effects: {
-          [E.ECONOMY]: 6,
-          [E.EQUALITY]: -5,
-          [E.RESOURCE]: -2,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 6 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ban lệnh khôi phục thương mại tư bản'."
+          },
+          {
+            effect: { [E.EQUALITY]: -5 },
+            text: "Hậu quả của 'ban lệnh khôi phục thương mại tư bản' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.RESOURCE]: -2 },
+            text: "Việc 'ban lệnh khôi phục thương mại tư bản' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quyết định 'ban lệnh khôi phục thương mại tư bản' chèn ép giai cấp tự nó của giới công nhân."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -176,11 +221,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Trưng dụng vận tải cho hội đồng lao động",
         Content:
           "Trưng dụng vận tải cho cứu trợ do công nhân giám sát. Người lao động được ưu tiên, dòng tiền phục hồi chậm.",
-        Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 4,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 5 },
+            text: "Chủ trương 'trưng dụng vận tải cho hội đồng lao động' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 4 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng vận tải cho hội đồng lao động'."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Việc 'trưng dụng vận tải cho hội đồng lao động' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -188,10 +242,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Thiết lập tích trữ chiến lược do nhà nước kiểm soát",
         Content:
           "Thiết lập tích trữ chiến lược dưới kiểm soát nhà nước. An ninh nhiên liệu tăng, thị trường phục hồi chậm.",
-        Effects: {
-          [E.RESOURCE]: 5,
-          [E.ECONOMY]: -2,
-        },
+        Effects: [
+          {
+            effect: { [E.RESOURCE]: 5 },
+            text: "Chủ trương 'thiết lập tích trữ chiến lược do nhà nước kiểm soát' giúp ổn định lực lượng sản xuất toàn thành phố."
+          },
+          {
+            effect: { [E.ECONOMY]: -2 },
+            text: "Quyết định 'thiết lập tích trữ chiến lược do nhà nước kiểm soát' chịu tác động từ quy luật giá trị khắc nghiệt."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],
@@ -230,11 +290,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Trưng dụng ngân quỹ tưởng niệm giai cấp",
         Content:
           "Trưng dụng ngân quỹ tưởng niệm để ghi nhận hy sinh lao động. Ký ức đấu tranh được giữ, giai cấp vô sản được củng cố.",
-        Effects: {
-          [E.TRUST]: 7,
-          [E.EQUALITY]: 4,
-          [E.ECONOMY]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 7 },
+            text: "Chủ trương 'trưng dụng ngân quỹ tưởng niệm giai cấp' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 4 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng ngân quỹ tưởng niệm giai cấp'."
+          },
+          {
+            effect: { [E.ECONOMY]: -4 },
+            text: "Việc 'trưng dụng ngân quỹ tưởng niệm giai cấp' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -242,11 +311,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ra tuyên cáo khép lại đấu tranh",
         Content:
           "Ra tuyên cáo khép lại đấu tranh để phục hồi theo lợi nhuận. Giới có của yên ổn, người lao động bị buộc im lặng.",
-        Effects: {
-          [E.ECONOMY]: 3,
-          [E.TRUST]: -5,
-          [E.EQUALITY]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 3 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ra tuyên cáo khép lại đấu tranh'."
+          },
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Hậu quả của 'ra tuyên cáo khép lại đấu tranh' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.EQUALITY]: -4 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'ra tuyên cáo khép lại đấu tranh'."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -254,10 +332,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành lệnh siết truyền thông",
         Content:
           "Siết truyền thông để dập tiếng nói phản kháng. Trật tự cưỡng bức được giữ, lòng tin xã hội sụt mạnh.",
-        Effects: {
-          [E.SECURITY]: 5,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.SECURITY]: 5 },
+            text: "Quyết sách 'ban hành lệnh siết truyền thông' tăng cường công cụ bạo lực để duy trì trật tự."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Hậu quả của 'ban hành lệnh siết truyền thông' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],
@@ -296,11 +380,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Ban hành sắc lệnh mở rộng tư bản công nghiệp",
         Content:
           "Mở rộng tư bản công nghiệp, dồn vốn vào thép và vận tải. Lợi nhuận tăng, bất bình đẳng nới rộng.",
-        Effects: {
-          [E.ECONOMY]: 8,
-          [E.EQUALITY]: -4,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 8 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ban hành sắc lệnh mở rộng tư bản công nghiệp'."
+          },
+          {
+            effect: { [E.EQUALITY]: -4 },
+            text: "Hậu quả của 'ban hành sắc lệnh mở rộng tư bản công nghiệp' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'ban hành sắc lệnh mở rộng tư bản công nghiệp'."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -308,11 +401,20 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Phát động cải cách phúc lợi do công nhân giám sát",
         Content:
           "Phát động cải cách phúc lợi dưới giám sát công nhân. Đời sống lao động tốt hơn, tăng trưởng giảm.",
-        Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 5,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 5 },
+            text: "Chủ trương 'phát động cải cách phúc lợi do công nhân giám sát' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 5 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'phát động cải cách phúc lợi do công nhân giám sát'."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Việc 'phát động cải cách phúc lợi do công nhân giám sát' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
       {
@@ -320,10 +422,16 @@ export const PHASE5_EVENTS = Object.freeze({
         Title: "Tập trung quyền lực trung ương",
         Content:
           "Tập trung quyền lực trung ương để ngăn khủng hoảng tái diễn. Trật tự được siết chặt, niềm tin xã hội mất dần.",
-        Effects: {
-          [E.SECURITY]: 7,
-          [E.TRUST]: -10,
-        },
+        Effects: [
+          {
+            effect: { [E.SECURITY]: 7 },
+            text: "Quyết sách 'tập trung quyền lực trung ương' tăng cường công cụ bạo lực để duy trì trật tự."
+          },
+          {
+            effect: { [E.TRUST]: -10 },
+            text: "Hậu quả của 'tập trung quyền lực trung ương' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          }
+        ],
         NextPhaseID: P.PHASE_5,
       },
     ],

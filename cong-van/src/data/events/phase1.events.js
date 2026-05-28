@@ -102,12 +102,24 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Ban bố Lệnh Ưu tiên Công nghiệp",
         Content:
           "Ban lệnh ưu tiên công nghiệp, trưng dụng than cho lò nung và logistics. Cartel giữ lợi nhuận, khu lao động chịu rét và thiếu thốn.",
-        Effects: {
-          [E.ECONOMY]: 12,
-          [E.EQUALITY]: -12,
-          [E.RESOURCE]: -8,
-          [E.TRUST]: -5,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 12 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ban bố Lệnh Ưu tiên Công nghiệp'."
+          },
+          {
+            effect: { [E.EQUALITY]: -12 },
+            text: "Hậu quả của 'ban bố Lệnh Ưu tiên Công nghiệp' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.RESOURCE]: -8 },
+            text: "Việc 'ban bố Lệnh Ưu tiên Công nghiệp' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Quyết định 'ban bố Lệnh Ưu tiên Công nghiệp' chèn ép giai cấp tự nó của giới công nhân."
+          }
+        ],
         NextPhaseID: P.PHASE_2A,
       },
       {
@@ -115,11 +127,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Ban hành Khẩu phần song đôi",
         Content:
           "Ấn định khẩu phần tối thiểu cho cả hai phía để giữ guồng máy khỏi vỡ. Cả tư bản lẫn dân nghèo mắc kẹt trong trì trệ kéo dài.",
-        Effects: {
-          [E.ECONOMY]: 3,
-          [E.EQUALITY]: -6,
-          [E.TRUST]: -3,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 3 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ban hành Khẩu phần song đôi'."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Hậu quả của 'ban hành Khẩu phần song đôi' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.TRUST]: -3 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'ban hành Khẩu phần song đôi'."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
       {
@@ -127,13 +148,28 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Ban bố Khẩn cấp dân sinh",
         Content:
           "Cắt sản xuất, xả kho than cứu trợ khu lao động. Sinh mạng dân cư được giữ, dòng vốn công nghiệp hụt mạnh.",
-        Effects: {
-          [E.TRUST]: 10,
-          [E.EQUALITY]: 8,
-          [E.ECONOMY]: -10,
-          [E.RESOURCE]: -6,
-          [E.SECURITY]: -8,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 10 },
+            text: "Chủ trương 'ban bố Khẩn cấp dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 8 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban bố Khẩn cấp dân sinh'."
+          },
+          {
+            effect: { [E.ECONOMY]: -10 },
+            text: "Việc 'ban bố Khẩn cấp dân sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.RESOURCE]: -6 },
+            text: "Quy luật giá trị trừng phạt giới tài phiệt sau sách lược 'ban bố Khẩn cấp dân sinh'."
+          },
+          {
+            effect: { [E.SECURITY]: -8 },
+            text: "Quần chúng nổi dậy làm lung lay thiết chế cai trị sau vụ 'ban bố Khẩn cấp dân sinh'."
+          }
+        ],
         NextPhaseID: P.PHASE_2C,
       },
     ],
@@ -171,12 +207,24 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Trưng dụng vận tải cho Hale",
         Content:
           "Trưng dụng vận tải cho Hale, ưu tiên than cho tuyến hàng hóa. Lợi nhuận được cứu, nhu cầu dân sinh bị đẩy lùi.",
-        Effects: {
-          [E.ECONOMY]: 6,
-          [E.EQUALITY]: -5,
-          [E.RESOURCE]: -4,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 6 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'trưng dụng vận tải cho Hale'."
+          },
+          {
+            effect: { [E.EQUALITY]: -5 },
+            text: "Hậu quả của 'trưng dụng vận tải cho Hale' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.RESOURCE]: -4 },
+            text: "Việc 'trưng dụng vận tải cho Hale' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quyết định 'trưng dụng vận tải cho Hale' chèn ép giai cấp tự nó của giới công nhân."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -184,10 +232,16 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Giữ nguyên lịch trình",
         Content:
           "Giữ nguyên lịch trình, không can thiệp thêm. Tắc nghẽn kéo dài, không bên nào được lợi.",
-        Effects: {
-          [E.TRUST]: 2,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 2 },
+            text: "Chủ trương 'giữ nguyên lịch trình' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Quyết định 'giữ nguyên lịch trình' chịu tác động từ quy luật giá trị khắc nghiệt."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -195,11 +249,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Ưu tiên vận tải dân sinh",
         Content:
           "Ưu tiên vận tải dân sinh, cắt bớt hàng hóa công nghiệp. Dân cư được cứu, tăng trưởng chậm lại.",
-        Effects: {
-          [E.TRUST]: 4,
-          [E.EQUALITY]: 4,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 4 },
+            text: "Chủ trương 'ưu tiên vận tải dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 4 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ưu tiên vận tải dân sinh'."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Việc 'ưu tiên vận tải dân sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
     ],
@@ -237,11 +300,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Trưng dụng than cho dân cư",
         Content:
           "Trưng dụng than sưởi cho khu dân cư, cắt điện công nghiệp. Người lao động qua rét, giới tư bản mất nhịp lợi nhuận.",
-        Effects: {
-          [E.TRUST]: 6,
-          [E.EQUALITY]: 5,
-          [E.ECONOMY]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 6 },
+            text: "Chủ trương 'trưng dụng than cho dân cư' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 5 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'trưng dụng than cho dân cư'."
+          },
+          {
+            effect: { [E.ECONOMY]: -4 },
+            text: "Việc 'trưng dụng than cho dân cư' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -249,9 +321,12 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Giữ nguyên phân phối",
         Content:
           "Giữ nguyên phân phối để tránh xung đột với thị trường. Mất điện kéo dài, lòng tin hao mòn.",
-        Effects: {
-          [E.TRUST]: -2,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -2 },
+            text: "Quyết sách 'giữ nguyên phân phối' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -259,11 +334,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Bảo hộ điện cho công nghiệp",
         Content:
           "Bảo hộ điện cho công nghiệp, dồn nguồn cho lò thép. Cartel giữ nhịp lợi nhuận, khu dân cư chịu lạnh.",
-        Effects: {
-          [E.ECONOMY]: 5,
-          [E.EQUALITY]: -4,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 5 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'bảo hộ điện cho công nghiệp'."
+          },
+          {
+            effect: { [E.EQUALITY]: -4 },
+            text: "Hậu quả của 'bảo hộ điện cho công nghiệp' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'bảo hộ điện cho công nghiệp'."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
     ],
@@ -301,11 +385,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Ký độc quyền phân phối than",
         Content:
           "Ký độc quyền phân phối than cho Cartel. Tư bản nắm kho, quyền sống của lao động bị thu hẹp.",
-        Effects: {
-          [E.ECONOMY]: 7,
-          [E.EQUALITY]: -6,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 7 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'ký độc quyền phân phối than'."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Hậu quả của 'ký độc quyền phân phối than' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'ký độc quyền phân phối than'."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -313,11 +406,20 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Tái khẳng định quyền nhà nước",
         Content:
           "Tái khẳng định quyền nhà nước để giữ phân phối. Dân sinh được trấn an, Cartel mất bớt quyền thao túng.",
-        Effects: {
-          [E.TRUST]: 5,
-          [E.EQUALITY]: 3,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 5 },
+            text: "Chủ trương 'tái khẳng định quyền nhà nước' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 3 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'tái khẳng định quyền nhà nước'."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Việc 'tái khẳng định quyền nhà nước' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
       {
@@ -325,9 +427,12 @@ export const PHASE1_EVENTS = Object.freeze({
         Title: "Hoãn quyết định chính thức",
         Content:
           "Hoãn quyết định để kéo dài thương lượng. Bất định tăng, cả hai phía đều bị treo lơ lửng.",
-        Effects: {
-          [E.TRUST]: -1,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -1 },
+            text: "Quyết sách 'hoãn quyết định chính thức' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          }
+        ],
         NextPhaseID: P.PHASE_1,
       },
     ],

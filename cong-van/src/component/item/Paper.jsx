@@ -24,6 +24,8 @@ import TabSwitchSound from './../../assets/sound/tab-switch.mp3';
 // Import target fallback art asset used as the visible dropped stamp graphic 
 import StampMarkImage from './../../assets/image/stamper/stamp.png';
 
+import TooltipWrapper from '../common/TooltipWrapper';
+
 import './Paper.css';
 
 export default function Paper({
@@ -34,7 +36,9 @@ export default function Paper({
   setActiveTab, 
   documents = [],
   visualStamps = [],
-  isStamperDragging = false // 🎯 NEW PROP ADDED HERE
+  isStamperDragging = false,
+  onChoiceHover = null,
+  onEffectHover = null
 }) {
   const [hoveredTab, setHoveredTab] = useState(null);
   const switchAudioRef = useRef(null);
@@ -83,12 +87,15 @@ export default function Paper({
   }, []);
 
   return (
-    <div ref={setNodeRef} style={style} className="paper">
+    <div ref={setNodeRef} style={style} className={`paper ${isStamperDragging ? "paper-stamp-ready" : ""}`}>
       
       {/* Mechanical Side-Stat Tabs Panel */}
       <div className="paper-side-stat-tabs">
         {statOrder.map((statKey, index) => {
-          const val = currentDocument?.effects?.[statKey] || 0;
+          const effectObj = currentDocument?.effects?.find(
+            (eff) => eff.effect && eff.effect[statKey] !== undefined
+          );
+          const val = effectObj ? effectObj.effect[statKey] : 0;
           const hasEffect = val !== 0;
           const isPositive = val > 0;
           const displaySign = isPositive ? `+${val}` : val;
@@ -99,6 +106,16 @@ export default function Paper({
               key={statKey} 
               className={`side-stat-tab-item ${hasEffect ? 'slide-out' : 'slide-hidden'}`}
               style={{ top: `${index * 64 + 40}px` }}
+              onMouseEnter={() => {
+                if (hasEffect && onEffectHover) {
+                  onEffectHover(effectObj?.text || '');
+                }
+              }}
+              onMouseLeave={() => {
+                if (onEffectHover) {
+                  onEffectHover(null);
+                }
+              }}
             >
               <div className="stat-icon-wrapper">
                 <img src={statIcons[statKey]} alt={statKey} className="stat-pixel-icon" />
@@ -127,17 +144,23 @@ export default function Paper({
               alt={doc.id}
               className={`paper-tab ${isHovered || isActive ? 'tab-hovered' : ''}`}
               style={{ top: `${index * 80}px` }}
-              onMouseEnter={() => setHoveredTab(doc.id)}
-              onMouseLeave={() => setHoveredTab(null)}
+              onMouseEnter={() => {
+                setHoveredTab(doc.id);
+                if (onChoiceHover) onChoiceHover(doc.effects);
+              }}
+              onMouseLeave={() => {
+                setHoveredTab(null);
+                if (onChoiceHover) onChoiceHover(null);
+              }}
               onClick={() => handleTabClick(doc.id)}
             />
           );
         })}
       </div>
 
-      {/* 🖼️ SWAP BACKGROUND ASSET DYNAMICALLY */}
+      {/* 🖼️ KEEP BEIGE PAPER BACKGROUND FOR THE DOSSIER */}
       <img
-        src={isStamperDragging ? PaperImage2 : PaperImage}
+        src={PaperImage}
         alt="Paper Asset Background"
         className="paper-image"
         {...listeners}
@@ -155,14 +178,19 @@ export default function Paper({
             position: 'absolute',
             left: `${stamp.x}px`,
             top: `${stamp.y}px`,
-            transform: 'translate(-50%, -50%)', 
+            transform: `translate(-50%, -50%) rotate(${stamp.rotation || 0}deg)`, 
+            opacity: stamp.opacity || 0.85,
             pointerEvents: 'none' 
           }}
         />
       ))}
 
-      {/* 📝 TEMPORARILY HIDE TEXT LAYER CONTAINER ON DRAG */}
-      {!isStamperDragging && (
+      {/* 📝 SHOW STAMP INDICATOR ZONE WHEN DRAGGING THE STAMPER TOOL */}
+      {isStamperDragging ? (
+        <div className="stamp-indicator-zone">
+          <span className="stamp-indicator-text">[ KHU VỰC ĐÓNG DẤU ]</span>
+        </div>
+      ) : (
         <div className="paper-text-layer">
           <div className="paper-title">{currentDocument?.title}</div>
           <div className="paper-content">{currentDocument?.content}</div>

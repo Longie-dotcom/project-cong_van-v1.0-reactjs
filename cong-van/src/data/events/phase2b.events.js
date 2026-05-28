@@ -90,11 +90,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Ban hành ranh giới an sinh",
         Content:
           "Ban hành ranh giới an sinh, giữ mức cứu trợ tối thiểu. Người lao động sống sót, tăng trưởng bị kìm lại.",
-        Effects: {
-          [E.TRUST]: 6,
-          [E.EQUALITY]: 5,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 6 },
+            text: "Chủ trương 'ban hành ranh giới an sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: 5 },
+            text: "Giai cấp vô sản hoàn toàn ủng hộ sách lược 'ban hành ranh giới an sinh'."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Việc 'ban hành ranh giới an sinh' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          }
+        ],
         NextPhaseID: P.PHASE_3,
       },
       {
@@ -102,11 +111,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Phát lệnh tái công nghiệp hóa",
         Content:
           "Phát lệnh tái công nghiệp hóa, dồn lực cho thép. Cartel được cứu, bình đẳng và lòng tin lao động sụt sâu.",
-        Effects: {
-          [E.ECONOMY]: 10,
-          [E.EQUALITY]: -8,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 10 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'phát lệnh tái công nghiệp hóa'."
+          },
+          {
+            effect: { [E.EQUALITY]: -8 },
+            text: "Hậu quả của 'phát lệnh tái công nghiệp hóa' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'phát lệnh tái công nghiệp hóa'."
+          }
+        ],
         NextPhaseID: P.PHASE_3,
       },
       {
@@ -114,11 +132,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Gia tăng kiểm soát nhà nước",
         Content:
           "Gia tăng kiểm soát nhà nước để điều phối tài nguyên. Sản xuất nhích lên, công nhân chịu kỷ luật chặt hơn.",
-        Effects: {
-          [E.TRUST]: -5,
-          [E.ECONOMY]: 4,
-          [E.EQUALITY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -5 },
+            text: "Quyết sách 'gia tăng kiểm soát nhà nước' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: 4 },
+            text: "Giá trị thặng dư được tối ưu hóa thông qua chủ trương 'gia tăng kiểm soát nhà nước'."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Quần chúng chịu cảnh bần cùng hóa nặng nề sau quyết định 'gia tăng kiểm soát nhà nước'."
+          }
+        ],
         NextPhaseID: P.PHASE_3,
       },
     ],
@@ -157,11 +184,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Xả kho cứu trợ dân sinh",
         Content:
           "Xả kho cứu trợ dân sinh để dập biểu tình. Người lao động được sưởi ấm, ngân khố hụt.",
-        Effects: {
-          [E.TRUST]: 8,
-          [E.ECONOMY]: -5,
-          [E.EQUALITY]: 6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 8 },
+            text: "Chủ trương 'xả kho cứu trợ dân sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: -5 },
+            text: "Quyết định 'xả kho cứu trợ dân sinh' chịu tác động từ quy luật giá trị khắc nghiệt."
+          },
+          {
+            effect: { [E.EQUALITY]: 6 },
+            text: "Việc 'xả kho cứu trợ dân sinh' góp phần bảo vệ quyền làm chủ của người lao động."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
       {
@@ -169,11 +205,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Thiết quân luật quảng trường",
         Content:
           "Thiết quân luật quảng trường, trấn áp đám đông. Trật tự tư bản được bảo vệ, công nhân bị đàn áp.",
-        Effects: {
-          [E.TRUST]: -8,
-          [E.EQUALITY]: -6,
-          [E.ECONOMY]: 4,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -8 },
+            text: "Quyết sách 'thiết quân luật quảng trường' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          },
+          {
+            effect: { [E.EQUALITY]: -6 },
+            text: "Hậu quả của 'thiết quân luật quảng trường' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.ECONOMY]: 4 },
+            text: "Quyết sách 'thiết quân luật quảng trường' tăng cường bóc lột sức lao động của công nhân."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
       {
@@ -181,9 +226,12 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Phớt lờ yêu sách",
         Content:
           "Phớt lờ yêu sách, giữ nguyên chính sách. Bất mãn tích tụ, lòng tin giảm.",
-        Effects: {
-          [E.TRUST]: -3,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: -3 },
+            text: "Quyết sách 'phớt lờ yêu sách' đẩy nhanh tiến trình tha hóa lao động vô sản."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
     ],
@@ -222,12 +270,24 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Bơm vốn khôi phục công nghiệp",
         Content:
           "Bơm vốn khôi phục công nghiệp để tăng tốc sản xuất. Lợi nhuận tăng, dự trữ tài nguyên cạn.",
-        Effects: {
-          [E.ECONOMY]: 8,
-          [E.EQUALITY]: -5,
-          [E.RESOURCE]: -5,
-          [E.TRUST]: -4,
-        },
+        Effects: [
+          {
+            effect: { [E.ECONOMY]: 8 },
+            text: "Tích lũy tư bản gia tăng vượt bậc từ việc triển khai 'bơm vốn khôi phục công nghiệp'."
+          },
+          {
+            effect: { [E.EQUALITY]: -5 },
+            text: "Hậu quả của 'bơm vốn khôi phục công nghiệp' làm sâu sắc thêm mâu thuẫn đối kháng giai cấp."
+          },
+          {
+            effect: { [E.RESOURCE]: -5 },
+            text: "Việc 'bơm vốn khôi phục công nghiệp' đã bóp nghẹt lực lượng sản xuất của toàn thành phố."
+          },
+          {
+            effect: { [E.TRUST]: -4 },
+            text: "Quyết định 'bơm vốn khôi phục công nghiệp' chèn ép giai cấp tự nó của giới công nhân."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
       {
@@ -235,10 +295,16 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Duy trì định mức hiện hành",
         Content:
           "Duy trì định mức hiện hành để tránh xáo trộn. Tạm ổn về hành chính, đà suy giảm vẫn kéo dài.",
-        Effects: {
-          [E.TRUST]: 3,
-          [E.ECONOMY]: -6,
-        },
+        Effects: [
+          {
+            effect: { [E.TRUST]: 3 },
+            text: "Chủ trương 'duy trì định mức hiện hành' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Quyết định 'duy trì định mức hiện hành' chịu tác động từ quy luật giá trị khắc nghiệt."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
       {
@@ -246,11 +312,20 @@ export const PHASE2B_EVENTS = Object.freeze({
         Title: "Chuyển hướng an sinh",
         Content:
           "Chuyển hướng an sinh, giảm áp lực sản xuất. Người lao động được bảo vệ hơn, tăng trưởng suy yếu rõ rệt.",
-        Effects: {
-          [E.EQUALITY]: 5,
-          [E.ECONOMY]: -6,
-          [E.TRUST]: 4,
-        },
+        Effects: [
+          {
+            effect: { [E.EQUALITY]: 5 },
+            text: "Chủ trương 'chuyển hướng an sinh' đánh thức ý thức giai cấp của quần chúng vô sản."
+          },
+          {
+            effect: { [E.ECONOMY]: -6 },
+            text: "Quyết định 'chuyển hướng an sinh' chịu tác động từ quy luật giá trị khắc nghiệt."
+          },
+          {
+            effect: { [E.TRUST]: 4 },
+            text: "Việc 'chuyển hướng an sinh' góp phần bảo vệ quyền làm chủ của người lao động."
+          }
+        ],
         NextPhaseID: P.PHASE_2B,
       },
     ],

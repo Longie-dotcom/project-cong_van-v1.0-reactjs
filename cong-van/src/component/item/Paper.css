@@ -4,9 +4,9 @@
   height: 544px;
   user-select: none;
   touch-action: none;
-  
+
   /* 🌟 FIX: Force a base stacking context for the document structure */
-  z-index: 2; 
+  z-index: 2;
 }
 
 .paper:active {
@@ -24,9 +24,9 @@
   top: 16px;
   height: 100px;
   width: 0; /* Let children expand purely outward to the left */
-  
+
   /* 🌟 FIX: Sit safely above the desk, but tucked right under .paper-image (z-index: 2) */
-  z-index: 1; 
+  z-index: 1;
 }
 
 /* Individual layout rows matching side tab behaviors */
@@ -38,20 +38,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.4s ease; 
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15),
+    opacity 0.4s ease;
+  cursor: pointer;
 }
 
 /* 📥 HIDDEN STATE: Half overlap right side tucked under paper edge */
 .side-stat-tab-item.slide-hidden {
   /* Slides back until only about half the icon peaks out from the paper rim */
-  transform: translateX(-40px); 
+  transform: translateX(-40px);
   opacity: 0.5;
 }
 
 /* 📤 SLIDE OUT STATE: Moves outward to the left fully exposing the values */
 .side-stat-tab-item.slide-out {
   /* Slides further left out past the border frame to expose badge offsets cleanly */
-  transform: translateX(-106px); 
+  transform: translateX(-106px);
   opacity: 1;
 }
 
@@ -78,9 +81,9 @@
   right: 12px;
   font-family: inherit;
   font-size: 16px;
-  padding: 1px 5px;  
+  padding: 1px 5px;
   /* 🌟 FIX: Make sure the text badge stands above everything else on the tab */
-  z-index: 2; 
+  z-index: 2;
 }
 
 /* Color engine variables matching positive/negative branches */
@@ -92,7 +95,6 @@
   color: rgb(0, 0, 0);
 }
 
-
 /* ==========================================================================
    📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
    ========================================================================== */
@@ -103,9 +105,9 @@
   width: 100%;
   height: 100%;
   image-rendering: pixelated;
-  
+
   /* 🌟 FIX: Base paper texture sheet sits above the side icon indicators (z-index: 1) */
-  z-index: 2; 
+  z-index: 2;
   cursor: grab;
 }
 
@@ -120,9 +122,9 @@
   left: 56px;
   width: 250px;
   height: 400px;
-  
+
   /* Sits directly over the paper background canvas layout texture */
-  z-index: 3; 
+  z-index: 3;
   pointer-events: none;
   color: #111;
 }
@@ -151,9 +153,9 @@
   right: -24px;
   width: 120px;
   height: 300px;
-  
+
   /* Tucked directly underneath the main document board sheet surface layer */
-  z-index: 1; 
+  z-index: 1;
 }
 
 .paper-tab {
@@ -161,7 +163,9 @@
   right: 0;
   width: 84px;
   image-rendering: pixelated;
-  transition: transform 180ms ease, filter 180ms ease;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
   cursor: pointer;
 }
 
@@ -174,8 +178,72 @@
   width: 150px;
   height: 84px;
   opacity: 0.85;
-  
+
   /* Keeps layout visible between document background canvas and text layout elements */
-  z-index: 2; 
+  z-index: 2;
   image-rendering: pixelated;
+}
+
+/*  retro-style transparent Stamp Dropzone Indicator */
+.stamp-indicator-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border: 2px dashed #c08328; /* Sharp gold pixel border */
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(
+    192,
+    131,
+    40,
+    0.04
+  ); /* Faint gold transparent interior tint */
+  z-index: 3;
+  pointer-events: none;
+  animation: stampPulse 2s infinite ease-in-out;
+  color: #c08328; /* Bright retro gold ink */
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6); /* Black outline shadow for extreme readability */
+  box-shadow:
+    inset 0 0 12px rgba(192, 131, 40, 0.25),
+    0 0 16px rgba(192, 131, 40, 0.4); /* Dual golden glow inside and out */
+}
+
+.stamp-indicator-text {
+  font-family: inherit;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+@keyframes stampPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/*  Retro warm golden glowing silhouette outline bo-sáng-theo-hình-dáng */
+.paper.paper-stamp-ready .paper-image {
+  animation: paperSilhouetteGlow 1.5s infinite alternate ease-in-out;
+  transition: filter 0.25s ease-in-out;
+}
+
+@keyframes paperSilhouetteGlow {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(192, 131, 40, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 12px rgba(217, 160, 78, 0.95));
+  }
 }

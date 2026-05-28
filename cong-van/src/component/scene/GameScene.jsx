@@ -5,12 +5,14 @@ import Frame from "./../../assets/image/frame.png";
 import Paper from "../item/Paper";
 import StamperTool from "../item/StamperTool";
 import StamperContainer from "../item/StamperContainer";
-import Mail from "../item/Mail"; // 🆕 Import Component Mail mới
+import Mail from "../item/Mail"; //  Import Component Mail mới
 import ReorganizeNormal from "./../../assets/image/button/reorganize1.png";
 import ReorganizeHovered from "./../../assets/image/button/reorganize2.png";
 import ReorganizeClicked from "./../../assets/image/button/reorganize3.png";
 
 import StampingSound from "./../../assets/sound/stamp.mp3";
+import OpenMailSound from "./../../assets/sound/open-mail.mp3";
+import TabSwitchSound from "./../../assets/sound/tab-switch.mp3";
 import { getEventByPhase, EVENTS_DATABASE } from "../../data/gameEvents";
 
 import "./GameScene.css";
@@ -27,6 +29,41 @@ export default function GameScene({
 }) {
   // 🎯 NEW STATE: Tracks if the stamper is active
   const [isStamperDragging, setIsStamperDragging] = useState(false);
+  const [isPhoneDialogueActive, setIsPhoneDialogueActive] = useState(false);
+  const [hoveredEffectText, setHoveredEffectText] = useState(null);
+
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (hoveredEffectText) {
+      timerRef.current = setTimeout(() => {
+        setHoveredEffectText(null);
+      }, 10000);
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [hoveredEffectText]);
+
+  const playPaperRustle = () => {
+    const audio = new Audio(OpenMailSound);
+    audio.volume = 0.55;
+    audio.play().catch(() => {});
+  };
+
+  const playDeskSlide = () => {
+    const audio = new Audio(TabSwitchSound);
+    audio.volume = 0.45;
+    audio.play().catch(() => {});
+  };
 
   const [stampedDocuments, setStampedDocuments] = useState([]);
   const [fadePhase, setFadePhase] = useState("in");
@@ -205,10 +242,12 @@ export default function GameScene({
 
     if (active.id === "paper-1") {
       setLivePaperDelta({ x: 0, y: 0 });
+      playPaperRustle();
     }
     if (typeof active.id === "string" && active.id.startsWith("mail-")) {
       setActiveMailDragID(active.id);
       setLiveMailDelta({ x: 0, y: 0 });
+      playPaperRustle();
     }
   }
 
@@ -330,6 +369,7 @@ export default function GameScene({
         y: prev.y + livePaperDelta.y,
       }));
       setLivePaperDelta({ x: 0, y: 0 });
+      playDeskSlide();
     }
 
     if (active.id === activeMailDragID) {
@@ -342,6 +382,7 @@ export default function GameScene({
       }));
       setLiveMailDelta({ x: 0, y: 0 });
       setActiveMailDragID(null);
+      playDeskSlide();
     }
   }
 
@@ -372,22 +413,52 @@ export default function GameScene({
         const localX = sx - totalPaperX;
         const localY = sy - totalPaperY;
 
+        const randomRotation = (Math.random() * 12 - 6).toFixed(1); // -6deg to +6deg
+        const randomOpacity = (Math.random() * 0.15 + 0.8).toFixed(2); // 0.8 to 0.95
+
         setPaperVisualStamps((prev) => [
           ...prev,
-          { x: localX, y: localY + 150, tab: activeTab },
+          {
+            x: localX,
+            y: localY + 150,
+            tab: activeTab,
+            rotation: randomRotation,
+            opacity: randomOpacity,
+          },
         ]);
+
+        // Trigger viewport camera shake
+        document.body.classList.add("screen-shake");
+        setTimeout(() => {
+          document.body.classList.remove("screen-shake");
+        }, 200);
 
         setPlayerStats((prev) => {
           const updated = { ...prev };
           const modifications = currentSelectedDoc.effects;
-          Object.keys(updated).forEach((key) => {
-            if (modifications[key] !== undefined) {
-              updated[key] = Math.max(
-                0,
-                Math.min(100, updated[key] + modifications[key]),
-              );
-            }
-          });
+          if (Array.isArray(modifications)) {
+            modifications.forEach((mod) => {
+              if (mod.effect) {
+                Object.keys(mod.effect).forEach((statKey) => {
+                  if (updated[statKey] !== undefined) {
+                    updated[statKey] = Math.max(
+                      0,
+                      Math.min(100, updated[statKey] + mod.effect[statKey]),
+                    );
+                  }
+                });
+              }
+            });
+          } else if (modifications && typeof modifications === "object") {
+            Object.keys(updated).forEach((key) => {
+              if (modifications[key] !== undefined) {
+                updated[key] = Math.max(
+                  0,
+                  Math.min(100, updated[key] + modifications[key]),
+                );
+              }
+            });
+          }
           return updated;
         });
 
@@ -480,6 +551,8 @@ export default function GameScene({
                 visualStamps={paperVisualStamps}
                 onStampDropped={handleStampDropped}
                 isStamperDragging={isStamperDragging}
+                onChoiceHover={null}
+                onEffectHover={setHoveredEffectText}
               />
 
               {activeMailsList.map((mailItem) => {
@@ -515,7 +588,21 @@ export default function GameScene({
               <Telephone
                 key={`phone-node-reset-${currentEventData.EventID}`}
                 phoneCalls={currentEventData.Telephone?.phoneCalls || []}
+                onDialogueToggle={(isActive) =>
+                  setIsPhoneDialogueActive(isActive)
+                }
               />
+
+              {hoveredEffectText && !isTransitioning && (
+                <div className="telegraph-ticker-tape">
+                  <div className="ticker-tape-header">PHÂN TÍCH BIỆN CHỨNG</div>
+                  <div className="ticker-tape-content-wrapper">
+                    <div className="ticker-tape-text">
+                      DỰ BÁO BIỆN CHỨNG: {hoveredEffectText}
+                    </div>
+                  </div>
+                </div>
+              )}
             </>
           ) : (
             <div className="desk-loading-indicator">

@@ -45,50 +45,44 @@ function App() {
     setGameState("intro");
   }
 
-  switch (gameState) {
+  const renderScene = () => {
+    switch (gameState) {
+      case "boot":
+        return <BootScene onFinish={() => setGameState("intro")} />;
+      case "intro":
+        return <IntroScene onFinish={() => setGameState("game")} />;
+      case "game":
+        return (
+          <GameScene
+            currentPhaseID={gameData.currentPhaseID}
+            currentEventID={gameData.currentEventID}
+            eventHistory={gameData.eventHistory}
+            onGameStateUpdate={(newState) => {
+              setGameData(newState);
+            }}
+            onGameEnd={handleGameEnding}
+          />
+        );
+      case "ending":
+        return (
+          <EndingScene
+            endingTitle={endingData.title}
+            endingSubtitle={endingData.subtitle}
+            endingDescription={endingData.description}
+            onRestart={handleRestartGame}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
-    case "boot":
-      return (
-        <BootScene
-          onFinish={() => setGameState("intro")}
-        />
-      );
-
-    case "intro":
-      return (
-        <IntroScene
-          onFinish={() => setGameState("game")}
-        />
-      );
-
-    case "game":
-      return (
-        <GameScene
-          currentPhaseID={gameData.currentPhaseID}
-          currentEventID={gameData.currentEventID}
-          eventHistory={gameData.eventHistory}
-
-          onGameStateUpdate={(newState) => {
-            setGameData(newState);
-          }}
-
-          onGameEnd={handleGameEnding}
-        />
-      );
-
-    case "ending":
-      return (
-        <EndingScene
-          endingTitle={endingData.title}
-          endingSubtitle={endingData.subtitle}
-          endingDescription={endingData.description}
-          onRestart={handleRestartGame}
-        />
-      );
-
-    default:
-      return null;
-  }
+  return (
+    <>
+      {renderScene()}
+      <div className="crt-overlay" />
+    </>
+  );
 }
 
 export default App;

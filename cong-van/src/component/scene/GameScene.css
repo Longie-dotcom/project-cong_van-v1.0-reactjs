@@ -90,3 +90,57 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* ==========================================================================
+   📠 TELEGRAPH TICKER TAPE (SECRET TELEGRAM STRIP)
+   ========================================================================== */
+
+.telegraph-ticker-tape {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 900px;
+  max-width: 90%;
+  background: #fbf5b6; /* Vintage yellow sticky note paper strip */
+  border: 3px solid #2d2613;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  image-rendering: pixelated;
+  animation: slide-down-tape 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slide-down-tape {
+  from {
+    transform: translate(-50%, -100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.ticker-tape-header {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #a22929; /* Red stamp confidential color */
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  border-bottom: 2px dashed #e5db8a;
+  padding-bottom: 4px;
+}
+
+.ticker-tape-text {
+  font-family: inherit;
+  font-size: 15px;
+  color: #2d2613; /* Handwriting dark ink color */
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
