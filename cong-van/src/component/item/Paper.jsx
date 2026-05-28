@@ -188,7 +188,7 @@ export default function Paper({
       {/* 📝 SHOW STAMP INDICATOR ZONE WHEN DRAGGING THE STAMPER TOOL */}
       {isStamperDragging ? (
         <div className="stamp-indicator-zone">
-          <span className="stamp-indicator-text">[ KHU VỰC ĐÓNG DẤU ]</span>
+          <span className="stamp-indicator-text">Khu vực đóng dấu</span>
         </div>
       ) : (
         <div className="paper-text-layer">
