@@ -5,7 +5,7 @@
   user-select: none;
   touch-action: none;
 
-  /* 🌟 FIX: Force a base stacking context for the document structure */
+  /* 🌟 Force a base stacking context for the document structure */
   z-index: 2;
 }
 
@@ -14,89 +14,7 @@
 }
 
 /* ==========================================================================
-   📊 MECHANICAL SLIDE-OUT STAT ICON TABS PANEL (LEFT SIDE)
-   ========================================================================== */
-
-/* 📦 Master Container for left-side indicator nodes */
-.paper-side-stat-tabs {
-  position: absolute;
-  left: 0;
-  top: 16px;
-  height: 100px;
-  width: 0; /* Let children expand purely outward to the left */
-
-  /* 🌟 FIX: Sit safely above the desk, but tucked right under .paper-image (z-index: 2) */
-  z-index: 1;
-}
-
-/* Individual layout rows matching side tab behaviors */
-.side-stat-tab-item {
-  /* 📐 MATCH THE ICON SIZE: Expanded to handle your 112px x 64px rectangular pixel assets */
-  width: 112px;
-  height: 64px;
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15),
-    opacity 0.4s ease;
-  cursor: pointer;
-}
-
-/* 📥 HIDDEN STATE: Half overlap right side tucked under paper edge */
-.side-stat-tab-item.slide-hidden {
-  /* Slides back until only about half the icon peaks out from the paper rim */
-  transform: translateX(-40px);
-  opacity: 0.5;
-}
-
-/* 📤 SLIDE OUT STATE: Moves outward to the left fully exposing the values */
-.side-stat-tab-item.slide-out {
-  /* Slides further left out past the border frame to expose badge offsets cleanly */
-  transform: translateX(-106px);
-  opacity: 1;
-}
-
-/* Icon box structuring rules */
-.stat-icon-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.stat-pixel-icon {
-  width: 100%;
-  height: 100%;
-  display: block;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-/* 🔢 Pixel Digital Dynamic Text Badge Overlays */
-.stat-badge-overlay {
-  position: absolute;
-  /* 🎯 FIXED POSITIONING: Now securely references the true boundaries of your 112px wide asset */
-  bottom: 18px;
-  right: 12px;
-  font-family: inherit;
-  font-size: 16px;
-  padding: 1px 5px;
-  /* 🌟 FIX: Make sure the text badge stands above everything else on the tab */
-  z-index: 2;
-}
-
-/* Color engine variables matching positive/negative branches */
-.stat-badge-overlay.stat-inc {
-  color: rgb(0, 0, 0);
-}
-
-.stat-badge-overlay.stat-dec {
-  color: rgb(0, 0, 0);
-}
-
-/* ==========================================================================
-   📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
+    📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
    ========================================================================== */
 
 .paper-image {
@@ -106,7 +24,7 @@
   height: 100%;
   image-rendering: pixelated;
 
-  /* 🌟 FIX: Base paper texture sheet sits above the side icon indicators (z-index: 1) */
+  /* Base paper texture sheet sits cleanly above the side container layers */
   z-index: 2;
   cursor: grab;
 }
@@ -122,10 +40,11 @@
   left: 56px;
   width: 250px;
   height: 400px;
+  display: flex;
+  flex-direction: column;
 
   /* Sits directly over the paper background canvas layout texture */
   z-index: 3;
-  pointer-events: none;
   color: #111;
 }
 
@@ -141,10 +60,35 @@
   font-size: 16px;
   line-height: 1.5;
   white-space: pre-line;
+  flex-grow: 1; /* Pushes the confirm button down to the bottom of the layer */
+  margin-bottom: 16px;
+}
+
+/* 🎯 NEW: Pixel-art matching choice confirmation button */
+.paper-action-confirm-btn {
+  align-self: center;
+  padding: 8px 18px;
+  background-color: #2b1a08;
+  color: #f5edd6;
+  border: 2px solid #111;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  image-rendering: pixelated;
+  transition: background-color 150ms ease;
+}
+
+.paper-action-confirm-btn:hover {
+  background-color: #4a2f13;
+}
+
+.paper-action-confirm-btn:active {
+  background-color: #111;
 }
 
 /* ==========================================================================
-   🗂️ TAB CONTAINER (RIGHT SIDE CHOICES: A, B, C)
+    🗂️ TAB CONTAINER (RIGHT SIDE CHOICES: A, B, C)
    ========================================================================== */
 
 .paper-tabs {
@@ -172,78 +116,4 @@
 .tab-hovered {
   transform: translateX(22px);
   filter: brightness(1.05);
-}
-
-.rendered-stamp-ink {
-  width: 150px;
-  height: 84px;
-  opacity: 0.85;
-
-  /* Keeps layout visible between document background canvas and text layout elements */
-  z-index: 2;
-  image-rendering: pixelated;
-}
-
-/*  retro-style transparent Stamp Dropzone Indicator */
-.stamp-indicator-zone {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 160px;
-  height: 160px;
-  border: 2px dashed #c08328; /* Sharp gold pixel border */
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(
-    192,
-    131,
-    40,
-    0.04
-  ); /* Faint gold transparent interior tint */
-  z-index: 3;
-  pointer-events: none;
-  animation: stampPulse 2s infinite ease-in-out;
-  color: #c08328; /* Bright retro gold ink */
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6); /* Black outline shadow for extreme readability */
-  box-shadow:
-    inset 0 0 12px rgba(192, 131, 40, 0.25),
-    0 0 16px rgba(192, 131, 40, 0.4); /* Dual golden glow inside and out */
-}
-
-.stamp-indicator-text {
-  font-family: inherit;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-@keyframes stampPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.95;
-  }
-}
-
-/*  Retro warm golden glowing silhouette outline bo-sáng-theo-hình-dáng */
-.paper.paper-stamp-ready .paper-image {
-  animation: paperSilhouetteGlow 1.5s infinite alternate ease-in-out;
-  transition: filter 0.25s ease-in-out;
-}
-
-@keyframes paperSilhouetteGlow {
-  0% {
-    filter: drop-shadow(0 0 4px rgba(192, 131, 40, 0.6));
-  }
-  100% {
-    filter: drop-shadow(0 0 12px rgba(217, 160, 78, 0.95));
-  }
 }

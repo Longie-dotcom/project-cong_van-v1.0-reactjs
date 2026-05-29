@@ -1,16 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import EconomyIcon from "./../../assets/image/icon/economy-icon1.png";
 import ResourceIcon from "./../../assets/image/icon/resource-icon1.png";
-import SecurityIcon from "./../../assets/image/icon/security-icon1.png";
-import TrustIcon from "./../../assets/image/icon/trust-icon1.png";
-import EqualityIcon from "./../../assets/image/icon/equality-icon1.png";
+import CoalIcon from "./../../assets/image/icon/coal-icon1.png";
 
-// 🟢 Using your distinct particle asset imports here
+// Particle asset imports for the 3 remaining elements
 import EconomyParticle from "./../../assets/image/icon/economy-particle.png";
 import ResourceParticle from "./../../assets/image/icon/resource-particle.png";
-import SecurityParticle from "./../../assets/image/icon/security-particle.png";
-import TrustParticle from "./../../assets/image/icon/trust-particle.png";
-import EqualityParticle from "./../../assets/image/icon/equality-particle.png";
+import CoalParticle from "./../../assets/image/icon/coal-particle.png";
 
 import "./StatTab.css";
 import TooltipWrapper from "../common/TooltipWrapper";
@@ -31,36 +27,34 @@ export default function StatTab({ stats }) {
   // State to track which icons should be shaking/bouncing horizontally
   const [animatingKeys, setAnimatingKeys] = useState({});
 
-  //  State to track floating delta indicators (+/- numbers) above icons
+  // State to track floating delta indicators (+/- numbers) above icons
   const [statDeltas, setStatDeltas] = useState({});
 
-  // Mapping specifically to your Particle asset imports
+  // 🎯 CLEANED UP: Mapping purely to your 3 core particle assets
   const particleImageMap = useRef({
     Resource: createParticleImage(ResourceParticle),
-    Security: createParticleImage(SecurityParticle),
-    Trust: createParticleImage(TrustParticle),
     Economy: createParticleImage(EconomyParticle),
-    Equality: createParticleImage(EqualityParticle),
+    Coal: createParticleImage(CoalParticle),
   });
 
+  // 🎯 CLEANED UP: Mapping purely to your 3 core icon assets
   const iconMap = {
     Resource: ResourceIcon,
-    Security: SecurityIcon,
-    Trust: TrustIcon,
     Economy: EconomyIcon,
-    Equality: EqualityIcon,
+    Coal: CoalIcon,
   };
 
+  // 🎯 CLEANED UP: Language text tooltips updated for clarity
   const tooltipTextMap = {
-    Resource: "Tài nguyên",
-    Security: "An ninh thành phố",
-    Trust: "Lòng tin của dân",
-    Economy: "Tài chính / Kinh tế",
-    Equality: "Sự công bằng",
+    Resource: "Nhân lực",
+    Economy: "Lợi nhuận (Tiền)",
+    Coal: "Than đá",
   };
 
   const spawnParticles = useCallback((key, x, y, type) => {
     const imgAsset = particleImageMap.current[key];
+    if (!imgAsset) return; // Guard clause against unmapped keys
+    
     const newParticles = [];
 
     if (type === "add") {
@@ -127,7 +121,7 @@ export default function StatTab({ stats }) {
 
       particlesRef.current.forEach((p) => {
         if (p.type === "add") {
-          //  COLLECTING MOVEMENT: Move towards target center
+          // COLLECTING MOVEMENT: Move towards target center
           p.x += p.vx;
           p.y += p.vy;
 
@@ -141,7 +135,7 @@ export default function StatTab({ stats }) {
             p.isAlive = false;
           }
         } else {
-          //  EXPLOSION MOVEMENT: Rapid spreading outbound with gravity & drag
+          // EXPLOSION MOVEMENT: Rapid spreading outbound with gravity & drag
           p.x += p.vx;
           p.y += p.vy;
           p.vy += 0.15; // Gravity weight simulation
@@ -156,13 +150,13 @@ export default function StatTab({ stats }) {
         }
 
         ctx.save();
-        //  FIX: Forced 100% full solid opacity throughout the particle lifespan
+        // FIX: Forced 100% full solid opacity throughout the particle lifespan
         ctx.globalAlpha = 1.0;
 
         // Retain pixelated crisp textures on scaling render transformations
         ctx.imageSmoothingEnabled = false;
 
-        //  FIX: Draws with fixed constant sizing structure (p.size never changes or scales down)
+        // FIX: Draws with fixed constant sizing structure (p.size never changes or scales down)
         ctx.drawImage(
           p.img,
           p.x - p.size / 2,
@@ -203,6 +197,9 @@ export default function StatTab({ stats }) {
     if (!container) return;
 
     Object.keys(stats).forEach((key) => {
+      // Safety guard check to verify changing state keys actually exist in our local maps
+      if (!iconMap[key]) return;
+
       const prevVal = prevStatsRef.current[key] ?? stats[key];
       const newVal = stats[key];
 
@@ -215,7 +212,7 @@ export default function StatTab({ stats }) {
           setAnimatingKeys((prev) => ({ ...prev, [key]: false }));
         }, 600);
 
-        //  Set dynamic floating delta indicators (+/- value numbers)
+        // Set dynamic floating delta indicators (+/- value numbers)
         const diff = newVal - prevVal;
         const deltaId = Date.now() + Math.random();
         setStatDeltas((prev) => ({
@@ -260,29 +257,31 @@ export default function StatTab({ stats }) {
     <div ref={containerRef} className="stat-tab-row-container">
       <canvas ref={canvasRef} className="stat-particle-canvas" />
 
-      {Object.entries(stats).map(([key, value]) => (
-        <TooltipWrapper key={key} text={tooltipTextMap[key]} position="top">
-          <div
-            data-stat-key={key}
-            className={`stat-tab-icon-item ${animatingKeys[key] ? "horizontal-bounce-active" : ""}`}
-          >
-            <img
-              src={iconMap[key]}
-              alt={`${key} icon`}
-              className="stat-tab-pixel-icon"
-            />
-            <span className="stat-tab-value-text">{value}</span>
-            {statDeltas[key] && (
-              <span
-                key={statDeltas[key].id}
-                className={`delta-float ${statDeltas[key].isPositive ? "positive" : "negative"}`}
-              >
-                {statDeltas[key].text}
-              </span>
-            )}
-          </div>
-        </TooltipWrapper>
-      ))}
+      {Object.entries(stats)
+        .filter(([key]) => iconMap[key]) // Only iterate over the 3 active tracked icons
+        .map(([key, value]) => (
+          <TooltipWrapper key={key} text={tooltipTextMap[key]} position="top">
+            <div
+              data-stat-key={key}
+              className={`stat-tab-icon-item ${animatingKeys[key] ? "horizontal-bounce-active" : ""}`}
+            >
+              <img
+                src={iconMap[key]}
+                alt={`${key} icon`}
+                className="stat-tab-pixel-icon"
+              />
+              <span className="stat-tab-value-text">{value}</span>
+              {statDeltas[key] && (
+                <span
+                  key={statDeltas[key].id}
+                  className={`delta-float ${statDeltas[key].isPositive ? "positive" : "negative"}`}
+                >
+                  {statDeltas[key].text}
+                </span>
+              )}
+            </div>
+          </TooltipWrapper>
+        ))}
     </div>
   );
 }

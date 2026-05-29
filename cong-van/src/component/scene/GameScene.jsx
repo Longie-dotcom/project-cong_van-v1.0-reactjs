@@ -3,14 +3,12 @@ import { DndContext } from "@dnd-kit/core";
 
 import Frame from "./../../assets/image/frame.png";
 import Paper from "../item/Paper";
-import StamperTool from "../item/StamperTool";
-import StamperContainer from "../item/StamperContainer";
-import Mail from "../item/Mail"; //  Import Component Mail mới
+import Mail from "../item/Mail"; 
 import ReorganizeNormal from "./../../assets/image/button/reorganize1.png";
 import ReorganizeHovered from "./../../assets/image/button/reorganize2.png";
 import ReorganizeClicked from "./../../assets/image/button/reorganize3.png";
 
-import StampingSound from "./../../assets/sound/stamp.mp3";
+import StampingSound from "./../../assets/sound/stamp.mp3"; // Kept if you still want a click/confirmation sound!
 import OpenMailSound from "./../../assets/sound/open-mail.mp3";
 import TabSwitchSound from "./../../assets/sound/tab-switch.mp3";
 import { getEventByPhase, EVENTS_DATABASE } from "../../data/gameEvents";
@@ -27,8 +25,6 @@ export default function GameScene({
   onGameStateUpdate,
   onGameEnd,
 }) {
-  // 🎯 NEW STATE: Tracks if the stamper is active
-  const [isStamperDragging, setIsStamperDragging] = useState(false);
   const [isPhoneDialogueActive, setIsPhoneDialogueActive] = useState(false);
   const [hoveredEffectText, setHoveredEffectText] = useState(null);
 
@@ -65,9 +61,7 @@ export default function GameScene({
     audio.play().catch(() => {});
   };
 
-  const [stampedDocuments, setStampedDocuments] = useState([]);
   const [fadePhase, setFadePhase] = useState("in");
-  const [paperVisualStamps, setPaperVisualStamps] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
   const [playerStats, setPlayerStats] = useState({
@@ -183,38 +177,18 @@ export default function GameScene({
     return () => clearTimeout(introTimer);
   }, []);
 
-  const STAMPERX = 126;
-  const STAMPERY = 658;
   const PAPER_SIZE = { width: 374, height: 544 };
   const MAIL_SIZE = { width: 80, height: 60 };
   const DESK_WIDTH = 1920;
   const DESK_HEIGHT = 1080;
 
+  // Cleaned up obstacles to exclude stamper elements
   const OBSTACLES = [
     { id: "news-board", left: 1360, top: 300, width: 436, height: 736 },
-    {
-      id: "stamper-container",
-      left: STAMPERX - 28,
-      top: STAMPERY + 90,
-      width: 192,
-      height: 122,
-    },
     { id: "wall-left", left: -100, top: 0, width: 100, height: DESK_HEIGHT },
-    {
-      id: "wall-right",
-      left: DESK_WIDTH,
-      top: 0,
-      width: 100,
-      height: DESK_HEIGHT,
-    },
+    { id: "wall-right", left: DESK_WIDTH, top: 0, width: 100, height: DESK_HEIGHT },
     { id: "wall-top", left: 0, top: -100, width: DESK_WIDTH, height: 100 },
-    {
-      id: "wall-bottom",
-      left: 0,
-      top: DESK_HEIGHT,
-      width: DESK_WIDTH,
-      height: 100,
-    },
+    { id: "wall-bottom", left: 0, top: DESK_HEIGHT, width: DESK_WIDTH, height: 100 },
   ];
 
   function handleReorganizeDesk() {
@@ -234,11 +208,6 @@ export default function GameScene({
   function handleDragStart(event) {
     if (isTransitioning) return;
     const { active } = event;
-
-    // ⚡ DETECT IF STAMPER WAS PICKED UP
-    if (active.id === "stamper-tool") {
-      setIsStamperDragging(true);
-    }
 
     if (active.id === "paper-1") {
       setLivePaperDelta({ x: 0, y: 0 });
@@ -260,6 +229,7 @@ export default function GameScene({
     );
   }
 
+  // Identical drag movement logic minus any stamper processing
   function handleDragMove(event) {
     if (isTransitioning) return;
     const { active, delta } = event;
@@ -278,26 +248,16 @@ export default function GameScene({
       for (let pass = 0; pass < 2; pass++) {
         for (const obstacle of OBSTACLES) {
           if (checkAABBCollision(paperRect, obstacle)) {
-            const overlapLeft =
-              paperRect.left + paperRect.width - obstacle.left;
-            const overlapRight =
-              obstacle.left + obstacle.width - paperRect.left;
+            const overlapLeft = paperRect.left + paperRect.width - obstacle.left;
+            const overlapRight = obstacle.left + obstacle.width - paperRect.left;
             const overlapTop = paperRect.top + paperRect.height - obstacle.top;
-            const overlapBottom =
-              obstacle.top + obstacle.height - paperRect.top;
-            const minOverlap = Math.min(
-              overlapLeft,
-              overlapRight,
-              overlapTop,
-              overlapBottom,
-            );
+            const overlapBottom = obstacle.top + obstacle.height - paperRect.top;
+            const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
 
             if (minOverlap === overlapLeft) adjustedDelta.x -= overlapLeft;
-            else if (minOverlap === overlapRight)
-              adjustedDelta.x += overlapRight;
+            else if (minOverlap === overlapRight) adjustedDelta.x += overlapRight;
             else if (minOverlap === overlapTop) adjustedDelta.y -= overlapTop;
-            else if (minOverlap === overlapBottom)
-              adjustedDelta.y += overlapBottom;
+            else if (minOverlap === overlapBottom) adjustedDelta.y += overlapBottom;
 
             paperRect.left = paperPos.x + adjustedDelta.x;
             paperRect.top = paperPos.y + adjustedDelta.y;
@@ -309,10 +269,7 @@ export default function GameScene({
 
     if (active.id === activeMailDragID) {
       let adjustedDelta = { x: delta.x, y: delta.y };
-      const currentMailOrigin = mailPositions[activeMailDragID] || {
-        x: 950,
-        y: 400,
-      };
+      const currentMailOrigin = mailPositions[activeMailDragID] || { x: 950, y: 400 };
       let mailRect = {
         left: currentMailOrigin.x + adjustedDelta.x,
         top: currentMailOrigin.y + adjustedDelta.y,
@@ -327,19 +284,12 @@ export default function GameScene({
             const overlapRight = obstacle.left + obstacle.width - mailRect.left;
             const overlapTop = mailRect.top + mailRect.height - obstacle.top;
             const overlapBottom = obstacle.top + obstacle.height - mailRect.top;
-            const minOverlap = Math.min(
-              overlapLeft,
-              overlapRight,
-              overlapTop,
-              overlapBottom,
-            );
+            const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
 
             if (minOverlap === overlapLeft) adjustedDelta.x -= overlapLeft;
-            else if (minOverlap === overlapRight)
-              adjustedDelta.x += overlapRight;
+            else if (minOverlap === overlapRight) adjustedDelta.x += overlapRight;
             else if (minOverlap === overlapTop) adjustedDelta.y -= overlapTop;
-            else if (minOverlap === overlapBottom)
-              adjustedDelta.y += overlapBottom;
+            else if (minOverlap === overlapBottom) adjustedDelta.y += overlapBottom;
 
             mailRect.left = currentMailOrigin.x + adjustedDelta.x;
             mailRect.top = currentMailOrigin.y + adjustedDelta.y;
@@ -353,15 +303,6 @@ export default function GameScene({
   function handleDragEnd(event) {
     if (isTransitioning) return;
     const { active } = event;
-
-    // ⚡ RESET TRACKING STATE REGARDLESS OF WHERE IT DROPPED
-    if (active.id === "stamper-tool") {
-      setIsStamperDragging(false);
-    }
-
-    if (active.id === "stamper-tool" && active.data.current?.onDragEndCustom) {
-      active.data.current.onDragEndCustom(event.delta.x, event.delta.y);
-    }
 
     if (active.id === "paper-1") {
       setPaperPos((prev) => ({
@@ -386,140 +327,96 @@ export default function GameScene({
     }
   }
 
-  function handleStampDropped(stampCoordinates) {
-    if (isTransitioning) return;
+  // 🎯 NEW REPLACEMENT ACTION: Direct Selection Handler instead of Stamp Drop event
+  function handleSelectChoice(choiceID) {
+    if (isTransitioning || !currentEventData) return;
 
-    const { x: sx, y: sy } = stampCoordinates;
-    const totalPaperX = paperPos.x + livePaperDelta.x;
-    const totalPaperY = paperPos.y + livePaperDelta.y;
+    const currentSelectedDoc = currentDocumentsList.find((doc) => doc.id === choiceID);
 
-    const hitLeft = sx >= totalPaperX;
-    const hitRight = sx <= totalPaperX + PAPER_SIZE.width;
-    const hitTop = sy >= totalPaperY;
-    const hitBottom = sy <= totalPaperY + PAPER_SIZE.height;
+    if (currentSelectedDoc) {
+      setIsTransitioning(true);
 
-    if (hitLeft && hitRight && hitTop && hitBottom && currentEventData) {
-      const currentSelectedDoc = currentDocumentsList.find(
-        (doc) => doc.id === activeTab,
-      );
+      // Play selection confirmation audio
+      const audio = new Audio(StampingSound);
+      audio.volume = 0.8;
+      audio.play().catch((err) => console.log("Sound error:", err));
 
-      if (currentSelectedDoc) {
-        setIsTransitioning(true);
-
-        const audio = new Audio(StampingSound);
-        audio.volume = 0.8;
-        audio.play().catch((err) => console.log("Sound error:", err));
-
-        const localX = sx - totalPaperX;
-        const localY = sy - totalPaperY;
-
-        const randomRotation = (Math.random() * 12 - 6).toFixed(1); // -6deg to +6deg
-        const randomOpacity = (Math.random() * 0.15 + 0.8).toFixed(2); // 0.8 to 0.95
-
-        setPaperVisualStamps((prev) => [
-          ...prev,
-          {
-            x: localX,
-            y: localY + 150,
-            tab: activeTab,
-            rotation: randomRotation,
-            opacity: randomOpacity,
-          },
-        ]);
-
-        // Trigger viewport camera shake
-        document.body.classList.add("screen-shake");
-        setTimeout(() => {
-          document.body.classList.remove("screen-shake");
-        }, 200);
-
-        setPlayerStats((prev) => {
-          const updated = { ...prev };
-          const modifications = currentSelectedDoc.effects;
-          if (Array.isArray(modifications)) {
-            modifications.forEach((mod) => {
-              if (mod.effect) {
-                Object.keys(mod.effect).forEach((statKey) => {
-                  if (updated[statKey] !== undefined) {
-                    updated[statKey] = Math.max(
-                      0,
-                      Math.min(100, updated[statKey] + mod.effect[statKey]),
-                    );
-                  }
-                });
-              }
-            });
-          } else if (modifications && typeof modifications === "object") {
-            Object.keys(updated).forEach((key) => {
-              if (modifications[key] !== undefined) {
-                updated[key] = Math.max(
-                  0,
-                  Math.min(100, updated[key] + modifications[key]),
-                );
-              }
-            });
-          }
-          return updated;
-        });
-
-        if (!stampedDocuments.includes(activeTab)) {
-          setStampedDocuments((prev) => [...prev, activeTab]);
-        }
-
-        setTimeout(() => {
-          setFadePhase("out");
-        }, 1200);
-
-        setTimeout(() => {
-          const updatedHistory = [...eventHistory, effectiveEventID];
-          const targetedPhaseID = currentSelectedDoc.nextPhaseID;
-
-          if (
-            targetedPhaseID === "ENDING" ||
-            currentSelectedDoc.EndingPayload
-          ) {
-            if (typeof onGameEnd === "function") {
-              onGameEnd(currentSelectedDoc.EndingPayload);
-            }
-            return;
-          }
-
-          const temporaryStatePayload = {
-            currentPhaseID: targetedPhaseID,
-            currentEventID: effectiveEventID,
-            eventHistory: updatedHistory,
-          };
-          const nextEventObj = getEventByPhase(
-            targetedPhaseID,
-            temporaryStatePayload,
-          );
-
-          setActiveTab("A");
-          setPaperVisualStamps([]);
-          setPaperPos(INITIAL_PAPER_POS);
-          setLivePaperDelta({ x: 0, y: 0 });
-
-          if (nextEventObj) {
-            setGameEventID(nextEventObj.EventID);
-            if (typeof onGameStateUpdate === "function") {
-              onGameStateUpdate({
-                currentPhaseID: targetedPhaseID,
-                currentEventID: nextEventObj.EventID,
-                eventHistory: updatedHistory,
+      // Calculate state updates
+      setPlayerStats((prev) => {
+        const updated = { ...prev };
+        const modifications = currentSelectedDoc.effects;
+        if (Array.isArray(modifications)) {
+          modifications.forEach((mod) => {
+            if (mod.effect) {
+              Object.keys(mod.effect).forEach((statKey) => {
+                if (updated[statKey] !== undefined) {
+                  updated[statKey] = Math.max(
+                    0,
+                    Math.min(100, updated[statKey] + mod.effect[statKey]),
+                  );
+                }
               });
             }
-          }
+          });
+        } else if (modifications && typeof modifications === "object") {
+          Object.keys(updated).forEach((key) => {
+            if (modifications[key] !== undefined) {
+              updated[key] = Math.max(
+                0,
+                Math.min(100, updated[key] + modifications[key]),
+              );
+            }
+          });
+        }
+        return updated;
+      });
 
-          setFadePhase("in");
-        }, 2200);
+      setTimeout(() => {
+        setFadePhase("out");
+      }, 600); // Shorter cinematic wait time since there is no visual stamping time
 
-        setTimeout(() => {
-          if (currentSelectedDoc.nextPhaseID !== "ENDING") {
-            setFadePhase("idle");
-            setIsTransitioning(false);
+      setTimeout(() => {
+        const updatedHistory = [...eventHistory, effectiveEventID];
+        const targetedPhaseID = currentSelectedDoc.nextPhaseID;
+
+        if (targetedPhaseID === "ENDING" || currentSelectedDoc.EndingPayload) {
+          if (typeof onGameEnd === "function") {
+            onGameEnd(currentSelectedDoc.EndingPayload);
           }
-        }, 3200);
-      }
+          return;
+        }
+
+        const temporaryStatePayload = {
+          currentPhaseID: targetedPhaseID,
+          currentEventID: effectiveEventID,
+          eventHistory: updatedHistory,
+        };
+        const nextEventObj = getEventByPhase(targetedPhaseID, temporaryStatePayload);
+
+        setActiveTab("A");
+        setPaperPos(INITIAL_PAPER_POS);
+        setLivePaperDelta({ x: 0, y: 0 });
+
+        if (nextEventObj) {
+          setGameEventID(nextEventObj.EventID);
+          if (typeof onGameStateUpdate === "function") {
+            onGameStateUpdate({
+              currentPhaseID: targetedPhaseID,
+              currentEventID: nextEventObj.EventID,
+              eventHistory: updatedHistory,
+            });
+          }
+        }
+
+        setFadePhase("in");
+      }, 1600);
+
+      setTimeout(() => {
+        if (currentSelectedDoc.nextPhaseID !== "ENDING") {
+          setFadePhase("idle");
+          setIsTransitioning(false);
+        }
+      }, 2600);
     }
   }
 
@@ -540,7 +437,7 @@ export default function GameScene({
 
           {currentEventData ? (
             <>
-              {/* 🎯 CONFIGURED WITH THE DRAG TRACKING PROP BELOW */}
+              {/* Note: Update your <Paper /> component to accept an onConfirmChoice or execute handleSelectChoice directly inside it via button/tabs */}
               <Paper
                 currentX={paperPos.x}
                 currentY={paperPos.y}
@@ -548,9 +445,7 @@ export default function GameScene({
                 activeTab={activeTab}
                 setActiveTab={isTransitioning ? () => {} : setActiveTab}
                 documents={currentDocumentsList}
-                visualStamps={paperVisualStamps}
-                onStampDropped={handleStampDropped}
-                isStamperDragging={isStamperDragging}
+                onChoiceConfirm={handleSelectChoice} 
                 onChoiceHover={null}
                 onEffectHover={setHoveredEffectText}
               />
@@ -565,9 +460,7 @@ export default function GameScene({
                     id={mailItem.id}
                     currentX={pos.x}
                     currentY={pos.y}
-                    liveDelta={
-                      isCurrentMailDragging ? liveMailDelta : { x: 0, y: 0 }
-                    }
+                    liveDelta={isCurrentMailDragging ? liveMailDelta : { x: 0, y: 0 }}
                     title={mailItem.Title}
                     content={mailItem.Content}
                     normalImg={mailItem.NormalAsset}
@@ -588,9 +481,7 @@ export default function GameScene({
               <Telephone
                 key={`phone-node-reset-${currentEventData.EventID}`}
                 phoneCalls={currentEventData.Telephone?.phoneCalls || []}
-                onDialogueToggle={(isActive) =>
-                  setIsPhoneDialogueActive(isActive)
-                }
+                onDialogueToggle={(isActive) => setIsPhoneDialogueActive(isActive)}
               />
 
               {hoveredEffectText && !isTransitioning && (
@@ -609,14 +500,6 @@ export default function GameScene({
               Đang nạp dữ liệu từ kho lưu trữ...
             </div>
           )}
-
-          <StamperTool
-            x={STAMPERX}
-            y={STAMPERY}
-            onStampDropped={handleStampDropped}
-            disabled={isTransitioning}
-          />
-          <StamperContainer />
 
           <button
             className={`reorganize-image-btn ${isTransitioning ? "btn-disabled" : ""}`}

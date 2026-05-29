@@ -9,7 +9,7 @@ import EndingScene from './component/scene/EndingScene';
 
 function App() {
 
-  const [gameState, setGameState] = useState("boot");
+  const [gameState, setGameState] = useState("game");
 
   // 🎮 Global game progress
   const [gameData, setGameData] = useState({
