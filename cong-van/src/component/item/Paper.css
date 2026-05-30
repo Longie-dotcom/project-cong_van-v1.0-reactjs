@@ -1,11 +1,10 @@
 .paper {
   position: absolute;
-  width: 374px;
-  height: 544px;
+  width: 628px;
+  height: 840px;
   user-select: none;
   touch-action: none;
-
-  /* 🌟 FIX: Force a base stacking context for the document structure */
+  /* Giữ stacking context để các thành phần con không bị lỗi hiển thị */
   z-index: 2;
 }
 
@@ -14,89 +13,7 @@
 }
 
 /* ==========================================================================
-   📊 MECHANICAL SLIDE-OUT STAT ICON TABS PANEL (LEFT SIDE)
-   ========================================================================== */
-
-/* 📦 Master Container for left-side indicator nodes */
-.paper-side-stat-tabs {
-  position: absolute;
-  left: 0;
-  top: 16px;
-  height: 100px;
-  width: 0; /* Let children expand purely outward to the left */
-
-  /* 🌟 FIX: Sit safely above the desk, but tucked right under .paper-image (z-index: 2) */
-  z-index: 1;
-}
-
-/* Individual layout rows matching side tab behaviors */
-.side-stat-tab-item {
-  /* 📐 MATCH THE ICON SIZE: Expanded to handle your 112px x 64px rectangular pixel assets */
-  width: 112px;
-  height: 64px;
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15),
-    opacity 0.4s ease;
-  cursor: pointer;
-}
-
-/* 📥 HIDDEN STATE: Half overlap right side tucked under paper edge */
-.side-stat-tab-item.slide-hidden {
-  /* Slides back until only about half the icon peaks out from the paper rim */
-  transform: translateX(-40px);
-  opacity: 0.5;
-}
-
-/* 📤 SLIDE OUT STATE: Moves outward to the left fully exposing the values */
-.side-stat-tab-item.slide-out {
-  /* Slides further left out past the border frame to expose badge offsets cleanly */
-  transform: translateX(-106px);
-  opacity: 1;
-}
-
-/* Icon box structuring rules */
-.stat-icon-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.stat-pixel-icon {
-  width: 100%;
-  height: 100%;
-  display: block;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-/* 🔢 Pixel Digital Dynamic Text Badge Overlays */
-.stat-badge-overlay {
-  position: absolute;
-  /* 🎯 FIXED POSITIONING: Now securely references the true boundaries of your 112px wide asset */
-  bottom: 18px;
-  right: 12px;
-  font-family: inherit;
-  font-size: 16px;
-  padding: 1px 5px;
-  /* 🌟 FIX: Make sure the text badge stands above everything else on the tab */
-  z-index: 2;
-}
-
-/* Color engine variables matching positive/negative branches */
-.stat-badge-overlay.stat-inc {
-  color: rgb(0, 0, 0);
-}
-
-.stat-badge-overlay.stat-dec {
-  color: rgb(0, 0, 0);
-}
-
-/* ==========================================================================
-   📄 PAPER BACKGROUND IMAGE & TEXT RENDERING LABELS
+    📄 MAIN BACKGROUND IMAGE
    ========================================================================== */
 
 .paper-image {
@@ -105,8 +22,6 @@
   width: 100%;
   height: 100%;
   image-rendering: pixelated;
-
-  /* 🌟 FIX: Base paper texture sheet sits above the side icon indicators (z-index: 1) */
   z-index: 2;
   cursor: grab;
 }
@@ -115,36 +30,248 @@
   cursor: grabbing;
 }
 
-.paper-text-layer {
+/* ==========================================================================
+    💥 CANVAS PARTICLE & JUICE EFFECT INTEGRATION
+   ========================================================================== */
+
+/* Bắt buộc phải dùng position: absolute để canvas thoát khỏi luồng Flexbox,
+  giúp nó phủ lên trên bề mặt mà không đẩy các thẻ con khác (title, container) xuống dưới.
+*/
+.paper-juice-canvas {
   position: absolute;
-  margin-top: 65px;
-  top: 72px;
-  left: 56px;
-  width: 250px;
-  height: 400px;
-
-  /* Sits directly over the paper background canvas layout texture */
-  z-index: 3;
-  pointer-events: none;
-  color: #111;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Rất quan trọng: Click xuyên qua để người dùng cuộn danh sách và bấm nâng cấp bình thường */
+  pointer-events: none; 
+  
+  /* Đè lên trên các dòng nâng cấp để hạt bay lên trước mặt */
+  z-index: 99;         
+  
+  /* Giữ nét vuông pixel, không bị mờ nhòe khi di chuyển hạt */
+  image-rendering: pixelated; 
 }
 
-.paper-title {
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 24px;
-  border-bottom: 2px solid #111;
-  padding-bottom: 8px;
+/* 🌟 Hiệu ứng rung hàng ngang giật cục theo nấc pixel art khi click mua */
+.juice-shake-row {
+  animation: paperPixelShake 0.25s steps(2) backwards;
 }
 
-.paper-content {
-  font-size: 16px;
-  line-height: 1.5;
-  white-space: pre-line;
+/* 🌟 Hiệu ứng Icon nảy mạnh co giãn đàn hồi */
+.juice-pop-icon {
+  animation: iconPixelPop 0.3s steps(3) forwards;
 }
 
 /* ==========================================================================
-   🗂️ TAB CONTAINER (RIGHT SIDE CHOICES: A, B, C)
+    🔑 RĂNG CƯA KEYFRAMES (Steps-based cho game Pixel Art)
+   ========================================================================== */
+
+@keyframes paperPixelShake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-4px, 2px); }
+  50% { transform: translate(4px, -2px); }
+  75% { transform: translate(-2px, -4px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes iconPixelPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25) rotate(-5deg); }
+  70% { transform: scale(0.9) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ==========================================================================
+    📝 TEXT LAYER & UPGRADE CONTAINER
+   ========================================================================== */
+
+.paper-text-layer {
+  position: absolute;
+  top: 132px;
+  left: 48px;
+  width: 524px;
+  height: 640px;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  color: #111;
+  font-weight: normal; /* Đảm bảo không bị dính bold mặc định */
+}
+
+.paper-title {
+  margin-top: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 12px;
+  padding-bottom: 1px;
+  font-weight: normal;
+}
+
+.paper-upgrades-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 4px;
+}
+
+/* Tùy chỉnh thanh cuộn nhỏ gọn, tiệp màu giấy */
+.paper-upgrades-container::-webkit-scrollbar {
+  width: 4px;
+}
+.paper-upgrades-container::-webkit-scrollbar-thumb {
+  background-color: #111;
+}
+
+/* ==========================================================================
+    🛠️ UPGRADE ROW ITEM LABELS (Icon & Info chung 1 Row hoàn chỉnh)
+   ========================================================================== */
+
+.upgrade-item-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;    /* Đảm bảo xếp Icon và Info theo hàng ngang */
+  align-items: center;    /* Căn giữa các thành phần theo chiều dọc */
+  gap: 16px;              /* Khoảng cách giữa khung Icon và khối chữ */
+  padding: 14px;
+  background-color: #c3c3c3;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  box-sizing: border-box;
+  width: calc(100% - 8px); /* Trừ bớt width để nhường chỗ cho shadow pixel bung ra */
+  
+  /* Đổi từ margin dọc sang margin toàn diện để tránh dính lẹo shadow sang 2 bên vách */
+  margin: 15px 4px; 
+
+  /* 🌟 XÓA BỎ BORDER RADIUS MỊN TRUYỀN THỐNG */
+  border-radius: 0 !important;
+  border: none !important;
+
+  /* 🌟 KHỞI TẠO BÓNG ĐỔ RĂNG CƯA GIẢ LẬP VIỀN BOX PIXEL ART (Độ dày 2px)
+     Gồm viền trong (màu xám tối #a9a9a9) và viền bóng đổ giả lập độ nổi (màu đen #111) */
+  box-shadow:
+    /* Lớp 1: Khung viền chính (màu xám đậm gốc của bạn) bao quanh 4 cạnh */
+    0 -2px 0 0 #a9a9a9,
+    0 2px 0 0 #a9a9a9,
+    -2px 0 0 0 #a9a9a9,
+    2px 0 0 0 #a9a9a9,
+    
+    /* Lớp 2: Đắp thêm các khối vuông đen ở ngoài cùng tạo độ dày đè góc rập khuôn */
+    0 -4px 0 -2px #111,
+    0 4px 0 -2px #111,
+    -4px 0 0 -2px #111,
+    4px 0 0 -2px #111;
+}
+
+/* 🌟 CẬP NHẬT TRẠNG THÁI HOVER ĐỒNG BỘ */
+.upgrade-item-row:hover {
+  background-color: rgba(0, 0, 0, 0.45);
+  color: white;
+  
+  /* Khi đổi màu nền thì viền trong (Lớp 1) cũng nên đổi sang tone đậm hơn để nhìn gắt và nịnh mắt */
+  box-shadow:
+    0 -2px 0 0 #555555,
+    0 2px 0 0 #555555,
+    -2px 0 0 0 #555555,
+    2px 0 0 0 #555555,
+    
+    0 -4px 0 -2px #111,
+    0 4px 0 -2px #111,
+    -4px 0 0 -2px #111,
+    4px 0 0 -2px #111;
+}
+
+.upgrade-item-row:hover {
+  background-color: rgba(0, 0, 0, 0.45);
+  color: white;
+}
+
+.upgrade-icon-frame {
+  width: 62px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Khóa cứng kích thước khung ảnh, không cho phép co cụm */
+}
+
+.upgrade-pixel-icon {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.upgrade-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;       /* Khoảng cách giữa dòng Tên và dòng Chỉ số/Giá tiền */
+  flex-grow: 1;   /* Giúp phần text giãn ra chiếm hết khoảng trống để đẩy space-between ở dòng con */
+  min-width: 0;   /* Phòng trường hợp text quá dài gây vỡ layout flexbox */
+}
+
+/* Các hàng con nằm bên trong khối thông tin */
+.upgrade-name-row,
+.upgrade-data-row {
+  display: flex;
+  justify-content: space-between; /* Đẩy chữ sang 2 đầu mép phải/trái */
+  align-items: center;
+  width: 100%;
+}
+
+/* Đồng bộ toàn bộ chữ trong ô nâng cấp: 16px, không bold, không shadow */
+.upgrade-name-row,
+.upgrade-data-row,
+.upgrade-title-name,
+.upgrade-level-tag,
+.metric-value,
+.cost-value,
+.upgrade-metric-data,
+.upgrade-cost-data {
+  font-size: 16px;
+  font-weight: normal !important;
+  text-shadow: none !important;
+}
+
+/* Điểm xuyết màu sắc trực quan */
+.metric-value {
+  color: #2e7d32; /* Xanh lá cho hiệu suất */
+}
+
+.cost-value {
+  color: #c62828; /* Đỏ đô cho giá tiền */
+}
+
+.upgrade-cost-data.max-reached {
+  color: #757575;
+  font-style: italic;
+}
+
+/* Trạng thái bị khóa / Max cấp (Tab C) */
+.upgrade-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.max-level-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: normal;
+  text-shadow: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+    🗂️ TAB CONTAINER (RIGHT SIDE)
    ========================================================================== */
 
 .paper-tabs {
@@ -153,9 +280,7 @@
   right: -24px;
   width: 120px;
   height: 300px;
-
-  /* Tucked directly underneath the main document board sheet surface layer */
-  z-index: 1;
+  z-index: 1; /* Nằm dưới lớp giấy nền chính */
 }
 
 .paper-tab {
@@ -163,9 +288,7 @@
   right: 0;
   width: 84px;
   image-rendering: pixelated;
-  transition:
-    transform 180ms ease,
-    filter 180ms ease;
+  transition: transform 180ms ease, filter 180ms ease;
   cursor: pointer;
 }
 
@@ -174,70 +297,120 @@
   filter: brightness(1.05);
 }
 
-.rendered-stamp-ink {
-  width: 150px;
-  height: 84px;
-  opacity: 0.85;
+/* ==========================================================================
+   POPUP FLOATING CẢNH BÁO LỖI 
+   ========================================================================== */
 
-  /* Keeps layout visible between document background canvas and text layout elements */
-  z-index: 2;
-  image-rendering: pixelated;
-}
-
-/*  retro-style transparent Stamp Dropzone Indicator */
-.stamp-indicator-zone {
+.paper-error-floating-popup {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 250px;
-  height: 120px;
-  border: 2px dashed #c08328; /* Sharp gold pixel border */
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(
-    192,
-    131,
-    40,
-    0.04
-  ); /* Faint gold transparent interior tint */
-  z-index: 3;
-  pointer-events: none;
-  animation: stampPulse 2s infinite ease-in-out;
-  font-family: inherit;
+  transform: translate(-50%, -100%); /* Căn tâm điểm xuất hiện đúng đầu mũi chuột */
+  background: black;               /* Màu đỏ thẫm retro */
+  color: #ffffff;
+  padding: 14px;
+  font-family: inherit;            /* Chuẩn font game pixel */
   font-size: 16px;
-  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;              /* Chống click nhầm làm nghẽn UI */
+  z-index: 999;  
+  /* Chạy hiệu ứng nảy bay lên rồi tan biến */
+  animation: paperErrorFloatUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.stamp-indicator-text {
-  font-family: inherit;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-@keyframes stampPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.95;
-  }
-}
-
-/*  Retro warm golden glowing silhouette outline bo-sáng-theo-hình-dáng */
-.paper.paper-stamp-ready .paper-image {
-  animation: paperSilhouetteGlow 1.5s infinite alternate ease-in-out;
-  transition: filter 0.25s ease-in-out;
-}
-
-@keyframes paperSilhouetteGlow {
+@keyframes paperErrorFloatUp {
   0% {
-    filter: drop-shadow(0 0 4px rgba(192, 131, 40, 0.6));
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -110%);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-50%, -100%);
+    opacity: 1;
   }
   100% {
-    filter: drop-shadow(0 0 12px rgba(217, 160, 78, 0.95));
+    transform: translate(-50%, -140%);
+    opacity: 0;
   }
+}
+
+/* Container cho phần thông tin nâng cấp */
+.upgrade-info-text {
+  width: 100%;
+}
+
+.upgrade-title-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.upgrade-desc-text {
+  font-size: 16px;
+  color: #444;
+  margin: 4px 0;
+  line-height: 2.4;
+}
+
+/* Container cho ô nhập liệu */
+.sell-input-container {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.sell-input-label {
+  font-size: 16px;
+  margin-right: 6px;
+  color: #555;
+}
+
+.sell-coal-input {
+  width: 100px;
+  padding: 4px 8px;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.sell-max-btn {
+  /* Layout */
+  margin-left: 8px;
+  padding: 4px 6px;
+  
+  /* Typography */
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  
+  /* Visuals */
+  cursor: pointer;
+  font-size: 16px;
+  background-color: transparent;
+  color: #000000;
+  border: 2px solid rgb(0, 0, 0);
+  
+  /* Animation */
+  transition: all 0.15s ease-out;
+  outline: none;
+}
+
+.sell-max-btn:hover {
+  background-color: #ff3e3e;
+  color: #ffffff;
+  box-shadow: 0 0 8px #ff3e3e; /* Hiệu ứng glow nhẹ */
+  transform: scale(1.05);
+}
+
+.sell-max-btn:active {
+  transform: scale(0.95);
+  background-color: #a32424;
+  border-color: #fff;
+}
+
+.market-price-indicator {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 6px;
+  text-align: center;
 }

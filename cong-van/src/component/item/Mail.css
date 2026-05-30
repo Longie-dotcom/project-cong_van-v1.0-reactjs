@@ -101,3 +101,79 @@
   font-size: 8px;
   color: #8f929e;
 }
+
+.mail-choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.mail-choice-btn {
+  padding: 12px 20px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+}
+
+.mail-choice-btn:hover {
+  background-color: #3f3f5a;
+  color: #ffffff;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.mail-choice-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+  background-color: #1a1a24;
+}
+
+.mail-hover-label {
+  position: absolute;
+  /* Đặt nhãn nằm phía trên lá thư một chút */
+  top: -35px; 
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Style phong cách Retro */
+  background-color: #1a1a24; /* Màu nền tối */
+  color: #f7f5ee;            /* Màu chữ sáng nhạt */
+  padding: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  
+  /* Đường viền pixel */
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+  
+  /* Đảm bảo không bị click nhầm vào nhãn */
+  pointer-events: none; 
+  white-space: nowrap;
+  z-index: 100;
+  
+  /* Hiệu ứng xuất hiện */
+  animation: label-fade-in 0.2s ease-out;
+}
+
+/* Thêm mũi tên nhỏ trỏ xuống lá thư */
+.mail-hover-label::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1a1a24;
+}
+
+@keyframes label-fade-in {
+  0% { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

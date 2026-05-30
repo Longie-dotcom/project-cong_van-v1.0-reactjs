@@ -4,7 +4,7 @@ import "./News.css";
 
 export default function News({
   title = "TIN MỚI",
-  content = "Nội dung thông báo hôm nay...",
+  content = "Nội dung thông báo hôm nay... (Không đặc biệt mấy)",
 }) {
   const [typedContent, setTypedContent] = useState("");
 

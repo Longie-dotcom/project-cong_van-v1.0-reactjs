@@ -1,10 +1,10 @@
 .news-board-wrapper {
   position: absolute;
   /* 📍 Match your chosen layout desk position coordinates */
-  right: 60px;
-  top: 100px; 
-  width: 436px;  /* Matches your original obstacle component size profile */
-  height: 736px;
+  left: 60px;
+  bottom: 100px; 
+  width: 332px;  /* Matches your original obstacle component size profile */
+  height: 452px;
   display: inline-block;
   user-select: none;
 }

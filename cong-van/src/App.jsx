@@ -8,15 +8,7 @@ import GameScene from './component/scene/GameScene';
 import EndingScene from './component/scene/EndingScene';
 
 function App() {
-
-  const [gameState, setGameState] = useState("boot");
-
-  // 🎮 Global game progress
-  const [gameData, setGameData] = useState({
-    currentPhaseID: "PHASE_1",
-    currentEventID: null,
-    eventHistory: []
-  });
+  const [gameState, setGameState] = useState("game");
 
   // 🏁 Ending data
   const [endingData, setEndingData] = useState({

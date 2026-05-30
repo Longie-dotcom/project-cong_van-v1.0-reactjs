@@ -29,7 +29,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 112px; /* Lock widths to match asset sizes */
+  width: 176px; /* Lock widths to match asset sizes */
   will-change: transform; /* Hint to the browser for sub-pixel animation tracking */
 }
 
