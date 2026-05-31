@@ -76,7 +76,7 @@ export default function GameScene({ onGameEnd }) {
     sendPlayerState, 
     isConnected 
   } = useGameHub(
-    "http://207.148.72.68:8080/gameHub"
+    "https://uncommendable-projectively-elenor.ngrok-free.dev/gameHub"
   );
 
   const {
