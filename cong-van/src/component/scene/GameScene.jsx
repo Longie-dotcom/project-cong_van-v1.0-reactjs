@@ -1,35 +1,63 @@
 import { useState, useEffect } from "react";
 import { DndContext } from "@dnd-kit/core";
-import { getNextEvent } from "../../hooks/useGameState";
+import { useGameState } from "../../hooks/useGameState";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { useGameActions } from "../../hooks/useGameAction";
+import { usePassiveCoal } from "../../hooks/usePassiveCoal";
+import { useGameHub } from "../../hooks/useGameHub";
 
 import { GAME_DATA } from "../../data/assets";
+import { STATS } from "../../data/assets/stats";
 
-import Paper from "../item/Paper";
-import Mail from "../item/Mail";
-import Mine from "../item/Mine";
-import News from "../item/News";
-import Telephone from "../item/Telephone";
-import StatTab from "../item/StatTab";
-import CoalQuotaDisplay from "../item/CoalQuotaDisplay";
+import Paper from "../item/Paper/Paper";
+import Telephone from "../item/Telephone/Telephone";
+import Mine from "../item/Mine/Mine";
+import Mail from "../item/Indicator/Mail";
+import Newspaper from "../item/Indicator/Newspaper";
+import StatTab from "../item/Indicator/StatTab";
+import CoalQuotaDisplay from "../item/Indicator/CoalQuotaDisplay";
 
 import "./GameScene.css";
+import SpriteButton from "../item/Button/SpriteButton";
 
 export default function GameScene({ onGameEnd }) {
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [activeEvents, setActiveEvents] = useState({
-    mails: [],
-    calls: []
+  // KHỞI TẠO STATE TẬP TRUNG CHO NGƯỜI CHƠI
+  const [playerState, setPlayerState] = useState({
+    coal_value: 1.0,
+    [STATS.RESOURCE]: 50,
+    [STATS.COAL]: 50,
+    [STATS.ECONOMY]: 9900,
+    [STATS.HAPPINESS]: 0,
+
+    eventHistory: null,
+    currentEventID: null,
+    currentPhaseID: "PHASE_1",
+
+    village_1: 0,
+    village_2: 0,
+    village_3: 0,
+    village_4: 0,
+
+    b_upgrade_1: 0,
+    b_upgrade_2: 0,
+    b_upgrade_3: 0,
+    b_upgrade_4: 0,
+
+    railway: 0,
+    auto: 0,
+    tools: 0,
+    storage: 0
   });
+
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [activeEvents, setActiveEvents] = useState({ mails: [], calls: [] });
   const [activeNews, setActiveNews] = useState(null);
-  const [isEventPaused, setIsEventPaused] = useState(false);
-  const [miners, setMiners] = useState([]);
-  const isEventActive = activeEvents.mails.length > 0 || activeEvents.calls.length > 0;
-  const currentPhaseData = PHASES[playerState.currentPhaseID] || {};
-  const quota = currentPhaseData.Coal_Quota || 0;
-  const [activeMailsList, setActiveMailsList] = useState([]);
   const [activeTab, setActiveTab] = useState("A");
-  const [btnState, setBtnState] = useState("normal");
+  const [miners, setMiners] = useState([]);
+
+  const isEventActive = activeEvents.mails.length > 0 || activeEvents.calls.length > 0;
+  const currentPhaseData = GAME_DATA.PHASES[playerState.currentPhaseID] || {};
+  const quota = currentPhaseData.Coal_Quota || 0;
 
   const INITIAL_PAPER_POS = { x: 500, y: 100 };
   const PAPER_SIZE = { width: 628, height: 840 };
@@ -39,40 +67,18 @@ export default function GameScene({ onGameEnd }) {
   const OBSTACLES = [
     { id: "news-board", left: 1360, top: 300, width: 436, height: 736 },
     { id: "wall-left", left: -100, top: 0, width: 100, height: DESK_HEIGHT },
-    { id: "wall-right", left: DESK_WIDTH, top: 0, width: 100, height: DESK_HEIGHT }, // ❌ Chỗ cũ bị lỗi
-    { id: "wall-right", left: DESK_WIDTH, top: 0, width: 100, height: DESK_HEIGHT }, // 🌟 Sửa lại thành thế này
+    { id: "wall-right", left: DESK_WIDTH, top: 0, width: 100, height: DESK_HEIGHT },
     { id: "wall-top", left: 0, top: -100, width: DESK_WIDTH, height: 100 },
     { id: "wall-bottom", left: 0, top: DESK_HEIGHT, width: DESK_WIDTH, height: 100 },
   ];
 
-  let currentBtnSrc = ReorganizeNormal;
-  if (btnState === "hover") currentBtnSrc = ReorganizeHovered;
-  if (btnState === "click") currentBtnSrc = ReorganizeClicked;
+  const { 
+    sendPlayerState, 
+    isConnected 
+  } = useGameHub(
+    "http://207.148.72.68:8080/gameHub"
+  );
 
-  // KHỞI TẠO STATE TẬP TRUNG CHO NGƯỜI CHƠI
-  const [playerState, setPlayerState] = useState({
-    Resource: 50,      // Mặc định ban đầu có 150 Resource -> Sẽ tự sinh ra 1 Worker ban đầu
-    Coal: 50,
-    coal_value: 1.0,
-    Economy: 9900,
-    Happiness: 0,
-
-    eventHistory: null,
-    currentEventID: null,
-    currentPhaseID: "PHASE_1",
-
-    b_upgrade_1: 0,
-    b_upgrade_2: 0,
-    b_upgrade_3: 0,
-    b_upgrade_4: 0,
-
-    railway: 1,
-    auto: 1,
-    tools: 1,
-    storage: 1
-  });
-
-  // HOOKS
   const {
     paperPos,
     livePaperDelta,
@@ -81,16 +87,15 @@ export default function GameScene({ onGameEnd }) {
     handleDragMove,
     handleDragEnd,
     handleReorganizeDesk
-  } = useDragAndDrop(
-    INITIAL_PAPER_POS,
-    OBSTACLES,
-    PAPER_SIZE,
-    MAIL_SIZE,
-    isTransitioning,
-    OpenMailSound,
-    TabSwitchSound,
-    activeEvents.mails // Dùng activeEvents.mails thay cho activeMailsList cũ
-  );
+  } = useDragAndDrop({
+    initialPaperPos: INITIAL_PAPER_POS,
+    deskObstacles: OBSTACLES,
+    paperSize: PAPER_SIZE,
+    mailSize: MAIL_SIZE,
+    isTransitioning: isTransitioning,
+    openMailSound: GAME_DATA.PAPER_RUSTLE_SOUND,
+    activeMailsList: activeEvents.mails
+  });
 
   const {
     handleUpgradeClick,
@@ -102,22 +107,33 @@ export default function GameScene({ onGameEnd }) {
     setActiveEvents,
     setActiveNews,
     currentPhaseData,
-    UPGRADE_DATA
+    GAME_DATA.UPGRADE_DATA,
+    isTransitioning,
+    isEventActive
   );
 
-  // GAME LOOP
+  const {
+    fetchNextEvent
+  } = useGameState(
+    playerState
+  )
+
+  usePassiveCoal(
+    playerState, 
+    setPlayerState
+  );
+
+  // EFFECT THEO DÕI EVENTS MỚI
   useEffect(() => {
     if (isEventActive) return;
 
     const interval = setInterval(() => {
-      const result = getNextEvent(playerState.currentPhaseID, playerState);
+      const result = fetchNextEvent();
 
       if (!result || result.type === "NONE") return;
 
       if (result.type === "ENDING") {
-        // Xử lý khi đạt Ending
         console.log("Game Reached Ending:", result.data);
-        // Có thể set trạng thái game sang màn hình kết thúc
         onGameEnd(result.data);
       }
       else if (result.type === "EVENT") {
@@ -145,9 +161,17 @@ export default function GameScene({ onGameEnd }) {
     return () => clearInterval(interval);
   }, [isEventActive, playerState.currentEventID, playerState.currentPhaseID]);
 
-  // 🌟 EFFECT THEO DÕI STATE RESOURCE ĐỂ TĂNG/GIẢM WORKER (NỚI RỘNG PHẠM VI XA MỎ)
+  // EFFECT THEO DÕI CÁC UPGRADE ĐỂ TĂNG/GIẢM WORKER
   useEffect(() => {
-    const targetWorkerCount = Math.floor(playerState.Resource / 1000);
+    const totalUpgradeLevel = (
+      playerState.railway +
+      playerState.auto +
+      playerState.tools +
+      playerState.storage
+    );
+
+    // Giới hạn tối đa 20 miners
+    const targetWorkerCount = Math.min(Math.floor(totalUpgradeLevel / 2), 20);
 
     setMiners((currentMiners) => {
       const diff = targetWorkerCount - currentMiners.length;
@@ -157,27 +181,14 @@ export default function GameScene({ onGameEnd }) {
       // Trường hợp 1: Thêm Worker mới
       if (diff > 0) {
         const directions = ['left', 'right', 'up', 'down'];
-
         const newWorkers = Array.from({ length: diff }).map((_, index) => {
           const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-
-          // Giữ nguyên X nằm trong bề ngang mỏ đá (512px)
           const spawnX = Math.floor(Math.random() * (472 - 40) + 40);
 
-          let spawnY = 0;
-
-          // Tỷ lệ 50/50 đứng vùng trên hoặc vùng dưới
-          if (Math.random() > 0.5) {
-            /* VÙNG TRÊN CAO hẳn: Từ Y = 100px đến 390px 
-              (Mỏ đá bắt đầu từ 414px nên mốc 390px vẫn đảm bảo không đè lên mỏ)
-            */
-            spawnY = Math.floor(Math.random() * (390 - 100) + 100);
-          } else {
-            /* VÙNG DƯỚI THẤP hẳn: Từ Y = 590px đến 850px 
-              (Mỏ đá kết thúc ở 574px nên mốc 590px đổ xuống thoải mái đất diễn)
-            */
-            spawnY = Math.floor(Math.random() * (850 - 590) + 590);
-          }
+          // Tỷ lệ phân bổ vị trí spawn trên/dưới
+          const spawnY = Math.random() > 0.5
+            ? Math.floor(Math.random() * (390 - 100) + 100)
+            : Math.floor(Math.random() * (850 - 590) + 590);
 
           return {
             id: `${Date.now()}-${index}-${Math.random()}`,
@@ -190,21 +201,26 @@ export default function GameScene({ onGameEnd }) {
         return [...currentMiners, ...newWorkers];
       }
 
-      // Trường hợp 2: Giảm Worker
+      // Trường hợp 2: Giảm Worker (khi người chơi bị trừ hoặc mất nâng cấp - nếu có)
       if (diff < 0) {
         return currentMiners.slice(0, targetWorkerCount);
       }
 
       return currentMiners;
     });
-  }, [playerState.Resource]);
+  }, [
+    playerState.railway,
+    playerState.auto,
+    playerState.tools,
+    playerState.storage
+  ]);
 
   return (
     <div className={`game-screen ${isTransitioning ? "desk-frozen" : ""}`}>
       <DndContext onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
         <div className="desk-area">
-          <img src={Frame} alt="Desk Frame" className="desk-frame" />
-          <StatTab stats={{ Resource: playerState.Resource, Coal: playerState.Coal, Economy: playerState.Economy }} />
+          <img src={GAME_DATA.DESK} alt="Desk Frame" className="desk-frame" />
+          <StatTab stats={playerState} />
 
           <Paper
             currentX={paperPos.x} currentY={paperPos.y} liveDelta={livePaperDelta}
@@ -232,27 +248,23 @@ export default function GameScene({ onGameEnd }) {
 
           <Mine playerState={playerState} onMineClick={handleMineClick} miners={miners} isEventActive={isEventActive} />
 
-          <News
+          <Newspaper
             title={activeNews?.title}
             content={activeNews?.content}
           />
 
           <CoalQuotaDisplay
-            currentCoal={playerState.Coal}
+            currentCoal={playerState.COAL}
             quota={quota}
           />
 
-          <button
-            className={`reorganize-image-btn ${isTransitioning ? "btn-disabled" : ""}`}
+          <SpriteButton
+            assets={GAME_DATA.REORGANIZE_BUTTON}
             onClick={handleReorganizeDesk}
-            onMouseEnter={() => !isTransitioning && setBtnState("hover")}
-            onMouseLeave={() => setBtnState("normal")}
-            onMouseDown={() => !isTransitioning && setBtnState("click")}
-            onMouseUp={() => !isTransitioning && setBtnState("hover")}
             disabled={isTransitioning}
-          >
-            <img src={currentBtnSrc} alt="Reorganize Desk" className="pixel-button-art" />
-          </button>
+            x={44} // Tọa độ X
+            y={28}   // Tọa độ Y
+          />
         </div>
       </DndContext>
     </div>

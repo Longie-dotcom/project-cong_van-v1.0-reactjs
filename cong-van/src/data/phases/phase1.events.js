@@ -1,16 +1,16 @@
-import { STATS } from "../stats";
-import { IMAGES, SOUNDS, NAMES } from "../assets/characters";
-import { NEWS_EVENTS } from "../assets/newspaper";
-import { MAILS } from "../assets/mail";
+import { STATS } from "../assets/stats";
+import { CHARACTER_CONFIG } from "../assets/characters";
+import { MAIL_CONFIG } from "../assets/mails";
 
 export const PHASE1_EVENTS = Object.freeze({
+  
   // --- NHÂN TÍNH ---
   EV_P1_ELIAS_TALK: {
     EventID: "EV_P1_ELIAS_TALK",
     Telephone: {
-      senderName: NAMES.ELIAS,
-      senderImage: IMAGES.ELIAS_SAD,
-      senderBlip: SOUNDS.ELIAS,
+      senderName: CHARACTER_CONFIG.ELIAS.name,
+      senderImage: CHARACTER_CONFIG.ELIAS.images.sad,
+      senderBlip: CHARACTER_CONFIG.ELIAS.sound,
       senderText: [
         "Cha ơi, tối nay cha có về ăn bánh táo không?",
         "Cha nhớ về sớm nhé."
@@ -32,9 +32,9 @@ export const PHASE1_EVENTS = Object.freeze({
   EV_P1_CARTEL_PRESSURE: {
     EventID: "EV_P1_CARTEL_PRESSURE",
     Telephone: {
-      senderName: NAMES.ALEXANDER_WHITMORE,
-      senderImage: IMAGES.ALEXANDER_WHITMORE_SERIOUS,
-      senderBlip: SOUNDS.ALEXANDER_WHITMORE,
+      senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
+      senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.serious,
+      senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
       senderText: [
         "Patrick, tôi nghe báo cáo rằng sản lượng than đang chững lại.",
         "Nhớ kỹ, lò nung tắt là trật tự tắt. Đừng để lòng trắc ẩn làm chậm guồng quay của Theodore."
@@ -42,11 +42,11 @@ export const PHASE1_EVENTS = Object.freeze({
       choices: [
         { 
           text: "Tôi sẽ ép công nhân làm thêm giờ.", 
-          effect: { [STATS.ECONOMY]: 20, [STATS.HAPPINESS]: -15 }, 
+          effect: { [STATS.ECONOMY]: 20, [STATS.HAPPINESS]: -15 } 
         },
         { 
           text: "Hệ thống đang quá tải, cần thêm thời gian.", 
-          effect: { [STATS.ECONOMY]: -10, [STATS.HAPPINESS]: 5 }, 
+          effect: { [STATS.ECONOMY]: -10, [STATS.HAPPINESS]: 5 } 
         }
       ]
     }
@@ -56,22 +56,25 @@ export const PHASE1_EVENTS = Object.freeze({
   EV_P1_WORKER_PLEA: {
     EventID: "EV_P1_WORKER_PLEA",
     Telephone: {
-      senderName: NAMES.MIRA_VOLKOV,
-      senderImage: IMAGES.MIRA_VOLKOV,
-      senderBlip: SOUNDS.MIRA_VOLKOV,
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
       senderText: [
         "Ngài Patrick, khu nhà tập thể phía Đông đã đóng băng.",
-        "Tôi không cầu xin tiền, tôi cầu xin số than dư thừa để lũ trẻ không chết cóng đêm nay."
+        "Tôi cầu xin số than dư thừa để lũ trẻ không chết cóng."
       ],
       choices: [
         { 
           text: "Cấp than cho họ.", 
-          effect: { [STATS.COAL]: -25000, [STATS.HAPPINESS]: 10 }, 
+          effect: { [STATS.COAL]: -25000, [STATS.HAPPINESS]: 10 } 
         },
         { 
           text: "Tôi không có thẩm quyền.", 
-          effect: { [STATS.COAL]: 0, [STATS.HAPPINESS]: -20, [STATS.RESOURCE]: -100 }, 
-          triggeredNews: NEWS_EVENTS.P1_TRAGEDY_DORMITORY 
+          effect: { [STATS.COAL]: 0, [STATS.HAPPINESS]: -20, [STATS.RESOURCE]: -100 },
+          triggeredNews: {
+            title: "THẢM KỊCH ĐÔNG CỨNG TẠI KHU TẬP THỂ PHÍA ĐÔNG",
+            content: "Hơn 100 người đã chết cóng sau khi Cartel cắt toàn bộ than sưởi để ưu tiên lò nung thép."
+          }
         }
       ]
     }
@@ -80,68 +83,25 @@ export const PHASE1_EVENTS = Object.freeze({
   EV_P1_MIRA_WAGE_CUT: {
     EventID: "EV_P1_MIRA_WAGE_CUT",
     Telephone: {
-      senderName: NAMES.MIRA_VOLKOV,
-      senderImage: IMAGES.MIRA_VOLKOV,
-      senderBlip: SOUNDS.MIRA_VOLKOV,
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
       senderText: [
         "Whitmore vừa ra lệnh cắt 15% lương để bù vào chi phí bảo trì.",
-        "Mọi người đang rất phẫn nộ. Họ không đủ mua nhu yếu phẩm."
+        "Mọi người đang rất phẫn nộ."
       ],
       choices: [
-        {
-          text: "Giữ nguyên lương (Dùng quỹ quản lý bù vào).",
-          effect: { [STATS.ECONOMY]: -50000, [STATS.HAPPINESS]: 15 },
+        { 
+          text: "Giữ nguyên lương.", 
+          effect: { [STATS.ECONOMY]: -50000, [STATS.HAPPINESS]: 15 } 
         },
-        {
-          text: "Thi hành lệnh cắt giảm.",
-          effect: { [STATS.ECONOMY]: 30, [STATS.HAPPINESS]: -20, [STATS.RESOURCE]: -50 },
-          triggeredNews: NEWS_EVENTS.P1_WORKER_UNREST
-        },
-      ]
-    }
-  },
-
-  EV_P1_MIRA_SAFETY_GEAR: {
-    EventID: "EV_P1_MIRA_SAFETY_GEAR",
-    Telephone: {
-      senderName: NAMES.MIRA_VOLKOV,
-      senderImage: IMAGES.MIRA_VOLKOV,
-      senderBlip: SOUNDS.MIRA_VOLKOV,
-      senderText: [
-        "Lại có thêm người bị thương do thiết bị bảo hộ quá cũ kỹ.",
-        "Chúng tôi cần ngài phê duyệt ngân sách để nhập khẩu thiết bị mới."
-      ],
-      choices: [
-        {
-          text: "Phê duyệt ngân sách an toàn lao động.",
-          effect: { [STATS.ECONOMY]: -40000, [STATS.HAPPINESS]: 20 },
-        },
-        {
-          text: "Bác bỏ, chờ đến kỳ kiểm tra định kỳ.",
-          effect: { [STATS.ECONOMY]: 0, [STATS.HAPPINESS]: -20, [STATS.RESOURCE]: -30 },
-        }
-      ]
-    }
-  },
-
-  EV_P1_MIRA_SHIFT_EXTEND: {
-    EventID: "EV_P1_MIRA_SHIFT_EXTEND",
-    Telephone: {
-      senderName: NAMES.MIRA_VOLKOV,
-      senderImage: IMAGES.MIRA_VOLKOV,
-      senderBlip: SOUNDS.MIRA_VOLKOV,
-      senderText: [
-        "Whitmore muốn tăng ca làm việc thêm 4 tiếng mỗi ngày.",
-        "Công nhân đã kiệt sức. Họ không phải là những cỗ máy."
-      ],
-      choices: [
-        {
-          text: "Từ chối tăng ca.",
-          effect: { [STATS.ECONOMY]: -85000, [STATS.HAPPINESS]: 25 },
-        },
-        {
-          text: "Tôi không quan tâm, đây là yêu cầu từ thượng tầng.",
-          effect: { [STATS.ECONOMY]: 0, [STATS.HAPPINESS]: -25, [STATS.RESOURCE]: -40 },
+        { 
+          text: "Thi hành lệnh cắt giảm.", 
+          effect: { [STATS.ECONOMY]: 30, [STATS.HAPPINESS]: -20 },
+          triggeredNews: {
+            title: "LÀN SÓNG PHÀN NÀN VỀ CẮT GIẢM LƯƠNG",
+            content: "Quyết định cắt 15% lương của Ban Quản trị đã gây ra làn sóng phẫn nộ."
+          }
         }
       ]
     }
@@ -154,16 +114,16 @@ export const PHASE1_EVENTS = Object.freeze({
       {
         id: "mail-clara-01",
         title: "THƯ TỪ CLARA VOSS",
-        content: "Ngài Patrick,\n\nTôi biết ngài đang ở thế khó. Nhưng sự im lặng trước cái lạnh này không phải là cách quản lý. Chúng tôi có những người muốn thay đổi tình thế này. Ngài có muốn lắng nghe không?",
-        normalImg: MAILS.MAIL_1.NORMAL,
-        hoverImg: MAILS.MAIL_1.HOVER,
+        content: "Ngài Patrick, tôi biết ngài đang ở thế khó. Chúng tôi có những người muốn thay đổi tình thế này.",
+        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        hoverImg: MAIL_CONFIG.ITEMS.mail_1.hover,
         choices: [
-          {
-            text: "* Đã đọc *",
-            effect: { [STATS.HAPPINESS]: 0 }
+          { 
+            text: "* Đã đọc *", 
+            effect: { [STATS.HAPPINESS]: 0 } 
           }
         ]
-      },
+      }
     ]
-  },
+  }
 });

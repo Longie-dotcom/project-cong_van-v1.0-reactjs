@@ -1,0 +1,6 @@
+@TheodoreServer_HostAddress = http://localhost:5169
+
+GET {{TheodoreServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

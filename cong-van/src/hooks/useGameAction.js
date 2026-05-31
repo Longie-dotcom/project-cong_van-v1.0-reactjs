@@ -1,10 +1,15 @@
+import { STATS } from "../data/assets/stats";
+import { GAME_BALANCE } from "../data/config";
+
 export function useGameActions(
     playerState,
     setPlayerState,
     setActiveEvents,
     setActiveNews,
     currentPhaseData,
-    initialUpgradeMeta
+    initialUpgradeMeta,
+    isTransitioning,
+    isEventActive
 ) {
 
     const handleEventChoice = (choice) => {
@@ -12,6 +17,7 @@ export function useGameActions(
             setPlayerState(prev => {
                 const newState = { ...prev };
                 Object.keys(choice.effect).forEach(stat => {
+                    // Nếu key nằm trong STATS, cập nhật theo chuẩn
                     if (newState.hasOwnProperty(stat)) newState[stat] += choice.effect[stat];
                 });
                 return newState;
@@ -22,123 +28,99 @@ export function useGameActions(
             setActiveNews(choice.triggeredNews);
         }
 
-        // Khi set về rỗng, useEffect ở trên sẽ phát hiện activeEvents thay đổi 
-        // và tự động khởi động lại interval mới
         setActiveEvents({ mails: [], calls: [] });
     };
 
     const handleUpgradeClick = (tabKey, upgradeId, targetValue, costOrAmount) => {
         if (isTransitioning) return false;
 
-        // 1. KIỂM TRA ĐIỀU KIỆN BAN ĐẦU (Chỉ áp dụng cho các Tab tiêu thụ tiền vàng Economy)
-        if (tabKey !== 'D' && playerState.Economy < costOrAmount) {
+        // Kiểm tra điều kiện (Tab D không dùng Economy)
+        if (tabKey !== 'D' && playerState[STATS.ECONOMY] < costOrAmount) {
             return false;
         }
 
         let isOperationSuccess = false;
 
         setPlayerState((prev) => {
-            // Tìm meta-data của nâng cấp hiện tại để lấy chỉ số cộng thêm (value)
             const metaItem = initialUpgradeMeta[tabKey]?.find(item => item.id === upgradeId);
             if (!metaItem) return prev;
 
             const upgradeValue = metaItem.value;
 
-            // ==========================================
-            // LOGIC TAB A: KẾ HOẠCH MỞ RỘNG NHÂN SỰ
-            // ==========================================
+            // TAB A: Mở rộng nhân sự
             if (tabKey === 'A') {
+                // Scale giá mới
+                const currentBoughtCount = prev[upgradeId] || 0;
+                const currentPrice = Math.trunc(metaItem.baseCost * Math.pow(GAME_BALANCE.PRICING.VILLAGE_MULTIPLIER, currentBoughtCount));
+
+                // Kiểm tra tiền
+                if (prev[STATS.ECONOMY] < currentPrice) return prev;
+
                 isOperationSuccess = true;
                 return {
                     ...prev,
-                    Economy: prev.Economy - costOrAmount,
-                    Resource: prev.Resource + upgradeValue // Khi Resource tăng, useEffect tự sinh thêm Worker
+                    [STATS.ECONOMY]: prev[STATS.ECONOMY] - currentPrice,
+                    [STATS.RESOURCE]: prev[STATS.RESOURCE] + upgradeValue,
+                    [upgradeId]: currentBoughtCount + 1 // Tăng số lần đã mua của village đó
                 };
             }
 
-            // ==========================================
-            // LOGIC TAB B: CẢI TIẾN GIÁ TRỊ THÀNH PHẨM (Nâng cấp 1 lần)
-            // ==========================================
+            // TAB B: Giá trị thành phẩm
             if (tabKey === 'B') {
-                // Kiểm tra nếu đã đạt level tối đa (1) thì chặn
                 if (prev[upgradeId] >= 1) return prev;
-
                 isOperationSuccess = true;
                 return {
                     ...prev,
-                    Economy: prev.Economy - costOrAmount,
-                    coal_value: prev.coal_value + upgradeValue, // Cộng giá trị than
-                    [upgradeId]: 1 // Cập nhật trạng thái upgrade thành 1 (tối đa)
+                    [STATS.ECONOMY]: prev[STATS.ECONOMY] - costOrAmount,
+                    coal_value: prev.coal_value + upgradeValue,
+                    [upgradeId]: 1
                 };
             }
 
-            // ==========================================
-            // LOGIC TAB C: HỆ THỐNG THU THẬP TỰ ĐỘNG (Nâng cấp Level)
-            // ==========================================
+            // TAB C: Hệ thống tự động
             if (tabKey === 'C') {
                 const maxLevel = metaItem.maxLevel || 4;
-                if (prev[upgradeId] >= maxLevel) return prev; // Chặn nếu đã đạt cấp tối đa
-
+                if (prev[upgradeId] >= maxLevel) return prev;
                 isOperationSuccess = true;
                 return {
                     ...prev,
-                    Economy: prev.Economy - costOrAmount,
-                    [upgradeId]: targetValue // Cập nhật level mới cho thiết bị tự động (railway, auto...)
+                    [STATS.ECONOMY]: prev[STATS.ECONOMY] - costOrAmount,
+                    [upgradeId]: targetValue
                 };
             }
 
-            // ==========================================
-            // LOGIC TAB D: QUYẾT ĐỊNH CỦA QUẢN ĐỐC (Sử dụng Than)
-            // ==========================================
+            // TAB D: Quản đốc
             if (tabKey === 'D') {
-                if (prev.Coal <= 0) return prev; // Không có than trong kho thì không thể thực hiện
+                if (prev[STATS.COAL] <= 0) return prev;
 
-                // --- Hành động 1: Tuồn Than lén lút ra chợ đen lấy Vốn ---
                 if (upgradeId === "sell_market") {
                     const amountToSell = parseInt(costOrAmount) || 0;
+                    if (amountToSell <= 0 || amountToSell > prev[STATS.COAL]) return prev;
 
-                    // Chặn các trường hợp nhập bậy: Số âm, bằng 0, hoặc vượt quá lượng than hiện có
-                    if (amountToSell <= 0 || amountToSell > prev.Coal) {
-                        return prev;
-                    }
-
-                    // Tính số tiền kiếm được = Lượng than * Giá trị mỗi viên hiện tại
                     const goldEarned = Math.floor(amountToSell * prev.coal_value);
                     isOperationSuccess = true;
-
                     return {
                         ...prev,
-                        Coal: prev.Coal - amountToSell,     // Trừ đúng lượng than đã bán từ Input
-                        Economy: prev.Economy + goldEarned  // Cộng tiền vàng thặng dư vào ngân sách
+                        [STATS.COAL]: prev[STATS.COAL] - amountToSell,
+                        [STATS.ECONOMY]: prev[STATS.ECONOMY] + goldEarned
                     };
                 }
 
-                // --- Hành động 2: Nộp Than hoàn thành Chỉ Tiêu cấp trên đổi Nhân Sự ---
                 if (upgradeId === "submit_cartel") {
                     const quota = currentPhaseData.Coal_Quota;
-
-                    // 1. Kiểm tra điều kiện: Có đủ than để nộp chỉ tiêu không?
-                    if (playerState.Coal >= quota) {
-
-                        // 2. Thực hiện cập nhật State
-                        setPlayerState(prev => ({
-                            ...prev,
-                            Coal: prev.Coal - quota, // 🌟 Trừ đúng lượng than chỉ tiêu, phần dư được giữ lại
-                            currentPhaseID: currentPhaseData.Next_Phase // 🌟 Chuyển sang Phase mới
-                        }));
+                    if (prev[STATS.COAL] >= quota) {
                         isOperationSuccess = true;
-                    } else {
-                        // Không đủ than
-                        isOperationSuccess = false;
-                        console.warn("Không đủ than để hoàn thành chỉ tiêu!");
+                        return {
+                            ...prev,
+                            [STATS.COAL]: prev[STATS.COAL] - quota,
+                            currentPhaseID: currentPhaseData.Next_Phase
+                        };
                     }
                 }
             }
-
             return prev;
         });
 
-        // Trả về kết quả (true/false) để kích hoạt hiệu ứng nổ hạt lấp lánh hoặc popup báo lỗi đỏ
         return isOperationSuccess;
     };
 
@@ -146,25 +128,22 @@ export function useGameActions(
         if (isTransitioning || isEventActive) return;
 
         setPlayerState((prev) => {
-            let addedCoal = 0;
+            // Áp dụng công thức từ config
+            const { BASE_COAL, MULTIPLIER } = GAME_BALANCE.MINE_CLICK;
 
-            // Nếu Resource <= 0, không cho phép khai thác thêm than
-            if (prev.Resource <= 0) {
-                addedCoal = 2
-            } else {
-                addedCoal = 1 * prev.Resource;
-            }
+            // Tính toán lượng than tăng thêm
+            const addedCoal = Math.trunc(
+                prev[STATS.RESOURCE] <= 0
+                    ? BASE_COAL
+                    : (prev[STATS.RESOURCE] * MULTIPLIER)
+            );
 
             return {
                 ...prev,
-                Coal: prev.Coal + addedCoal
+                [STATS.COAL]: prev[STATS.COAL] + addedCoal
             };
         });
     };
 
-    return {
-        handleUpgradeClick,
-        handleMineClick,
-        handleEventChoice
-    };
+    return { handleUpgradeClick, handleMineClick, handleEventChoice };
 }

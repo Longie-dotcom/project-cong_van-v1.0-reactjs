@@ -4,7 +4,6 @@ import './App.css';
 
 import BootScene from './component/scene/BootScene';
 import IntroScene from './component/scene/IntroScene';
-// import GameScene from './component/scene/GameScene';
 import EndingScene from './component/scene/EndingScene';
 import GameScene from './component/scene/GameScene';
 

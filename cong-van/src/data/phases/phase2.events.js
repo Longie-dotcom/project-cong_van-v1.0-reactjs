@@ -1,9 +1,9 @@
-import { STATS, FLAG } from "../stats";
-import { IMAGES, SOUNDS, NAMES } from "../assets/characters";
-import { NEWS_EVENTS } from "../assets/newspaper";
-import { MAILS } from "../assets/mail";
+import { STATS, FLAG } from "../assets/stats";
+import { CHARACTER_CONFIG } from "../assets/characters";
+import { MAIL_CONFIG } from "../assets/mails";
 
 export const PHASE2_EVENTS = Object.freeze({
+
   // --- MAIL: LỜI MỜI GIA NHẬP (KÍCH HOẠT FLAG) ---
   EV_P2_CLARA_INVITATION: {
     EventID: "EV_P2_CLARA_INVITATION",
@@ -12,18 +12,18 @@ export const PHASE2_EVENTS = Object.freeze({
         id: "mail-clara-02",
         title: "LỜI MỜI GIA NHẬP HỘI ĐỒNG",
         content: "Patrick,\n\nSau những gì ngài đã làm, tôi tin ngài từ lâu đã chán ngấy lũ Cartel rồi. Chúng tôi có một cuộc họp bí mật tối nay để bàn về kế hoạch thay đổi thực sự tại Theodore. Ngài có dám đến không?\n\n- Clara Voss",
-        normalImg: MAILS.MAIL_2.NORMAL,
-        hoverImg: MAILS.MAIL_2.HOVER,
+        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        hoverImg: MAIL_CONFIG.ITEMS.mail_2.hover,
         choices: [
           {
             text: "* Chấp nhận lời đề nghị *",
             effect: { [STATS.HAPPINESS]: 20 },
-            flagAction: { flag: FLAG.JOINED_THE_REVOLUTION, value: true },
+            flagAction: { flag: FLAG.JOINED_THE_REVOLUTION, value: true }
           },
           {
             text: "* Vứt lá thư vào sọt rác *",
             effect: { [STATS.HAPPINESS]: -10 },
-            flagAction: { flag: FLAG.JOINED_THE_REVOLUTION, value: false },
+            flagAction: { flag: FLAG.JOINED_THE_REVOLUTION, value: false }
           }
         ]
       }
@@ -33,11 +33,11 @@ export const PHASE2_EVENTS = Object.freeze({
   // --- CLARA: CUỘC GỌI BÍ MẬT SAU KHI GIA NHẬP ---
   EV_P2_CLARA_FOLLOWUP: {
     EventID: "EV_P2_CLARA_FOLLOWUP",
-    requiredFlag: FLAG.JOINED_THE_REVOLUTION, // Điều kiện: Chỉ kích hoạt nếu người chơi đã gia nhập cách mạng 
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
     Telephone: {
-      senderName: NAMES.CLARA_VOSS,
-      senderImage: IMAGES.CLARA_VOSS,
-      senderBlip: SOUNDS.CLARA_VOSS,
+      senderName: CHARACTER_CONFIG.CLARA_VOSS.name,
+      senderImage: CHARACTER_CONFIG.CLARA_VOSS.images.default,
+      senderBlip: CHARACTER_CONFIG.CLARA_VOSS.sound,
       senderText: [
         "Patrick, tôi rất mừng vì ngài đã đến buổi họp tối qua.",
         "Giờ đây, ngài không còn là một quản đốc đơn độc nữa. Chúng ta đang bắt đầu xây dựng mạng lưới đầu tiên ngay bên trong lòng mỏ."
@@ -45,11 +45,11 @@ export const PHASE2_EVENTS = Object.freeze({
       choices: [
         {
           text: "Tôi đã sẵn sàng nhận nhiệm vụ.",
-          effect: { [STATS.HAPPINESS]: 10 },
+          effect: { [STATS.HAPPINESS]: 10 }
         },
         {
           text: "Mọi việc diễn ra quá nhanh, tôi cần cẩn trọng.",
-          effect: { [STATS.HAPPINESS]: 0 },
+          effect: { [STATS.HAPPINESS]: 0 }
         }
       ]
     }
@@ -60,9 +60,9 @@ export const PHASE2_EVENTS = Object.freeze({
     EventID: "EV_P2_JOHN_REED_MISSION",
     requiredFlag: FLAG.JOINED_THE_REVOLUTION,
     Telephone: {
-      senderName: NAMES.JONAH_REED,
-      senderImage: IMAGES.JONAH_REED,
-      senderBlip: SOUNDS.JONAH_REED,
+      senderName: CHARACTER_CONFIG.JONAH_REED.name,
+      senderImage: CHARACTER_CONFIG.JONAH_REED.images.default,
+      senderBlip: CHARACTER_CONFIG.JONAH_REED.sound,
       senderText: [
         "Patrick, tôi là John Reed. Clara đã nói rất nhiều về ngài.",
         "Chúng tôi cần thiết lập một tuyến tiếp tế bí mật cho những công nhân đình công. Điều này cần rất nhiều than, vốn và nhân lực để luân chuyển.",
@@ -72,11 +72,11 @@ export const PHASE2_EVENTS = Object.freeze({
         {
           text: "Tôi chấp nhận: Cung cấp 50.000 than, 100.000 vốn và 200 nhân lực.",
           effect: { [STATS.COAL]: -50000, [STATS.ECONOMY]: -100000, [STATS.RESOURCE]: -200, [STATS.HAPPINESS]: 30 },
-          flagAction: { flag: FLAG.MISSION_COAL_DELIVERY, value: true },
+          flagAction: { flag: FLAG.MISSION_COAL_DELIVERY, value: true }
         },
         {
           text: "Chưa phải lúc. Những yêu cầu này quá cực đoan.",
-          effect: { [STATS.HAPPINESS]: -20 },
+          effect: { [STATS.HAPPINESS]: -20 }
         }
       ]
     }
@@ -86,9 +86,9 @@ export const PHASE2_EVENTS = Object.freeze({
   EV_P2_MIRA_IDEOLOGY: {
     EventID: "EV_P2_MIRA_IDEOLOGY",
     Telephone: {
-      senderName: NAMES.MIRA_VOLKOV,
-      senderImage: IMAGES.MIRA_VOLKOV,
-      senderBlip: SOUNDS.MIRA_VOLKOV,
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
       senderText: [
         "Patrick, tôi đã nghe về lá thư của Clara.",
         "Ngài nên biết, cuộc chiến này không chỉ là than hay lương, mà là quyền làm chủ giá trị mà chúng ta tạo ra."
@@ -96,11 +96,11 @@ export const PHASE2_EVENTS = Object.freeze({
       choices: [
         {
           text: "Tôi đang dần hiểu ra điều đó.",
-          effect: { [STATS.HAPPINESS]: 10 },
+          effect: { [STATS.HAPPINESS]: 10 }
         },
         {
           text: "Tôi chỉ quan tâm đến sự ổn định của mỏ.",
-          effect: { [STATS.HAPPINESS]: -10 },
+          effect: { [STATS.HAPPINESS]: -10 }
         }
       ]
     }
@@ -110,9 +110,9 @@ export const PHASE2_EVENTS = Object.freeze({
   EV_P2_WHITMORE_WARNING: {
     EventID: "EV_P2_WHITMORE_WARNING",
     Telephone: {
-      senderName: NAMES.ALEXANDER_WHITMORE,
-      senderImage: IMAGES.ALEXANDER_WHITMORE_SERIOUS,
-      senderBlip: SOUNDS.ALEXANDER_WHITMORE,
+      senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
+      senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.serious,
+      senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
       senderText: [
         "Patrick, tôi nghe nói ngài dành quá nhiều thời gian nói chuyện với lũ công nhân.",
         "Hãy nhớ, trật tự xã hội được duy trì bởi sự phân cấp, không phải bởi sự bình đẳng viển vông."
@@ -120,13 +120,14 @@ export const PHASE2_EVENTS = Object.freeze({
       choices: [
         {
           text: "Ngài nói đúng, tôi sẽ tập trung vào sản xuất.",
-          effect: { [STATS.ECONOMY]: 30, [STATS.HAPPINESS]: -20 },
+          effect: { [STATS.ECONOMY]: 30, [STATS.HAPPINESS]: -20 }
         },
         {
           text: "Sự phân cấp đó đang giết chết chúng tôi.",
-          effect: { [STATS.ECONOMY]: -20, [STATS.HAPPINESS]: 20 },
+          effect: { [STATS.ECONOMY]: -20, [STATS.HAPPINESS]: 20 }
         }
       ]
     }
   }
+
 });

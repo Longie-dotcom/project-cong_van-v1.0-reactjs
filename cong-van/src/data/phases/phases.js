@@ -11,8 +11,6 @@ export const PHASES = Object.freeze({
       "EV_P1_CARTEL_PRESSURE",
       "EV_P1_WORKER_PLEA",
       "EV_P1_MIRA_WAGE_CUT",
-      "EV_P1_MIRA_SAFETY_GEAR",
-      "EV_P1_MIRA_SHIFT_EXTEND",
       "EV_P1_CLARA_CONTACT",
     ],
     Coal_Quota: 10000, 

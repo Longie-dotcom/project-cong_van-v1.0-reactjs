@@ -14,7 +14,6 @@
   overflow: hidden;
 }
 
-/* Desk frame image */
 .desk-frame {
   position: absolute;
   inset: 0;
@@ -23,44 +22,9 @@
   pointer-events: none;
 }
 
-.reorganize-image-btn {
-  position: absolute;
-  bottom: 28px;
-  left: 44px;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  outline: none;
-  z-index: 100; /* Stays above workspace items */
-  display: block;
-  
-  /* Ensure browser calculations don't smooth out the texture */
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-.pixel-button-art {
-  display: block;
-  
-  /* Adjust these sizes to match your original asset grid dimensions! */
-  /* If your image texture is small, scale it up to double size (e.g., width: 128px; height: 48px;) */
-  width: auto;
-  height: auto; 
-  
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  
-  /* Prevents dragging the image itself off the button area */
-  pointer-events: none; 
-  user-select: none;
-}
-
 /* ==========================================================================
    🎬 RETRO BLACK OVERLAY SCENE TRANSITION ANIMATIONS
    ========================================================================== */
-
 .retro-scene-overlay {
   position: absolute;
   inset: 0;
@@ -70,17 +34,14 @@
   opacity: 0;
 }
 
-/* 📥 FADE OUT THE WORLD: Triggers when isTransitioning becomes true */
 .retro-scene-overlay.fade-out-world {
   animation: retroBlackOut 2s;
 }
 
-/* 📤 FADE IN THE NEW EVENT: Triggers during the second half of the sequence */
 .retro-scene-overlay.fade-in-new-world {
   animation: retroBlackIn 2s;
 }
 
-/* 🧱 Stepped frame rate curves to mirror low-spec CRT game loops */
 @keyframes retroBlackOut {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -90,57 +51,3 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
-
-/* ==========================================================================
-   📠 TELEGRAPH TICKER TAPE (SECRET TELEGRAM STRIP)
-   ========================================================================== */
-
-.telegraph-ticker-tape {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  width: 900px;
-  max-width: 90%;
-  background: #fbf5b6; /* Vintage yellow sticky note paper strip */
-  border: 3px solid #2d2613;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
-  padding: 16px 24px;
-  display: flex;
-  flex-direction: column;
-  image-rendering: pixelated;
-  animation: slide-down-tape 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes slide-down-tape {
-  from {
-    transform: translate(-50%, -100px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-}
-
-.ticker-tape-header {
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  color: #a22929; /* Red stamp confidential color */
-  text-transform: uppercase;
-  margin-bottom: 6px;
-  border-bottom: 2px dashed #e5db8a;
-  padding-bottom: 4px;
-}
-
-.ticker-tape-text {
-  font-family: inherit;
-  font-size: 15px;
-  color: #2d2613; /* Handwriting dark ink color */
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
-}

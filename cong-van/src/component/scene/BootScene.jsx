@@ -8,7 +8,6 @@ export default function BootScene({ onFinish }) {
   useEffect(() => {
     if (!isActivated) return;
 
-    // Helper tạo Audio instance từ BOOT_DATA
     const createAudio = (src, volume = 0.8) => {
       const audio = new Audio(src);
       audio.volume = volume;
@@ -18,7 +17,6 @@ export default function BootScene({ onFinish }) {
     const stampAudio = createAudio(BOOT_DATA.STAMP_SOUND);
     const mailAudio = createAudio(BOOT_DATA.OPEN_MAIL_SOUND, 0.7);
 
-    // Timeline xử lý
     stampAudio.play().catch(() => {}); // Giây 0: Đóng dấu 1
 
     const timer2 = setTimeout(() => stampAudio.play().catch(() => {}), 3000); // Giây 3: Đóng dấu 2

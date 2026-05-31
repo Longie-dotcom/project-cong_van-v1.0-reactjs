@@ -1,0 +1,22 @@
+.paper-tabs {
+  position: absolute;
+  top: 44px;
+  right: -24px;
+  width: 120px;
+  height: 300px;
+  z-index: 1;
+}
+
+.paper-tab {
+  position: absolute;
+  right: 0;
+  width: 84px;
+  image-rendering: pixelated;
+  transition: transform 180ms ease, filter 180ms ease;
+  cursor: pointer;
+}
+
+.tab-hovered {
+  transform: translateX(22px);
+  filter: brightness(1.05);
+}

@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Sao chép tất cả các file có đuôi .sln và .csproj vào cấu trúc thư mục tương ứng
+COPY . .
+
+# Restore từ project file (tìm file .csproj trong thư mục TheodoreServer)
+RUN dotnet restore "TheodoreServer/TheodoreServer.csproj"
+
+# Build project
+RUN dotnet publish "TheodoreServer/TheodoreServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+WORKDIR /app
+EXPOSE 8080
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "TheodoreServer.dll"]

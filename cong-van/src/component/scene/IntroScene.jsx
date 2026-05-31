@@ -28,12 +28,13 @@ export default function IntroScene({ onFinish }) {
   const blipIndexRef = useRef(0);
   const activeBlipSourceRef = useRef(null);
 
-  const currentDialogue = INTRO_DATA.DIALOGUES[dialogueIndex];
-  const currentChar = INTRO_DATA.CHARACTERS[currentDialogue.charKey];
+  // Lấy dữ liệu nhân vật hiện tại an toàn
+  const currentKey = scene === "conversation" ? INTRO_DATA.SEQUENCE[dialogueIndex] : null;
+  const currentChar = scene === "conversation" ? INTRO_DATA.CHARACTERS[currentKey] : null;
 
   // Logic Audio Pool
   useEffect(() => {
-    if (scene !== "conversation") return;
+    if (scene !== "conversation" || !currentChar) return;
     const soundFile = currentChar.sound;
 
     if (activeBlipSourceRef.current !== soundFile) {
@@ -41,19 +42,20 @@ export default function IntroScene({ onFinish }) {
       blipPoolRef.current = Array.from({ length: 4 }, () => new Audio(soundFile));
       activeBlipSourceRef.current = soundFile;
     }
-  }, [scene, dialogueIndex, currentChar.sound]);
+  }, [scene, dialogueIndex, currentChar]);
 
   // Logic Gõ chữ
   useEffect(() => {
-    if (scene !== "conversation") return;
+    if (scene !== "conversation" || !currentChar) return;
     setIsTyping(true);
     let index = 0;
     setTypedText("");
 
     const interval = setInterval(() => {
-      const char = currentDialogue.text.charAt(index);
+      const textToType = currentChar.dialogue;
+      const char = textToType.charAt(index);
       setTypedText(prev => prev + char);
-      
+
       if (char.trim() !== "" && blipPoolRef.current[blipIndexRef.current]) {
         const audio = blipPoolRef.current[blipIndexRef.current];
         audio.currentTime = 0;
@@ -62,17 +64,18 @@ export default function IntroScene({ onFinish }) {
       }
 
       index++;
-      if (index >= currentDialogue.text.length) {
+      if (index >= textToType.length) {
         setIsTyping(false);
         clearInterval(interval);
       }
     }, 25);
     return () => clearInterval(interval);
-  }, [dialogueIndex, scene, currentDialogue.text]);
+  }, [dialogueIndex, scene, currentChar]);
 
   const handleNext = () => {
     if (isTyping) return;
-    if (dialogueIndex < INTRO_DATA.DIALOGUES.length - 1) {
+    // Kiểm tra với SEQUENCE thay vì DIALOGUES
+    if (dialogueIndex < INTRO_DATA.SEQUENCE.length - 1) {
       setDialogueIndex(prev => prev + 1);
     } else {
       setFadeOut(false);
@@ -88,14 +91,16 @@ export default function IntroScene({ onFinish }) {
           <div className="start-text">{INTRO_DATA.START_TITLE}</div>
         </div>
       ) : (
-        <div className="conversation-scene">
-          <CharacterDisplay activeCharKey={currentDialogue.charKey} />
-          <div className="speaker-name">{currentChar.name}</div>
-          <div className={`dialogue-click-zone ${isTyping ? "zone-locked" : "zone-clickable"}`} onClick={handleNext}>
-            <div className="dialogue-box">{typedText}</div>
-            {!isTyping && <div className="continue-hint">{INTRO_DATA.ACTIVATE_TITLE}</div>}
+        currentChar && (
+          <div className="conversation-scene">
+            <CharacterDisplay activeCharKey={currentKey} />
+            <div className="speaker-name">{currentChar.name}</div>
+            <div className={`dialogue-click-zone ${isTyping ? "zone-locked" : "zone-clickable"}`} onClick={handleNext}>
+              <div className="dialogue-box">{typedText}</div>
+              {!isTyping && <div className="continue-hint">{INTRO_DATA.ACTIVATE_TITLE}</div>}
+            </div>
           </div>
-        </div>
+        )
       )}
       <div className={`fade-layer ${fadeOut ? "fade-out" : ""}`} />
     </div>

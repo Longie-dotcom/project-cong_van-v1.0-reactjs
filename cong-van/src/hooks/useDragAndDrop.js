@@ -1,15 +1,14 @@
 import { useState } from "react";
 
-export function useDragAndDrop(
+export function useDragAndDrop({
     initialPaperPos,
     deskObstacles,
     paperSize,
     mailSize,
     isTransitioning,
     openMailSound,
-    tabSwitchSound,
     activeMailsList
-) {
+}) {
     const [paperPos, setPaperPos] = useState(initialPaperPos);
     const [livePaperDelta, setLivePaperDelta] = useState({ x: 0, y: 0 });
     const [mailPositions, setMailPositions] = useState({});
@@ -17,14 +16,8 @@ export function useDragAndDrop(
     const [activeMailDragID, setActiveMailDragID] = useState(null);
 
     const playPaperRustle = () => {
-        const audio = new Audio(OpenMailSound);
+        const audio = new Audio(openMailSound);
         audio.volume = 0.55;
-        audio.play().catch(() => { });
-    };
-
-    const playDeskSlide = () => {
-        const audio = new Audio(TabSwitchSound);
-        audio.volume = 0.45;
         audio.play().catch(() => { });
     };
 
@@ -62,7 +55,6 @@ export function useDragAndDrop(
                 y: prev.y + livePaperDelta.y,
             }));
             setLivePaperDelta({ x: 0, y: 0 });
-            playDeskSlide();
         }
 
         if (active.id === activeMailDragID) {
@@ -75,7 +67,6 @@ export function useDragAndDrop(
             }));
             setLiveMailDelta({ x: 0, y: 0 });
             setActiveMailDragID(null);
-            playDeskSlide();
         }
     }
 
@@ -151,7 +142,7 @@ export function useDragAndDrop(
 
     function handleReorganizeDesk() {
         if (isTransitioning) return;
-        setPaperPos(INITIAL_PAPER_POS);
+        setPaperPos(initialPaperPos);
         setLivePaperDelta({ x: 0, y: 0 });
         setMailPositions((prev) => {
             const resetPositions = { ...prev };

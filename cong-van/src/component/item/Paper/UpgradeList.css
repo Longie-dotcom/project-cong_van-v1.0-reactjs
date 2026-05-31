@@ -1,0 +1,74 @@
+.paper-upgrades-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 4px;
+}
+
+.paper-upgrades-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.paper-upgrades-container::-webkit-scrollbar-thumb {
+    background-color: #111;
+}
+
+.market-price-indicator {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 6px;
+    text-align: center;
+}
+
+.sell-input-container {
+    position: relative;
+    z-index: 10;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.sell-input-label {
+    font-size: 16px;
+    margin-right: 6px;
+    color: #555;
+}
+
+.sell-coal-input {
+    width: 100px;
+    padding: 4px 8px;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+.sell-max-btn {
+    margin-left: 8px;
+    padding: 4px 6px;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid rgb(0, 0, 0);
+    transition: all 0.15s ease-out;
+    outline: none;
+}
+
+.sell-max-btn:hover {
+    background-color: #ff3e3e;
+    color: #ffffff;
+    box-shadow: 0 0 8px #ff3e3e;
+    transform: scale(1.05);
+}
+
+.sell-max-btn:active {
+    transform: scale(0.95);
+    background-color: #a32424;
+    border-color: #fff;
+}

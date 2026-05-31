@@ -1,0 +1,114 @@
+.stat-tab-row-container {
+  position: absolute;
+  bottom: -10px;
+  right: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  z-index: 100;
+  user-select: none;
+  font-family: inherit;
+}
+
+.stat-particle-canvas {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 200px);
+  pointer-events: none;
+  z-index: 110;
+}
+
+.stat-tab-icon-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 176px;
+  will-change: transform;
+}
+
+.stat-tab-icon-item.horizontal-bounce-active {
+  animation: horizontalSwingBounce 0.6s cubic-bezier(0.25, 1.5, 0.5, 1) both;
+}
+
+.stat-tab-pixel-icon {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+.stat-tab-value-text {
+  position: absolute;
+  color: rgb(0, 0, 0);
+  top: 24px;
+  right: 14px;
+  font-size: 16px;
+  text-align: center;
+  pointer-events: none;
+}
+
+@keyframes horizontalSwingBounce {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-14px);
+  }
+  35% {
+    transform: translateX(10px);
+  }
+  55% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.delta-float {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 120;
+  animation: floatUp 1s ease-out forwards;
+  text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000;
+}
+
+.delta-float.positive {
+  color: #38b000;
+}
+
+.delta-float.negative {
+  color: #d90429;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -32px);
+    opacity: 0;
+  }
+}
