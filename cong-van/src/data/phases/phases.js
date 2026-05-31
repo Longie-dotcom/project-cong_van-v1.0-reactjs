@@ -7,13 +7,13 @@ import { ENDINGS } from "./ending";
 export const PHASES = Object.freeze({
   "PHASE_1": {
     Order: [
-      // "EV_P1_CLARA_CONTACT",
       "EV_P1_ELIAS_TALK",
-      // "EV_P1_CARTEL_PRESSURE",
-      // "EV_P1_WORKER_PLEA",
-      // "EV_P1_MIRA_WAGE_CUT",
-      // "EV_P1_MIRA_SAFETY_GEAR",
-      // "EV_P1_MIRA_SHIFT_EXTEND",
+      "EV_P1_CARTEL_PRESSURE",
+      "EV_P1_WORKER_PLEA",
+      "EV_P1_MIRA_WAGE_CUT",
+      "EV_P1_MIRA_SAFETY_GEAR",
+      "EV_P1_MIRA_SHIFT_EXTEND",
+      "EV_P1_CLARA_CONTACT",
     ],
     Coal_Quota: 10000, 
     Events: PHASE1_EVENTS,

@@ -1,3 +1,5 @@
+import NewspaperBackground from '../../assets/image/frame/newspaper.png';
+
 export const NEWS_EVENTS = Object.freeze({
   P1_TRAGEDY_DORMITORY: {
     title: "THẢM KỊCH ĐÔNG CỨNG TẠI KHU TẬP THỂ PHÍA ĐÔNG",
@@ -8,4 +10,8 @@ export const NEWS_EVENTS = Object.freeze({
     title: "LÀN SÓNG PHÀN NÀN VỀ CẮT GIẢM LƯƠNG",
     content: "Quyết định cắt 15% lương của Ban Quản trị đã gây ra làn sóng phẫn nộ trong cộng đồng công nhân.",
   }
+});
+
+export const NEWSPAPER = Object.freeze({
+    BACKGROUND: NewspaperBackground
 });

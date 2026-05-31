@@ -4,38 +4,13 @@ import './App.css';
 
 import BootScene from './component/scene/BootScene';
 import IntroScene from './component/scene/IntroScene';
-import GameScene from './component/scene/GameScene';
+// import GameScene from './component/scene/GameScene';
 import EndingScene from './component/scene/EndingScene';
+import GameScene from './component/scene/GameScene';
 
 function App() {
+  const [endingData, setEndingData] = useState();
   const [gameState, setGameState] = useState("game");
-
-  // 🏁 Ending data
-  const [endingData, setEndingData] = useState({
-    title: "THE END",
-    subtitle: "",
-    description: ""
-  });
-
-  function handleGameEnding(endingPayload) {
-    setEndingData({
-      title: endingPayload.title,
-      subtitle: endingPayload.subtitle,
-      description: endingPayload.description
-    });
-
-    setGameState("ending");
-  }
-
-  function handleRestartGame() {
-    setGameData({
-      currentPhaseID: "PHASE_1",
-      currentEventID: null,
-      eventHistory: []
-    });
-
-    setGameState("intro");
-  }
 
   const renderScene = () => {
     switch (gameState) {
@@ -46,13 +21,10 @@ function App() {
       case "game":
         return (
           <GameScene
-            currentPhaseID={gameData.currentPhaseID}
-            currentEventID={gameData.currentEventID}
-            eventHistory={gameData.eventHistory}
             onGameStateUpdate={(newState) => {
               setGameData(newState);
             }}
-            onGameEnd={handleGameEnding}
+            onGameEnd={setEndingData}
           />
         );
       case "ending":

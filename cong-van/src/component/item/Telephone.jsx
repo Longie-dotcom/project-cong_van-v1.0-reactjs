@@ -1,59 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import Phone from "../../assets/image/telephone/phone.png";
-import TelephoneNormal from "../../assets/image/telephone/telephone1.png";
-import TelephoneRing1 from "../../assets/image/telephone/telephone2.png";
-import TelephoneRing2 from "../../assets/image/telephone/telephone3.png";
-import TelephoneRing3 from "../../assets/image/telephone/telephone4.png";
-
-import Button1Normal from "../../assets/image/telephone/button1.png";
-import Button1Hovered from "../../assets/image/telephone/button2.png";
-import Button1Clicked from "../../assets/image/telephone/button3.png";
-
-import Button2Normal from "../../assets/image/telephone/button4.png";
-import Button2Hovered from "../../assets/image/telephone/button5.png";
-import Button2Clicked from "../../assets/image/telephone/button6.png";
-
-import Button3Normal from "../../assets/image/telephone/button7.png";
-import Button3Hovered from "../../assets/image/telephone/button8.png";
-import Button3Clicked from "../../assets/image/telephone/button9.png";
-
-import Button4Normal from "../../assets/image/telephone/button10.png";
-import Button4Hovered from "../../assets/image/telephone/button11.png";
-import Button4Clicked from "../../assets/image/telephone/button12.png";
-
-import Button5Normal from "../../assets/image/telephone/button13.png";
-import Button5Hovered from "../../assets/image/telephone/button14.png";
-import Button5Clicked from "../../assets/image/telephone/button15.png";
-
-import Button6Normal from "../../assets/image/telephone/button16.png";
-import Button6Hovered from "../../assets/image/telephone/button17.png";
-import Button6Clicked from "../../assets/image/telephone/button18.png";
-
-import Button7Normal from "../../assets/image/telephone/button19.png";
-import Button7Hovered from "../../assets/image/telephone/button20.png";
-import Button7Clicked from "../../assets/image/telephone/button21.png";
-
-import Button8Normal from "../../assets/image/telephone/button22.png";
-import Button8Hovered from "../../assets/image/telephone/button23.png";
-import Button8Clicked from "../../assets/image/telephone/button24.png";
-
-import Button9Normal from "../../assets/image/telephone/button25.png";
-import Button9Hovered from "../../assets/image/telephone/button26.png";
-import Button9Clicked from "../../assets/image/telephone/button27.png";
-
-import ButtonDelNormal from "../../assets/image/telephone/button28.png";
-import ButtonDelHovered from "../../assets/image/telephone/button29.png";
-import ButtonDelClicked from "../../assets/image/telephone/button30.png";
-
-import ButtonCallNormal from "../../assets/image/telephone/button31.png";
-import ButtonCallHovered from "../../assets/image/telephone/button32.png";
-import ButtonCallClicked from "../../assets/image/telephone/button33.png";
-
-import TelephoneRingSound from "./../../assets/sound/telephone-1.mp3";
-import TextBlipSound from "./../../assets/sound/default-sound.mp3";
-import KeypadSound from "./../../assets/sound/keypad.mp3";
-
 import "./Telephone.css";
 
 function KeypadButton({ normalImg, hoverImg, clickImg, onClick, altText }) {

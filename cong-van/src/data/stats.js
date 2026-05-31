@@ -1,4 +1,4 @@
-export const EFFECT_STATS = Object.freeze({
+export const STATS = Object.freeze({
   ECONOMY: "Economy",
   COAL: "Coal",
   RESOURCE: "Resource",

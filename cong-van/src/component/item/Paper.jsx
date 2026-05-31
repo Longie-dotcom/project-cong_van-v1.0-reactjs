@@ -21,7 +21,7 @@ import ConfirmationSound4 from './../../assets/sound/confirmation_004.ogg';
 import ErrorSound from './../../assets/sound/error_006.ogg';
 
 import EconomyParticle from './../../assets/image/icon/economy-particle.png';
-import UPGRADE_META from '../../data/upgrading';
+import UPGRADE_META from '../../data/assets/paper';
 import './Paper.css';
 
 export default function Paper({
