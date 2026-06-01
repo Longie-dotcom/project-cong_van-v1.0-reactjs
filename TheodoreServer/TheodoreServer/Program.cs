@@ -16,7 +16,7 @@ namespace TheodoreServer
 
             var app = builder.Build();
             app.UseCors(builder => builder
-                .WithOrigins("https://project-cong-van-v1-0-reactjs.vercel.app/") // https://project-cong-van-v1-0-reactjs.vercel.app/
+                .SetIsOriginAllowed(_ => true)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());

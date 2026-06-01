@@ -24,6 +24,15 @@ export function useGameActions(
             });
         }
 
+        if (choice.flagAction) {
+            const { flag, value } = choice.flagAction;
+
+            setPlayerState(prev => ({
+                ...prev,
+                [flag]: value
+            }));
+        }
+
         if (choice.triggeredNews) {
             setActiveNews(choice.triggeredNews);
         }

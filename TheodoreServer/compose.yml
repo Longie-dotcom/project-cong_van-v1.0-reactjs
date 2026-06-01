@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  theodore-server:
+    image: longdong123/theodore-server:latest
+    container_name: theodore-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"

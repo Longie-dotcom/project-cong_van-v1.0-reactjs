@@ -11,15 +11,15 @@ export default function EndingScene({
       <div className="ending-overlay" />
 
       <div className="ending-panel">
-        <h1 className="ending-title">{endingTitle}</h1>
+        <p className="ending-title">{endingTitle}</p>
 
         <p className="ending-subtitle">
           {endingSubtitle}
         </p>
 
-        <div className="ending-description">
+        <p className="ending-description">
           {endingDescription}
-        </div>
+        </p>
 
         <button
           className="ending-button"

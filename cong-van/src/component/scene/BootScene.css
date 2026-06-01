@@ -10,12 +10,41 @@
   overflow: hidden;
 }
 
-/* --- LOGO LAYER (Chỉ hiển thị tĩnh trước khi click) --- */
+.boot-ui-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
 .boot-logo {
-  position: absolute;
-  width: 384px; 
+  position: relative;
+  width: 384px;
   height: auto;
-  opacity: 1;
+  margin-bottom: 20px;
+}
+
+.boot-name-input {
+  padding: 10px 15px;
+  font-family: inherit;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  width: 350px;
+}
+
+.boot-click-trigger {
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #000;
+  animation: bootTriggerBlink 1.2s infinite steps(2, start);
+  user-select: none;
 }
 
 /* --- FIRST TEXT LAYER (0s to 3s) --- */
@@ -81,18 +110,6 @@
   100% {
     top: 0%;
   }
-}
-
-/* --- CHỮ NHẤN ĐỂ TIẾP TỤC --- */
-.boot-click-trigger {
-  position: absolute;
-  bottom: 15%;
-  font-family: inherit;
-  font-size: 16px;
-  color: #000;
-  animation: bootTriggerBlink 1.2s infinite steps(2, start);
-  user-select: none;
-  z-index: 10;
 }
 
 @keyframes bootTriggerBlink {

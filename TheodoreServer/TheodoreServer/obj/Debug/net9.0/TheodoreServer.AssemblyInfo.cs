@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TheodoreServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+597aa00d4c999bdc71820f981fadc1f7b71df423")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53607a161a3c5690d8aee0c3b5323da09615b363")]
 [assembly: System.Reflection.AssemblyProductAttribute("TheodoreServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheodoreServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

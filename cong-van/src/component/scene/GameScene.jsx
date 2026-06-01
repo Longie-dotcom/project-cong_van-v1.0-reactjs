@@ -5,9 +5,9 @@ import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 import { useGameActions } from "../../hooks/useGameAction";
 import { usePassiveCoal } from "../../hooks/usePassiveCoal";
 import { useGameHub } from "../../hooks/useGameHub";
-
+import { STATS, FLAG } from "../../data/assets/stats";
 import { GAME_DATA } from "../../data/assets";
-import { STATS } from "../../data/assets/stats";
+import { ENDINGS } from "../../data/phases/ending";
 
 import Paper from "../item/Paper/Paper";
 import Telephone from "../item/Telephone/Telephone";
@@ -20,35 +20,7 @@ import CoalQuotaDisplay from "../item/Indicator/CoalQuotaDisplay";
 import "./GameScene.css";
 import SpriteButton from "../item/Button/SpriteButton";
 
-export default function GameScene({ onGameEnd }) {
-  // KHỞI TẠO STATE TẬP TRUNG CHO NGƯỜI CHƠI
-  const [playerState, setPlayerState] = useState({
-    coal_value: 1.0,
-    [STATS.RESOURCE]: 50,
-    [STATS.COAL]: 50,
-    [STATS.ECONOMY]: 9900,
-    [STATS.HAPPINESS]: 0,
-
-    eventHistory: null,
-    currentEventID: null,
-    currentPhaseID: "PHASE_1",
-
-    village_1: 0,
-    village_2: 0,
-    village_3: 0,
-    village_4: 0,
-
-    b_upgrade_1: 0,
-    b_upgrade_2: 0,
-    b_upgrade_3: 0,
-    b_upgrade_4: 0,
-
-    railway: 0,
-    auto: 0,
-    tools: 0,
-    storage: 0
-  });
-
+export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [activeEvents, setActiveEvents] = useState({ mails: [], calls: [] });
   const [activeNews, setActiveNews] = useState(null);
@@ -72,9 +44,10 @@ export default function GameScene({ onGameEnd }) {
     { id: "wall-bottom", left: 0, top: DESK_HEIGHT, width: DESK_WIDTH, height: 100 },
   ];
 
-  const { 
-    sendPlayerState, 
-    isConnected 
+  const {
+    sendPlayerState,
+    isConnected,
+    connection
   } = useGameHub(
     "https://uncommendable-projectively-elenor.ngrok-free.dev/gameHub"
   );
@@ -119,9 +92,39 @@ export default function GameScene({ onGameEnd }) {
   )
 
   usePassiveCoal(
-    playerState, 
+    playerState,
     setPlayerState
   );
+
+  // EFFECT CẬP NHẬT connectionId CHO playerState
+  useEffect(() => {
+    // Chỉ set nếu đã kết nối và ID chưa có trong playerState
+    if (isConnected && connection.current?.connectionId && !playerState.connectionId) {
+      setPlayerState(prev => ({
+        ...prev,
+        connectionId: connection.current.connectionId
+      }));
+    }
+  }, [isConnected, connection, playerState.connectionId, setPlayerState]);
+
+  // EFFECT ĐỒNG BỘ STATE LÊN SERVER
+  useEffect(() => {
+    if (!isConnected) return;
+
+    const syncState = async () => {
+      try {
+        await sendPlayerState(playerState);
+      } catch (err) {
+        console.error("Lỗi đồng bộ state lên server:", err);
+      }
+    };
+
+    // Để tránh quá tải server, bạn có thể gửi sau mỗi 2 giây thay vì gửi ngay lập tức
+    // Hoặc gửi ngay nếu là thay đổi quan trọng (tùy nhu cầu của bạn)
+    const timer = setTimeout(syncState, 1000);
+
+    return () => clearTimeout(timer);
+  }, [playerState, isConnected, sendPlayerState]);
 
   // EFFECT THEO DÕI EVENTS MỚI
   useEffect(() => {
@@ -130,36 +133,75 @@ export default function GameScene({ onGameEnd }) {
     const interval = setInterval(() => {
       const result = fetchNextEvent();
 
-      if (!result || result.type === "NONE") return;
+      if (!result) return;
 
+      // =====================
+      // ENDING
+      // =====================
       if (result.type === "ENDING") {
-        console.log("Game Reached Ending:", result.data);
-        onGameEnd(result.data);
+        const state = playerState;
+
+        const happiness = state[STATS.HAPPINESS] ?? 0;
+        const joined = state[FLAG.JOINED_THE_REVOLUTION];
+
+        let endingID = "BINH_MINH_HOA_GIAI";
+
+        if (happiness < 50 && !joined) {
+          endingID = "KY_NGUYEN_THEP";
+        }
+        else if (happiness >= 50 && joined) {
+          endingID = "CHUYEN_CHINH_VO_SAN";
+        }
+
+        const ending = ENDINGS[endingID];
+
+        onGameEnd({
+          ...ending,
+          endingID
+        });
+
+        return;
       }
-      else if (result.type === "EVENT") {
+
+      // =====================
+      // EVENT
+      // =====================
+      if (result.type === "EVENT") {
         const nextEvent = result.event;
 
-        // Cập nhật State: lưu lại Index để không lặp lại sự kiện cũ
         setPlayerState(prev => ({
           ...prev,
           currentEventID: nextEvent.EventID,
-          currentEventIdx: result.index + 1 // Tăng index lên để lần tới lấy sự kiện tiếp theo
+          currentEventIdx: result.index + 1
         }));
 
-        // Kích hoạt giao diện
         setActiveEvents({
           mails: nextEvent.MailsList || [],
           calls: nextEvent.Telephone ? [nextEvent.Telephone] : []
         });
+
+        return;
       }
-      else if (result.type === "SKIP") {
-        // Nếu sự kiện bị skip (do thiếu flag), tự động tăng index để kiểm tra sự kiện tiếp theo ngay lập tức
-        setPlayerState(prev => ({ ...prev, currentEventIdx: result.index + 1 }));
+
+      // =====================
+      // SKIP
+      // =====================
+      if (result.type === "SKIP") {
+        setPlayerState(prev => ({
+          ...prev,
+          currentEventIdx: result.index + 1
+        }));
       }
-    }, 1000);
+
+    }, 17000);
 
     return () => clearInterval(interval);
-  }, [isEventActive, playerState.currentEventID, playerState.currentPhaseID]);
+  }, [
+    isEventActive,
+    playerState.currentEventID,
+    playerState.currentPhaseID,
+    playerState.currentEventIdx
+  ]);
 
   // EFFECT THEO DÕI CÁC UPGRADE ĐỂ TĂNG/GIẢM WORKER
   useEffect(() => {

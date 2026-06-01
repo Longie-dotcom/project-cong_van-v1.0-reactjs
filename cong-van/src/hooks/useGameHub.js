@@ -8,8 +8,11 @@ export function useGameHub(hubUrl) {
     useEffect(() => {
         // Khởi tạo kết nối
         connection.current = new signalR.HubConnectionBuilder()
-            .withUrl(hubUrl)
-            .withAutomaticReconnect() // Tự động kết nối lại nếu rớt mạng
+            .withUrl(hubUrl, {
+                transport: signalR.HttpTransportType.WebSockets, // Ép dùng WebSockets ngay
+                skipNegotiation: true // Bỏ qua bước negotiation để kết nối nhanh hơn
+            })
+            .withAutomaticReconnect()
             .build();
 
         connection.current.start()
@@ -42,5 +45,5 @@ export function useGameHub(hubUrl) {
         }
     };
 
-    return { isConnected, sendPlayerState, joinAdminGroup };
+    return { isConnected, sendPlayerState, joinAdminGroup, connection };
 }

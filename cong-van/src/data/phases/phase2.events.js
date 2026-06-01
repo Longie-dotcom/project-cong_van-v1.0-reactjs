@@ -3,8 +3,6 @@ import { CHARACTER_CONFIG } from "../assets/characters";
 import { MAIL_CONFIG } from "../assets/mails";
 
 export const PHASE2_EVENTS = Object.freeze({
-
-  // --- MAIL: LỜI MỜI GIA NHẬP (KÍCH HOẠT FLAG) ---
   EV_P2_CLARA_INVITATION: {
     EventID: "EV_P2_CLARA_INVITATION",
     MailsList: [
@@ -30,104 +28,240 @@ export const PHASE2_EVENTS = Object.freeze({
     ]
   },
 
-  // --- CLARA: CUỘC GỌI BÍ MẬT SAU KHI GIA NHẬP ---
-  EV_P2_CLARA_FOLLOWUP: {
-    EventID: "EV_P2_CLARA_FOLLOWUP",
+  EV_P2_BERNARD_WARNING: {
+    EventID: "EV_P2_BERNARD_WARNING",
     requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: true,
     Telephone: {
-      senderName: CHARACTER_CONFIG.CLARA_VOSS.name,
-      senderImage: CHARACTER_CONFIG.CLARA_VOSS.images.default,
-      senderBlip: CHARACTER_CONFIG.CLARA_VOSS.sound,
+      senderName: CHARACTER_CONFIG.BERNARD_HALE.name,
+      senderImage: CHARACTER_CONFIG.BERNARD_HALE.images.default,
+      senderBlip: CHARACTER_CONFIG.BERNARD_HALE.sound,
       senderText: [
-        "Patrick, tôi rất mừng vì ngài đã đến buổi họp tối qua.",
-        "Giờ đây, ngài không còn là một quản đốc đơn độc nữa. Chúng ta đang bắt đầu xây dựng mạng lưới đầu tiên ngay bên trong lòng mỏ."
+        "Tôi nghe nói anh đang dành nhiều thời gian cho đám công nhân.",
+        "Đừng để vài câu chuyện thương hại làm ảnh hưởng đến công việc."
       ],
       choices: [
         {
-          text: "Tôi đã sẵn sàng nhận nhiệm vụ.",
-          effect: { [STATS.HAPPINESS]: 10 }
-        },
-        {
-          text: "Mọi việc diễn ra quá nhanh, tôi cần cẩn trọng.",
-          effect: { [STATS.HAPPINESS]: 0 }
+          text: "Tôi vẫn hoàn thành nhiệm vụ của mình.",
+          effect: {}
         }
       ]
     }
   },
 
-  // --- JOHN REED: GIAO NHIỆM VỤ ĐẦU TIÊN ---
-  EV_P2_JOHN_REED_MISSION: {
-    EventID: "EV_P2_JOHN_REED_MISSION",
+  EV_P2_ELEANOR_SUSPICION: {
+    EventID: "EV_P2_ELEANOR_SUSPICION",
     requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: true,
     Telephone: {
-      senderName: CHARACTER_CONFIG.JONAH_REED.name,
-      senderImage: CHARACTER_CONFIG.JONAH_REED.images.default,
-      senderBlip: CHARACTER_CONFIG.JONAH_REED.sound,
+      senderName: CHARACTER_CONFIG.ELEANOR_WENTWORTH.name,
+      senderImage: CHARACTER_CONFIG.ELEANOR_WENTWORTH.images.default,
+      senderBlip: CHARACTER_CONFIG.ELEANOR_WENTWORTH.sound,
       senderText: [
-        "Patrick, tôi là John Reed. Clara đã nói rất nhiều về ngài.",
-        "Chúng tôi cần thiết lập một tuyến tiếp tế bí mật cho những công nhân đình công. Điều này cần rất nhiều than, vốn và nhân lực để luân chuyển.",
-        "Ngài dám hy sinh kho dự trữ để nuôi dưỡng ngọn lửa này chứ?"
+        "Có tin đồn về những cuộc gặp bí mật sau giờ làm.",
+        "Nếu phát hiện điều gì bất thường, tôi mong anh sẽ báo cáo."
       ],
       choices: [
         {
-          text: "Tôi chấp nhận: Cung cấp 50.000 than, 100.000 vốn và 200 nhân lực.",
-          effect: { [STATS.COAL]: -50000, [STATS.ECONOMY]: -100000, [STATS.RESOURCE]: -200, [STATS.HAPPINESS]: 30 },
-          flagAction: { flag: FLAG.MISSION_COAL_DELIVERY, value: true }
-        },
-        {
-          text: "Chưa phải lúc. Những yêu cầu này quá cực đoan.",
-          effect: { [STATS.HAPPINESS]: -20 }
+          text: "Tôi sẽ lưu ý.",
+          effect: {}
         }
       ]
     }
   },
 
-  // --- MIRA: GIÁO DỤC TƯ TƯỞNG ---
-  EV_P2_MIRA_IDEOLOGY: {
-    EventID: "EV_P2_MIRA_IDEOLOGY",
-    Telephone: {
-      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
-      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
-      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
-      senderText: [
-        "Patrick, tôi đã nghe về lá thư của Clara.",
-        "Ngài nên biết, cuộc chiến này không chỉ là than hay lương, mà là quyền làm chủ giá trị mà chúng ta tạo ra."
-      ],
-      choices: [
-        {
-          text: "Tôi đang dần hiểu ra điều đó.",
-          effect: { [STATS.HAPPINESS]: 10 }
-        },
-        {
-          text: "Tôi chỉ quan tâm đến sự ổn định của mỏ.",
-          effect: { [STATS.HAPPINESS]: -10 }
-        }
-      ]
-    }
-  },
-
-  // --- WHITMORE: ĐẤU TRANH TƯ TƯỞNG (TẨY NÃO) ---
-  EV_P2_WHITMORE_WARNING: {
-    EventID: "EV_P2_WHITMORE_WARNING",
+  EV_P2_ALEXANDER_THREAT: {
+    EventID: "EV_P2_ALEXANDER_THREAT",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: true,
     Telephone: {
       senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
       senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.serious,
       senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
       senderText: [
-        "Patrick, tôi nghe nói ngài dành quá nhiều thời gian nói chuyện với lũ công nhân.",
-        "Hãy nhớ, trật tự xã hội được duy trì bởi sự phân cấp, không phải bởi sự bình đẳng viển vông."
+        "Một số quản đốc trước đây đã chọn nhầm phe.",
+        "Tôi tin anh đủ thông minh để không lặp lại sai lầm đó."
       ],
       choices: [
         {
-          text: "Ngài nói đúng, tôi sẽ tập trung vào sản xuất.",
-          effect: { [STATS.ECONOMY]: 30, [STATS.HAPPINESS]: -20 }
-        },
-        {
-          text: "Sự phân cấp đó đang giết chết chúng tôi.",
-          effect: { [STATS.ECONOMY]: -20, [STATS.HAPPINESS]: 20 }
+          text: "Tôi hiểu ý ngài.",
+          effect: {}
         }
       ]
     }
-  }
+  },
 
+  EV_P2_CLARA_SUPPORT: {
+    EventID: "EV_P2_CLARA_SUPPORT",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: true,
+    MailsList: [
+      {
+        id: "mail-clara-03",
+        title: "THƯ TỪ CLARA VOSS",
+        content:
+          `Patrick,
+          Họ đã bắt đầu chú ý đến ngài.
+          Điều đó có nghĩa những gì chúng ta làm đang tạo ra ảnh hưởng.
+          Hãy cẩn thận.
+          - Clara Voss`,
+        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        hoverImg: MAIL_CONFIG.ITEMS.mail_2.hover,
+        choices: [
+          {
+            text: "* Đã đọc *",
+            effect: {}
+          }
+        ]
+      }
+    ]
+  },
+
+  EV_P2_JONAH_FIRST_MISSION: {
+    EventID: "EV_P2_JONAH_FIRST_MISSION",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: true,
+    MailsList: [
+      {
+        id: "mail-jonah-01",
+        title: "NHIỆM VỤ ĐẦU TIÊN",
+        content:
+          `Patrick,
+          Chúng tôi cần chuyển vài cái tên giữa các khu mỏ.
+          Không phải than.
+          Không phải tiền.
+          Chỉ là vài cái tên.
+          Ngài có sẵn lòng giúp chúng tôi không?
+          - Jonah Reed`,
+        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        hoverImg: MAIL_CONFIG.ITEMS.mail_2.hover,
+        choices: [
+          {
+            text: "* Hỗ trợ họ * (-2000 Nhân lực)",
+            effect: { [STATS.HAPPINESS]: 10, [STATS.RESOURCE]: -2000 },
+            triggeredNews: {
+              title: "TIN ĐỒN VỀ MẠNG LƯỚI CÔNG NHÂN LAN RỘNG",
+              content: "Các báo cáo nội bộ cho thấy nhiều nhóm công nhân lập ra các cuộc họp ngoài giờ làm."
+            }
+          },
+        ]
+      }
+    ]
+  },
+
+  EV_P2_MIRA_SON: {
+    EventID: "EV_P2_MIRA_SON",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: false,
+    Telephone: {
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
+      senderText: [
+        "Con trai tôi lại bị sốt đêm qua.",
+        "Bác sĩ bảo nó cần được giữ ấm, nhưng than thì ngày càng đắt."
+      ],
+      choices: [
+        {
+          text: "Tôi rất tiếc.",
+          effect: {}
+        }
+      ]
+    }
+  },
+
+  EV_P2_MIRA_WIDOW: {
+    EventID: "EV_P2_MIRA_WIDOW",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: false,
+    Telephone: {
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
+      senderText: [
+        "Vợ của Ivan vẫn ngồi trước cửa khu tập thể mỗi tối.",
+        "Đứa bé của họ vẫn nghĩ cha nó đang làm ca đêm."
+      ],
+      choices: [
+        {
+          text: "Tôi hiểu.",
+          effect: {}
+        }
+      ]
+    }
+  },
+
+  EV_P2_MIRA_COAL: {
+    EventID: "EV_P2_MIRA_COAL",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: false,
+    Telephone: {
+      senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+      senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+      senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
+      senderText: [
+        "Có người dành cả đời đào than.",
+        "Nhưng vẫn không đủ tiền mua than cho gia đình mình."
+      ],
+      choices: [
+        {
+          text: "...",
+          effect: {}
+        }
+      ]
+    }
+  },
+
+  EV_P2_BERNARD_PRAISE: {
+    EventID: "EV_P2_BERNARD_PRAISE",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: false,
+    Telephone: {
+      senderName: CHARACTER_CONFIG.BERNARD_HALE.name,
+      senderImage: CHARACTER_CONFIG.BERNARD_HALE.images.default,
+      senderBlip: CHARACTER_CONFIG.BERNARD_HALE.sound,
+      senderText: [
+        "Tôi biết anh là người hiểu chuyện.",
+        "Theodore cần những quản đốc biết đặt kết quả lên trên cảm xúc."
+      ],
+      choices: [
+        {
+          text: "Cảm ơn ngài.",
+          effect: {}
+        }
+      ]
+    }
+  },
+
+  EV_P2_REVOLUTION_THREAT: {
+    EventID: "EV_P2_REVOLUTION_THREAT",
+    requiredFlag: FLAG.JOINED_THE_REVOLUTION,
+    requiredValue: false,
+    MailsList: [
+      {
+        id: "mail-revolution-01",
+        title: "THƯ KHÔNG KÝ TÊN",
+        content:
+          `Patrick,
+          Ông đã có cơ hội để lắng nghe.
+          Giờ đến lượt Cartel phải lắng nghe chúng tôi.
+          Khi tiếng còi mỏ vang lên vào ngày đó,
+          sẽ không còn ai bước xuống hầm nữa.
+          Và khi than ngừng chảy,
+          Theodore cũng sẽ tắt từ lâu.`,
+        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        hoverImg: MAIL_CONFIG.ITEMS.mail_2.hover,
+        choices: [
+          {
+            text: "* Gấp lá thư lại *",
+            effect: { [STATS.RESOURCE]: -5000 },
+            triggeredNews: {
+              title: "LỜI KÊU GỌI ĐÌNH CÔNG XUẤT HIỆN TẠI NHIỀU KHU MỎ",
+              content: "Hơn 5000 nhân công kêu gọi một cuộc đình công quy mô lớn."
+            }
+          }
+        ]
+      }
+    ]
+  }
 });

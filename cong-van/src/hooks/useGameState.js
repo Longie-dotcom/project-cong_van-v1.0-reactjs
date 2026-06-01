@@ -3,7 +3,10 @@ import { PHASES } from "../data/phases/phases";
 export function useGameState(playerState) {
   const fetchNextEvent = () => {
     const phase = PHASES[playerState.currentPhaseID];
-    if (!phase || !phase.Order) return { type: "NONE" };
+
+    if (!phase || !phase.Order) {
+      return { type: "NONE" };
+    }
 
     const currentIdx = playerState.currentEventIdx ?? 0;
 
@@ -17,15 +20,35 @@ export function useGameState(playerState) {
     const event = phase.Events[nextEventID];
 
     if (!event) {
-      console.error(`❌ Sự kiện không tồn tại: ${nextEventID} trong Phase ${playerState.currentPhaseID}`);
-      return { type: "SKIP", index: currentIdx };
+      console.error(
+        `❌ Sự kiện không tồn tại: ${nextEventID} trong Phase ${playerState.currentPhaseID}`
+      );
+
+      return {
+        type: "SKIP",
+        index: currentIdx,
+      };
     }
 
-    const hasFlag = !event.requiredFlag || (playerState.flags?.[event.requiredFlag] === true);
+    let shouldShow = true;
 
-    return hasFlag
-      ? { type: "EVENT", event, index: currentIdx }
-      : { type: "SKIP", index: currentIdx };
+    if (event.requiredFlag) {
+      const expectedValue = event.requiredValue ?? true;
+
+      shouldShow =
+        playerState[event.requiredFlag] === expectedValue;
+    }
+
+    return shouldShow
+      ? {
+        type: "EVENT",
+        event,
+        index: currentIdx,
+      }
+      : {
+        type: "SKIP",
+        index: currentIdx,
+      };
   };
 
   return {

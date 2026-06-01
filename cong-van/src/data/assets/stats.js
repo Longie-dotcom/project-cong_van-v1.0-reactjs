@@ -10,8 +10,11 @@ export const STATS = Object.freeze({
 });
 
 export const FLAG = Object.freeze({
+  WORKER_HELP_1: "WORKER_HELP_1",
+  WORKER_HELP_2: "WORKER_HELP_2",
+  WORKER_HELP_3: "WORKER_HELP_3",
+
   JOINED_THE_REVOLUTION: "JOINED_THE_REVOLUTION",
-  MISSION_COAL_DELIVERY: "MISSION_COAL_DELIVERY",
 });
 
 export const STATS_CONFIG = Object.freeze({

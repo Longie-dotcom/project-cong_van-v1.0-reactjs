@@ -7,6 +7,21 @@
   font-style: normal;
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Chặn hoàn toàn scroll của trang */
+  margin: 0;
+  padding: 0;
+  background-color: #000; /* Màu nền cho phần trống */
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Đảm bảo root cũng không bị tràn */
+}
+
 body {
   font-family: "PixelOperator", sans-serif;
   image-rendering: pixelated;

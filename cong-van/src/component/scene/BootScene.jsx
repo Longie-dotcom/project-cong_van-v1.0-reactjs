@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { BOOT_DATA } from "../../data/assets";
 import './BootScene.css';
 
-export default function BootScene({ onFinish }) {
+export default function BootScene({ setPlayerState }) {
   const [isActivated, setIsActivated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isActivated) return;
@@ -17,11 +19,14 @@ export default function BootScene({ onFinish }) {
     const stampAudio = createAudio(BOOT_DATA.STAMP_SOUND);
     const mailAudio = createAudio(BOOT_DATA.OPEN_MAIL_SOUND, 0.7);
 
-    stampAudio.play().catch(() => {}); // Giây 0: Đóng dấu 1
+    stampAudio.play().catch(() => { });
 
-    const timer2 = setTimeout(() => stampAudio.play().catch(() => {}), 3000); // Giây 3: Đóng dấu 2
-    const timer3 = setTimeout(() => mailAudio.play().catch(() => {}), 6000);   // Giây 6: Mở thư
-    const timer4 = setTimeout(onFinish, 7000);                                 // Giây 7: Kết thúc
+    const timer2 = setTimeout(() => stampAudio.play().catch(() => { }), 3000);
+    const timer3 = setTimeout(() => mailAudio.play().catch(() => { }), 6000);
+
+    const timer4 = setTimeout(() => {
+      navigate("/intro");
+    }, 7000);
 
     return () => {
       clearTimeout(timer2);
@@ -30,19 +35,33 @@ export default function BootScene({ onFinish }) {
       stampAudio.pause();
       mailAudio.pause();
     };
-  }, [isActivated, onFinish]);
+  }, [isActivated, navigate]);
 
   return (
-    <div 
-      className="screen boot-screen" 
-      onClick={() => !isActivated && setIsActivated(true)}
-      style={{ cursor: !isActivated ? 'pointer' : 'default' }}
-    >
+    <div className="screen boot-screen">
       {!isActivated ? (
-        <>
+        <div className="boot-ui-container">
           <img src={BOOT_DATA.AVATAR} alt="Logo" className="boot-logo" />
-          <div className="boot-click-trigger"><p>{BOOT_DATA.ACTIVATE_TITLE}</p></div>
-        </>
+
+          <input
+            type="text"
+            placeholder={BOOT_DATA.NAME_FIELD_PLACEHOLDER}
+            maxLength={25}
+            onChange={(e) => {
+              const newName = e.target.value.replace(/^\s+/, '');
+              setPlayerState(prev => ({
+                ...prev,
+                name: newName
+              }));
+            }}
+            className="boot-name-input"
+            onClick={(e) => e.stopPropagation()} // Quan trọng: không kích hoạt màn hình
+          />
+
+          <div className="boot-click-trigger" onClick={() => !isActivated && setIsActivated(true)}>
+            <p>{BOOT_DATA.ACTIVATE_TITLE}</p>
+          </div>
+        </div>
       ) : (
         <>
           <p className="boot-text-one">{BOOT_DATA.AUTHORS}</p>

@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8C56ED62-D33F-4917-B030-5AB8E9B987C2}|TheodoreServer\\TheodoreServer.csproj|c:\\users\\asrock\\documents\\github\\project-cong_van-v1.0-reactjs\\theodoreserver\\theodoreserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C56ED62-D33F-4917-B030-5AB8E9B987C2}|TheodoreServer\\TheodoreServer.csproj|solutionrelative:theodoreserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|c:\\users\\asrock\\documents\\github\\project-cong_van-v1.0-reactjs\\theodoreserver\\theodoreserver\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|solutionrelative:theodoreserver\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C56ED62-D33F-4917-B030-5AB8E9B987C2}|TheodoreServer\\TheodoreServer.csproj|c:\\users\\asrock\\documents\\github\\project-cong_van-v1.0-reactjs\\theodoreserver\\theodoreserver\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8C56ED62-D33F-4917-B030-5AB8E9B987C2}|TheodoreServer\\TheodoreServer.csproj|solutionrelative:theodoreserver\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|c:\\users\\asrock\\documents\\github\\project-cong_van-v1.0-reactjs\\theodoreserver\\theodoreserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|solutionrelative:theodoreserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|c:\\users\\asrock\\documents\\github\\project-cong_van-v1.0-reactjs\\theodoreserver\\theodoreserver\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F1E4714-F10F-AAE2-33F0-DA7DC7DE8FD5}|TheodoreServer\\TheodoreServer.csproj|solutionrelative:theodoreserver\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +22,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\TheodoreServer\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "TheodoreServer\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\TheodoreServer\\WeatherForecast.cs",
+              "RelativeToolTip": "TheodoreServer\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-31T20:18:31.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\TheodoreServer\\Program.cs",
               "RelativeDocumentMoniker": "TheodoreServer\\Program.cs",
               "ToolTip": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\TheodoreServer\\Program.cs",
               "RelativeToolTip": "TheodoreServer\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAgwAkAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-31T18:54:49.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-31T18:54:49.216Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GameHub.cs",
               "DocumentMoniker": "C:\\Users\\ASROCK\\Documents\\GitHub\\project-cong_van-v1.0-reactjs\\TheodoreServer\\TheodoreServer\\GameHub.cs",
               "RelativeDocumentMoniker": "TheodoreServer\\GameHub.cs",

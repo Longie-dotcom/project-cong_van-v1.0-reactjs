@@ -15,6 +15,7 @@ export const BOOT_DATA = Object.freeze({
     STAMP_SOUND: StampSound,
     OPEN_MAIL_SOUND: PAPER_CONFIG.UI.RUSTLE,
     AVATAR: Avatar,
+    NAME_FIELD_PLACEHOLDER: "Nhập tên của bạn vào đây...",
     ACTIVATE_TITLE: "- Nhấn để tiếp tục -",
     AUTHORS: "Một sản phẩm thuộc nhóm 5 - SE1839",
     INTRODUCTION: "Dự án phục vụ môn Triết học Mác - Lênin (MLN111)",
@@ -29,19 +30,19 @@ export const INTRO_DATA = Object.freeze({
             name: CHARACTER_CONFIG.BERNARD_HALE.name, 
             img: CHARACTER_CONFIG.BERNARD_HALE.images.default, 
             sound: CHARACTER_CONFIG.BERNARD_HALE.sound,
-            dialogue: "Chúc mừng ngài Patrick. Quốc hội đã đặt niềm tin vào ngài."
+            dialogue: "Mùa đông đang đến gần. Nhu cầu than sẽ tăng mạnh, và chúng tôi không muốn bỏ lỡ cơ hội này."
         },
         ALEXANDER: { 
             name: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name, 
             img: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.default, 
             sound: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
-            dialogue: 'Đừng để cảm xúc cản trở "lợi ích quốc gia". Than đá phải được đưa vào các lò luyện thép trước khi quá muộn.'
+            dialogue: "Từ hôm nay anh sẽ quản lý khu mỏ * giấu tên *. Chúng tôi cần nhiều than hơn, và tôi không quan tâm anh làm bằng cách nào."
         },
         ELEANOR: { 
             name: CHARACTER_CONFIG.ELEANOR_WENTWORTH.name, 
             img: CHARACTER_CONFIG.ELEANOR_WENTWORTH.images.default, 
             sound: CHARACTER_CONFIG.ELEANOR_WENTWORTH.sound,
-            dialogue: 'Mùa đông năm nay sẽ rất khắc nghiệt... người dân cần một nhà lãnh đạo dám thực hiện những "hy sinh cần thiết".'
+            dialogue: "Lũ công nhân lúc nào cũng có lý do để than phiền. Việc của anh không phải lắng nghe chúng, mà là giữ cho sản lượng luôn tăng."
         },
     },
     SEQUENCE: ["BERNARD", "ALEXANDER", "ELEANOR"]

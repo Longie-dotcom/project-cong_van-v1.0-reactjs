@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { INTRO_DATA } from "../../data/assets";
 import "./IntroScene.css";
 
@@ -17,22 +18,22 @@ const CharacterDisplay = ({ activeCharKey }) => (
 );
 
 // --- Main Component ---
-export default function IntroScene({ onFinish }) {
+export default function IntroScene() {
   const [scene, setScene] = useState("menu");
   const [fadeOut, setFadeOut] = useState(true);
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  
+  const navigate = useNavigate();
 
   const blipPoolRef = useRef([]);
   const blipIndexRef = useRef(0);
   const activeBlipSourceRef = useRef(null);
 
-  // Lấy dữ liệu nhân vật hiện tại an toàn
   const currentKey = scene === "conversation" ? INTRO_DATA.SEQUENCE[dialogueIndex] : null;
   const currentChar = scene === "conversation" ? INTRO_DATA.CHARACTERS[currentKey] : null;
 
-  // Logic Audio Pool
   useEffect(() => {
     if (scene !== "conversation" || !currentChar) return;
     const soundFile = currentChar.sound;
@@ -44,7 +45,6 @@ export default function IntroScene({ onFinish }) {
     }
   }, [scene, dialogueIndex, currentChar]);
 
-  // Logic Gõ chữ
   useEffect(() => {
     if (scene !== "conversation" || !currentChar) return;
     setIsTyping(true);
@@ -74,12 +74,12 @@ export default function IntroScene({ onFinish }) {
 
   const handleNext = () => {
     if (isTyping) return;
-    // Kiểm tra với SEQUENCE thay vì DIALOGUES
     if (dialogueIndex < INTRO_DATA.SEQUENCE.length - 1) {
       setDialogueIndex(prev => prev + 1);
     } else {
       setFadeOut(false);
-      setTimeout(onFinish, 1200);
+      // 4. Thay thế onFinish bằng navigate
+      setTimeout(() => navigate("/game"), 1200);
     }
   };
 
