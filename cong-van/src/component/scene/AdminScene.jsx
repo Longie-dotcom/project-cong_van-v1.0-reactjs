@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useGameHub } from "../../hooks/useGameHub";
 import './AdminScene.css';
 
@@ -31,23 +31,25 @@ export default function AdminScene() {
         }
     };
 
-    const sortedPlayers = Object.entries(players).sort((a, b) => {
-        const pa = a[1];
-        const pb = b[1];
+    const sortedPlayers = useMemo(() => {
+        return Object.entries(players).sort((a, b) => {
+            const pa = a[1];
+            const pb = b[1];
 
-        const getValue = (p) => {
-            switch (sortKey) {
-                case "COAL": return p.COAL || 0;
-                case "ECONOMY": return p.ECONOMY || 0;
-                case "HAPPINESS": return p.HAPPINESS || 0;
-                case "RESOURCE": return p.RESOURCE || 0;
-                default: return 0;
-            }
-        };
+            const getValue = (p) => {
+                switch (sortKey) {
+                    case "COAL": return p.COAL ?? 0;
+                    case "ECONOMY": return p.ECONOMY ?? 0;
+                    case "HAPPINESS": return p.HAPPINESS ?? 0;
+                    case "RESOURCE": return p.RESOURCE ?? 0;
+                    default: return 0;
+                }
+            };
 
-        const result = getValue(pb) - getValue(pa);
-        return sortOrder === "asc" ? -result : result;
-    });
+            const diff = getValue(pa) - getValue(pb);
+            return sortOrder === "asc" ? diff : -diff;
+        });
+    }, [players, sortKey, sortOrder]);
 
     return (
         <div className="admin-container">
