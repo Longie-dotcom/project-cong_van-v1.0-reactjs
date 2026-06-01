@@ -58,7 +58,7 @@ export default function AdminScene() {
                                 {showHappiness && <td>{p.HAPPINESS}</td>}
                                 <td>{p.RESOURCE?.toLocaleString()} {p.RESOURCE < 0 && <span className="status-label label-death">(Tử vong)</span>}</td>
                                 <td><div className="upgrade-group">{[p.village_1, p.village_2, p.village_3, p.village_4].map((v, i) => <span key={i} className="level-pill">{v}</span>)}</div></td>
-                                <td><div className="upgrade-group">{[p.b_upgrade_1, p.b_upgrade_2, p.b_upgrade_3, p.b_upgrade_4].map((u, i) => <span key={i} className="level-pill">{u}</span>)}</div></td>
+                                <td><div className="upgrade-group">{[p.tech_1, p.tech_2, p.tech_3, p.tech_4].map((u, i) => <span key={i} className="level-pill">{u}</span>)}</div></td>
                                 <td><div className="upgrade-group">{[p.railway, p.auto, p.tools, p.storage].map((x, i) => <span key={i} className="level-pill">{x}</span>)}</div></td>
                                 <td><span className="phase-badge">{p.currentPhaseID}</span></td>
                             </tr>
