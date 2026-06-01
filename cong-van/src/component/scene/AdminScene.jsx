@@ -3,6 +3,8 @@ import { useGameHub } from "../../hooks/useGameHub";
 import './AdminScene.css';
 
 export default function AdminScene() {
+    const [sortKey, setSortKey] = useState("COAL");
+    const [sortOrder, setSortOrder] = useState("desc");
     const [players, setPlayers] = useState({});
     const [showHappiness, setShowHappiness] = useState(false);
     const { isConnected, joinAdminGroup, connection } = useGameHub(
@@ -19,6 +21,33 @@ export default function AdminScene() {
             return () => { connection.current.off("ReceivePlayerUpdate"); };
         }
     }, [isConnected, connection]);
+
+    const handleSort = (key) => {
+        if (sortKey === key) {
+            setSortOrder(prev => prev === "asc" ? "desc" : "asc");
+        } else {
+            setSortKey(key);
+            setSortOrder("desc");
+        }
+    };
+
+    const sortedPlayers = Object.entries(players).sort((a, b) => {
+        const pa = a[1];
+        const pb = b[1];
+
+        const getValue = (p) => {
+            switch (sortKey) {
+                case "COAL": return p.COAL || 0;
+                case "ECONOMY": return p.ECONOMY || 0;
+                case "HAPPINESS": return p.HAPPINESS || 0;
+                case "RESOURCE": return p.RESOURCE || 0;
+                default: return 0;
+            }
+        };
+
+        const result = getValue(pb) - getValue(pa);
+        return sortOrder === "asc" ? -result : result;
+    });
 
     return (
         <div className="admin-container">
@@ -39,10 +68,23 @@ export default function AdminScene() {
                     <thead>
                         <tr>
                             <th>Tên</th>
-                            <th>Than</th>
-                            <th>Tiền</th>
-                            {showHappiness && <th>Hạnh phúc</th>}
-                            <th>Nhân lực</th>
+                            <th onClick={() => handleSort("COAL")} style={{ cursor: "pointer" }}>
+                                Than {sortKey === "COAL" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                            </th>
+
+                            <th onClick={() => handleSort("ECONOMY")} style={{ cursor: "pointer" }}>
+                                Tiền {sortKey === "ECONOMY" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                            </th>
+
+                            {showHappiness && (
+                                <th onClick={() => handleSort("HAPPINESS")} style={{ cursor: "pointer" }}>
+                                    Hạnh phúc {sortKey === "HAPPINESS" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                                </th>
+                            )}
+
+                            <th onClick={() => handleSort("RESOURCE")} style={{ cursor: "pointer" }}>
+                                Nhân lực {sortKey === "RESOURCE" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                            </th>
                             <th>Ký túc xá</th>
                             <th>Nâng cấp</th>
                             <th>Tự động hóa</th>
