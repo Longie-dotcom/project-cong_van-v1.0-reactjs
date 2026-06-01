@@ -58,7 +58,7 @@ function App() {
         <Route path="/" element={<Navigate to="/boot" />} />
 
         <Route path="/boot" element={<BootScene setPlayerState={setPlayerState} />} />
-<Route path="/a" element={<div>ADMIN WORKS</div>} />
+
         <Route path="/intro" element={<IntroScene />} />
 
         <Route

@@ -39,6 +39,13 @@ export default function BootScene({ setPlayerState }) {
 
   return (
     <div className="screen boot-screen">
+      <button
+        className="admin-float-btn"
+        onClick={() => navigate("/admin")}
+      >
+        Bảng xếp hạng
+      </button>
+
       {!isActivated ? (
         <div className="boot-ui-container">
           <img src={BOOT_DATA.AVATAR} alt="Logo" className="boot-logo" />
