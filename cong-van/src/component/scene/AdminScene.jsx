@@ -92,7 +92,7 @@ export default function AdminScene() {
                         </tr>
                     </thead>
                     <tbody>
-                        {Object.entries(players).map(([id, p]) => (
+                        {sortedPlayers.map(([id, p]) => (
                             <tr key={id}>
                                 <td style={{ fontWeight: 'bold' }}>{p.name || "Unknown"}</td>
                                 <td>{p.COAL?.toLocaleString()} {p.COAL < 0 && <span className="status-label label-debt">(Nợ)</span>}</td>
