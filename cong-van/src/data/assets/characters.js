@@ -8,6 +8,9 @@ import MiraVolkov from "../../assets/image/character/mira-volkov.png";
 import Elias from "../../assets/image/character/elias.png";
 import EliasSad from "../../assets/image/character/elias-sad.png";
 import EliasHappy from "../../assets/image/character/elias-happy.png";
+import DoMixi from "../../assets/image/character/domixi.jpg";
+import GiaoLang from "../../assets/image/character/giao_lang.jpg";
+import TuSena from  "../../assets/image/character/tu-sena.png";
 
 import AlexanderWhitmoreSound from "../../assets/sound/character/alexander-whitmore.mp3";
 import BernardHaleSound from "../../assets/sound/character/bernard-hale.mp3";
@@ -16,6 +19,9 @@ import ClaraVossSound from "../../assets/sound/character/clara-voss.mp3";
 import JonahReedSound from "../../assets/sound/character/jonah-reed.mp3";
 import MiraVolkovSound from "../../assets/sound/character/mira-volkov.mp3";
 import EliasSound from "../../assets/sound/character/elias.mp3";
+import DoMixiSound from "../../assets/sound/character/alexander-whitmore.mp3";
+import GiaoLangSound from "../../assets/sound/character/alexander-whitmore.mp3";
+import TuSenaSound from "../../assets/sound/character/alexander-whitmore.mp3";
 
 export const CHARACTER_CONFIG = Object.freeze({
   ALEXANDER_WHITMORE: {
@@ -52,5 +58,20 @@ export const CHARACTER_CONFIG = Object.freeze({
     name: "Elias",
     sound: EliasSound,
     images: { default: Elias, sad: EliasSad, happy: EliasHappy }
-  }
+  },
+  DOMIXI: {
+    name: "Anh Độ Mixi",
+    sound: DoMixiSound,
+    images: { default: DoMixi }
+  },
+  GIAOLANG: {
+    name: "Giáo Làng",
+    sound: GiaoLangSound,
+    images: { default: GiaoLang }
+  },
+  TUSENA: {
+    name: "Tú Sena",
+    sound: TuSenaSound,
+    images: { default: TuSena }
+  },
 });

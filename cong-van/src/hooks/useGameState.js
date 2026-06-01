@@ -1,57 +1,38 @@
 import { PHASES } from "../data/phases/phases";
+import { SIDE_EVENT } from "../data/phases/sideEvents";
 
 export function useGameState(playerState) {
   const fetchNextEvent = () => {
     const phase = PHASES[playerState.currentPhaseID];
+    if (!phase || !phase.Order) return { type: "NONE" };
 
-    if (!phase || !phase.Order) {
-      return { type: "NONE" };
-    }
+    let currentIdx = playerState.currentEventIdx ?? 0;
 
-    const currentIdx = playerState.currentEventIdx ?? 0;
+    // Vòng lặp tìm sự kiện hợp lệ (không delay)
+    while (currentIdx < phase.Order.length) {
+      const nextEventID = phase.Order[currentIdx];
+      const event = phase.Events[nextEventID];
 
-    if (currentIdx >= phase.Order.length) {
-      return phase.Next_Phase === "ENDING"
-        ? { type: "ENDING", data: phase }
-        : { type: "NONE" };
-    }
-
-    const nextEventID = phase.Order[currentIdx];
-    const event = phase.Events[nextEventID];
-
-    if (!event) {
-      console.error(
-        `❌ Sự kiện không tồn tại: ${nextEventID} trong Phase ${playerState.currentPhaseID}`
-      );
-
-      return {
-        type: "SKIP",
-        index: currentIdx,
-      };
-    }
-
-    let shouldShow = true;
-
-    if (event.requiredFlag) {
-      const expectedValue = event.requiredValue ?? true;
-
-      shouldShow =
-        playerState[event.requiredFlag] === expectedValue;
-    }
-
-    return shouldShow
-      ? {
-        type: "EVENT",
-        event,
-        index: currentIdx,
+      if (!event) {
+        currentIdx++;
+        continue;
       }
-      : {
-        type: "SKIP",
-        index: currentIdx,
-      };
+
+      const shouldShow = event.requiredFlag 
+        ? playerState[event.requiredFlag] === (event.requiredValue ?? true)
+        : true;
+
+      if (shouldShow) {
+        return { type: "EVENT", event, index: currentIdx };
+      }
+      currentIdx++;
+    }
+
+    // Nếu hết Order thì trả về SIDE_EVENT
+    const sideEventIDs = Object.keys(SIDE_EVENT);
+    const randomID = sideEventIDs[Math.floor(Math.random() * sideEventIDs.length)];
+    return { type: "SIDE_EVENT", event: SIDE_EVENT[randomID] };
   };
 
-  return {
-    fetchNextEvent,
-  };
+  return { fetchNextEvent };
 }

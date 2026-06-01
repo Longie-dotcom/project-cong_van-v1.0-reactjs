@@ -33,6 +33,11 @@ export function useGameActions(
             }));
         }
 
+        setPlayerState(prev => ({
+            ...prev,
+            currentEventID: null,
+        }));
+
         if (choice.triggeredNews) {
             setActiveNews(choice.triggeredNews);
         }
@@ -119,10 +124,21 @@ export function useGameActions(
                     const quota = currentPhaseData.Coal_Quota;
                     if (prev[STATS.COAL] >= quota) {
                         isOperationSuccess = true;
+
+                        if (currentPhaseData.Next_Phase === "ENDING") {
+                            return {
+                                ...prev,
+                                [STATS.COAL]: prev[STATS.COAL] - quota,
+                                currentPhaseID: "ENDING_TRIGGERED" // Một ID đặc biệt để báo hiệu đã xong
+                            };
+                        }
+
                         return {
                             ...prev,
                             [STATS.COAL]: prev[STATS.COAL] - quota,
-                            currentPhaseID: currentPhaseData.Next_Phase
+                            currentPhaseID: currentPhaseData.Next_Phase,
+                            currentEventIdx: 0,
+                            currentEventID: null
                         };
                     }
                 }

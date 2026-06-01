@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import { STATS, FLAG } from "./data/assets/stats";
@@ -19,9 +19,9 @@ function App() {
     connectionId: null,
     coal_value: 1.0,
 
-    [STATS.RESOURCE]: 50,
-    [STATS.COAL]: 50,
-    [STATS.ECONOMY]: 9900,
+    [STATS.RESOURCE]: 0,
+    [STATS.COAL]: 0,
+    [STATS.ECONOMY]: 90000,
     [STATS.HAPPINESS]: 0,
 
     [FLAG.WORKER_HELP_1]: false,
@@ -51,6 +51,10 @@ function App() {
   };
 
   const [playerState, setPlayerState] = useState(RESET_STATE);
+  const handleGameEnd = useCallback((data) => {
+    setEndingData(data);
+    navigate("/ending");
+  }, [navigate]);
 
   return (
     <>
@@ -67,10 +71,7 @@ function App() {
             <GameScene
               playerState={playerState}
               setPlayerState={setPlayerState}
-              onGameEnd={(data) => {
-                setEndingData(data);
-                navigate("/ending");
-              }}
+              onGameEnd={handleGameEnd}
             />
           }
         />

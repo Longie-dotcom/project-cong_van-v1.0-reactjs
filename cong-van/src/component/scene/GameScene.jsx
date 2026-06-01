@@ -119,8 +119,6 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
       }
     };
 
-    // Để tránh quá tải server, bạn có thể gửi sau mỗi 2 giây thay vì gửi ngay lập tức
-    // Hoặc gửi ngay nếu là thay đổi quan trọng (tùy nhu cầu của bạn)
     const timer = setTimeout(syncState, 1000);
 
     return () => clearTimeout(timer);
@@ -128,80 +126,52 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
 
   // EFFECT THEO DÕI EVENTS MỚI
   useEffect(() => {
-    if (isEventActive) return;
+    if (playerState.currentEventID || playerState.currentPhaseID === "ENDING_TRIGGERED") {
+      return;
+    }
 
-    const interval = setInterval(() => {
-      const result = fetchNextEvent();
+    const result = fetchNextEvent();
+    if (!result || result.type === "NONE") return;
 
-      if (!result) return;
+    // Nếu là EVENT chính, chờ 15s. Nếu là SIDE_EVENT, chờ 14s.
+    const delay = result.type === "EVENT" ? (Math.random() * 15000) : 14000;
 
-      // =====================
-      // ENDING
-      // =====================
-      if (result.type === "ENDING") {
-        const state = playerState;
-
-        const happiness = state[STATS.HAPPINESS] ?? 0;
-        const joined = state[FLAG.JOINED_THE_REVOLUTION];
-
-        let endingID = "BINH_MINH_HOA_GIAI";
-
-        if (happiness < 50 && !joined) {
-          endingID = "KY_NGUYEN_THEP";
-        }
-        else if (happiness >= 50 && joined) {
-          endingID = "CHUYEN_CHINH_VO_SAN";
-        }
-
-        const ending = ENDINGS[endingID];
-
-        onGameEnd({
-          ...ending,
-          endingID
-        });
-
-        return;
-      }
-
-      // =====================
-      // EVENT
-      // =====================
-      if (result.type === "EVENT") {
+    const timer = setTimeout(() => {
+      if (result.type === "EVENT" || result.type === "SIDE_EVENT") {
         const nextEvent = result.event;
 
         setPlayerState(prev => ({
           ...prev,
           currentEventID: nextEvent.EventID,
-          currentEventIdx: result.index + 1
+          currentEventIdx: result.type === "EVENT" ? (result.index + 1) : prev.currentEventIdx
         }));
 
         setActiveEvents({
           mails: nextEvent.MailsList || [],
           calls: nextEvent.Telephone ? [nextEvent.Telephone] : []
         });
-
-        return;
       }
+    }, delay);
 
-      // =====================
-      // SKIP
-      // =====================
-      if (result.type === "SKIP") {
-        setPlayerState(prev => ({
-          ...prev,
-          currentEventIdx: result.index + 1
-        }));
-      }
+    return () => clearTimeout(timer);
 
-    }, 17000);
+  }, [playerState.currentEventID, playerState.currentEventIdx, playerState.currentPhaseID]);
 
-    return () => clearInterval(interval);
-  }, [
-    isEventActive,
-    playerState.currentEventID,
-    playerState.currentPhaseID,
-    playerState.currentEventIdx
-  ]);
+  // EFFECT CHECK ENDING
+  useEffect(() => {
+    if (playerState.currentPhaseID === "ENDING_TRIGGERED") {
+      // Lấy dữ liệu ending
+      const happiness = playerState[STATS.HAPPINESS] ?? 0;
+      const joined = playerState[FLAG.JOINED_THE_REVOLUTION];
+
+      let endingID = "BINH_MINH_HOA_GIAI";
+      if (happiness < 50 && !joined) endingID = "KY_NGUYEN_THEP";
+      else if (happiness >= 50 && joined) endingID = "CHUYEN_CHINH_VO_SAN";
+
+      // Gọi hàm callback và ngay lập tức dừng lại
+      onGameEnd({ ...ENDINGS[endingID], endingID });
+    }
+  }, [playerState.currentPhaseID, onGameEnd]);
 
   // EFFECT THEO DÕI CÁC UPGRADE ĐỂ TĂNG/GIẢM WORKER
   useEffect(() => {

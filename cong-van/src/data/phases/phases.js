@@ -19,7 +19,7 @@ export const PHASES = Object.freeze({
       "EV_P1_ALEXANDER_DISAPPROVE",
       "EV_P1_CLARA_LETTER"
     ],
-    Coal_Quota: 100000,
+    Coal_Quota: 144000,
     Events: PHASE1_EVENTS,
     Next_Phase: "PHASE_2"
   },
@@ -38,7 +38,7 @@ export const PHASES = Object.freeze({
       "EV_P2_BERNARD_PRAISE",
       "EV_P2_REVOLUTION_THREAT"
     ],
-    Coal_Quota: 1000000,
+    Coal_Quota: 576000,
     Events: PHASE2_EVENTS,
     Next_Phase: "PHASE_3"
   },
@@ -56,7 +56,7 @@ export const PHASES = Object.freeze({
       "EV_P3_COLLECTIVE_PUNISHMENT",
       "EV_P3_CHAIN_COLLAPSE"
     ],
-    Coal_Quota: 10000000,
+    Coal_Quota: 2304000,
     Events: PHASE3_EVENTS,
     Next_Phase: "ENDING"
   },

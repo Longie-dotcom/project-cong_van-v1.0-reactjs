@@ -10,7 +10,7 @@ export const PHASE2_EVENTS = Object.freeze({
         id: "mail-clara-02",
         title: "LỜI MỜI GIA NHẬP HỘI ĐỒNG",
         content: "Patrick,\n\nSau những gì ngài đã làm, tôi tin ngài từ lâu đã chán ngấy lũ Cartel rồi. Chúng tôi có một cuộc họp bí mật tối nay để bàn về kế hoạch thay đổi thực sự tại Theodore. Ngài có dám đến không?\n\n- Clara Voss",
-        normalImg: MAIL_CONFIG.ITEMS.mail_1.normal,
+        normalImg: MAIL_CONFIG.ITEMS.mail_2.normal,
         hoverImg: MAIL_CONFIG.ITEMS.mail_2.hover,
         choices: [
           {

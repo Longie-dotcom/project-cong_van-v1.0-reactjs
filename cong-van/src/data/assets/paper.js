@@ -58,22 +58,22 @@ export const PAPER_CONFIG = Object.freeze({
   // Dữ liệu nâng cấp (Gộp từ UPGRADE_DATA)
   UPGRADES: {
     A: [
-      { id: "village_1", name: "Phòng Trọ Nhỏ", level: 1, baseCost: 10, metric: "Nhân lực", value: 50, asset: LocalVillage },
-      { id: "village_2", name: "Ký Túc Xá", level: 2, baseCost: 40, metric: "Nhân lực", value: 120, asset: SmallTown },
-      { id: "village_3", name: "Khu Cư Xá", level: 3, baseCost: 150, metric: "Nhân lực", value: 300, asset: SmallCity },
-      { id: "village_4", name: "Đại Cư Xá", level: 4, baseCost: 500, metric: "Nhân lực", value: 800, asset: CenterCity }
+      { id: "village_1", name: "Phòng Trọ Nhỏ", level: 1, baseCost: 100, metric: "Nhân lực", value: 50, asset: LocalVillage },
+      { id: "village_2", name: "Ký Túc Xá", level: 2, baseCost: 300, metric: "Nhân lực", value: 70, asset: SmallTown },
+      { id: "village_3", name: "Khu Cư Xá", level: 3, baseCost: 900, metric: "Nhân lực", value: 95, asset: SmallCity },
+      { id: "village_4", name: "Đại Cư Xá", level: 4, baseCost: 2500, metric: "Nhân lực", value: 140, asset: CenterCity }
     ],
     B: [
-      { id: "tech_1", name: "Công Nghệ Tinh Chế", level: 1, baseCost: 15, metric: "Giá trị than", value: 1.5, asset: RefiningTechnology },
-      { id: "tech_2", name: "Nén Áp Suất Cao", level: 1, baseCost: 60, metric: "Giá trị than", value: 2.5, asset: CompressingTechnology },
-      { id: "tech_3", name: "Lọc Tạp Chất", level: 1, baseCost: 200, metric: "Giá trị than", value: 4.0, asset: FilteringTechnology },
-      { id: "tech_4", name: "Biến Đổi Hóa Học", level: 1, baseCost: 700, metric: "Giá trị than", value: 7.5, asset: ChemicalTechnology }
+      { id: "tech_1", name: "Công Nghệ Tinh Chế", level: 1, baseCost: 20000, metric: "Giá trị than", value: 1, asset: RefiningTechnology },
+      { id: "tech_2", name: "Nén Áp Suất Cao", level: 1, baseCost: 60000, metric: "Giá trị than", value: 1, asset: CompressingTechnology },
+      { id: "tech_3", name: "Lọc Tạp Chất", level: 1, baseCost: 180000, metric: "Giá trị than", value: 1, asset: FilteringTechnology },
+      { id: "tech_4", name: "Biến Đổi Hóa Học", level: 1, baseCost: 500000, metric: "Giá trị than", value: 2, asset: ChemicalTechnology }
     ],
     C: [
-      { id: "railway", name: "Đường Ray Vận Tải", level: 1, maxLevel: 4, baseCost: 20, metric: "Than/s", value: 5, assets: [RailwayLevel1, RailwayLevel2, RailwayLevel3, RailwayLevel4] },
-      { id: "auto", name: "Tự Động Hóa", level: 1, maxLevel: 4, baseCost: 35, metric: "Than/s", value: 12, assets: [AutomationLevel1, AutomationLevel2, AutomationLevel3, AutomationLevel4] },
-      { id: "tools", name: "Công Cụ Khai Thác", level: 1, maxLevel: 4, baseCost: 15, metric: "Than/s", value: 3, assets: [ToolLevel1, ToolLevel2, ToolLevel3, ToolLevel4] },
-      { id: "storage", name: "Kho Chứa Than", level: 1, maxLevel: 4, baseCost: 25, metric: "Than/s", value: 8, assets: [StorageLevel1, StorageLevel2, StorageLevel3, StorageLevel4] }
+      { id: "storage", name: "Kho Chứa Than", level: 1, maxLevel: 4, baseCost: 25000, metric: "Than/s", value: 15, assets: [StorageLevel1, StorageLevel2, StorageLevel3, StorageLevel4] },
+      { id: "tools", name: "Công Cụ Khai Thác", level: 1, maxLevel: 4, baseCost: 80000, metric: "Than/s", value: 20, assets: [ToolLevel1, ToolLevel2, ToolLevel3, ToolLevel4] },
+      { id: "railway", name: "Đường Ray Vận Tải", level: 1, maxLevel: 4, baseCost: 150000, metric: "Than/s", value: 30, assets: [RailwayLevel1, RailwayLevel2, RailwayLevel3, RailwayLevel4] },
+      { id: "auto", name: "Tự Động Hóa", level: 1, maxLevel: 4, baseCost: 250000, metric: "Than/s", value: 50, assets: [AutomationLevel1, AutomationLevel2, AutomationLevel3, AutomationLevel4] },
     ],
     D: [
       { id: "sell_market", name: "Tuồn Than Ra Thị Trường", level: 1, baseCost: 0, metric: "Quỹ đen", value: "Vốn đầu tư", description: "Lén lút tuồn số Than hiện có ra thị trường tự do...", asset: EconomySell },

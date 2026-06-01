@@ -18,6 +18,6 @@ export const GAME_BALANCE = {
   },
 
   PRICING: {
-    VILLAGE_MULTIPLIER: 1.5, // Hệ số scale-up giá mới cho mỗi lần mua mở rộng nhân lực
+    VILLAGE_MULTIPLIER: 1.6, // Hệ số scale-up giá mới cho mỗi lần mua mở rộng nhân lực
   }
 };
