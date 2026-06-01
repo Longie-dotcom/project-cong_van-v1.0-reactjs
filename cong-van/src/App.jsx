@@ -39,10 +39,10 @@ function App() {
     village_3: 0,
     village_4: 0,
 
-    b_upgrade_1: 0,
-    b_upgrade_2: 0,
-    b_upgrade_3: 0,
-    b_upgrade_4: 0,
+    tech_1: 0,
+    tech_2: 0,
+    tech_3: 0,
+    tech_4: 0,
 
     railway: 0,
     auto: 0,

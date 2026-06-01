@@ -14,7 +14,7 @@ export function UpgradeRow({
             onRowReady(iconFrame);
         }
     }, []);
-
+    
     return (
         <div
             data-item-id={itemId}
