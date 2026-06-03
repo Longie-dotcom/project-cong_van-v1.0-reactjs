@@ -70,3 +70,11 @@
 .ending-button:active {
   transform: scale(0.96);
 }
+
+.ending-debug {
+  font-size: 16px;
+  color: #d8d8d8;
+  margin-top: 20px;
+  max-height: 200px;
+  overflow: auto;
+}

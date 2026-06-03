@@ -1,66 +1,54 @@
-import { PHASE1_EVENTS } from "./phase1.events";
-import { PHASE2_EVENTS } from "./phase2.events";
-import { PHASE3_EVENTS } from "./phase3.events";
-import { ENDINGS } from "./ending";
+import { DAY_1 } from "./day1";
+import { DAY_2 } from "./day2";
+import { DAY_3 } from "./day3";
+import { DAY_4 } from "./day4";
+import { DAY_5 } from "./day5";
+import { DAY_6 } from "./day6";
+import { DAY_7 } from "./day7";
+import { DAY_8 } from "./day8";
+import { DAY_9 } from "./day9";
+import { DAY_10 } from "./day10";
+import { DAY_11 } from "./day11";
+import { DAY_12 } from "./day12";
+import { DAY_13 } from "./day13";
+import { DAY_14 } from "./day14";
+import { DAY_15 } from "./day15";
+import { DAY_19 } from "./day19";
 
-export const PHASES = Object.freeze({
-  "PHASE_1": {
-    Order: [
-      "EV_P1_ELIAS_CALL",
-      "EV_P1_ALEXANDER_INTRO",
-      "EV_P1_MIRA_COAL",
-      "EV_P1_BERNARD_APPROVE",
-      "EV_P1_BERNARD_DISAPPROVE",
-      "EV_P1_MIRA_WAGE",
-      "EV_P1_ELEANOR_APPROVE",
-      "EV_P1_ELEANOR_DISAPPROVE",
-      "EV_P1_MIRA_ACCIDENT",
-      "EV_P1_ALEXANDER_APPROVE",
-      "EV_P1_ALEXANDER_DISAPPROVE",
-      "EV_P1_CLARA_LETTER"
-    ],
-    Coal_Quota: 144000,
-    Events: PHASE1_EVENTS,
-    Next_Phase: "PHASE_2"
-  },
-
-  "PHASE_2": {
-    Order: [
-      "EV_P2_CLARA_INVITATION",
-      "EV_P2_BERNARD_WARNING",
-      "EV_P2_ELEANOR_SUSPICION",
-      "EV_P2_ALEXANDER_THREAT",
-      "EV_P2_CLARA_SUPPORT",
-      "EV_P2_JONAH_FIRST_MISSION",
-      "EV_P2_MIRA_SON",
-      "EV_P2_MIRA_WIDOW",
-      "EV_P2_MIRA_COAL",
-      "EV_P2_BERNARD_PRAISE",
-      "EV_P2_REVOLUTION_THREAT"
-    ],
-    Coal_Quota: 576000,
-    Events: PHASE2_EVENTS,
-    Next_Phase: "PHASE_3"
-  },
-
-  "PHASE_3": {
-    Order: [
-      "EV_P3_MIRA_STRIKE_1",
-      "EV_P3_MIRA_STRIKE_2",
-      "EV_P3_MIRA_STRIKE_3",
-      "EV_P3_MIRA_STRIKE_4",
-      "EV_P3_MIRA_STRIKE_5",
-      "EV_P3_MIRA_WARNING",
-      "EV_P3_CARTEL_BREAKDOWN",
-      "EV_P3_COAL_DEPOT_SABOTAGE",
-      "EV_P3_COLLECTIVE_PUNISHMENT",
-      "EV_P3_CHAIN_COLLAPSE"
-    ],
-    Coal_Quota: 2304000,
-    Events: PHASE3_EVENTS,
-    Next_Phase: "ENDING"
-  },
-
-  "ENDING": ENDINGS
+export const ALL_EVENTS = Object.freeze({
+  DAY_1,
+  DAY_2,
+  DAY_3,
+  DAY_4,
+  DAY_5,
+  DAY_6,
+  DAY_7,
+  DAY_8,
+  DAY_9,
+  DAY_10,
+  DAY_11,
+  DAY_12,
+  DAY_13,
+  DAY_14,
+  DAY_15,
+  DAY_19
 });
 
+export const GAME_EVENT_ORDER = Object.freeze([
+  "DAY_1",
+  "DAY_2",
+  "DAY_3",
+  "DAY_4",
+  "DAY_5",
+  "DAY_6",
+  "DAY_7",
+  "DAY_8",
+  "DAY_9",
+  "DAY_10",
+  "DAY_11",
+  "DAY_12",
+  "DAY_13",
+  "DAY_14",
+  "DAY_15",
+  "DAY_19"
+]);

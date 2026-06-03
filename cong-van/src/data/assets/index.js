@@ -2,7 +2,6 @@ import { CHARACTER_CONFIG } from './characters';
 import { PAPER_CONFIG } from './paper';
 import { BUTTON_CONFIG } from './buttons';
 import { STATS } from './stats';
-import { PHASES } from '../phases/phases';
 
 import Logo from '../../assets/image/frame/logo.png';
 import Avatar from '../../assets/image/frame/avatar.gif';
@@ -49,7 +48,6 @@ export const INTRO_DATA = Object.freeze({
 });
 
 export const GAME_DATA = Object.freeze({
-    PHASES: PHASES,
     UPGRADE_DATA: PAPER_CONFIG.UPGRADES,
     STATS: STATS,
     REORGANIZE_BUTTON: BUTTON_CONFIG.REORGANIZE,

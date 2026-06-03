@@ -2,6 +2,8 @@ import { useState } from "react";
 
 export function useDragAndDrop({
     initialPaperPos,
+    initialStamperPos,
+    onStamp,
     deskObstacles,
     paperSize,
     mailSize,
@@ -13,7 +15,11 @@ export function useDragAndDrop({
     const [livePaperDelta, setLivePaperDelta] = useState({ x: 0, y: 0 });
     const [mailPositions, setMailPositions] = useState({});
     const [liveMailDelta, setLiveMailDelta] = useState({ x: 0, y: 0 });
+    const [lastStampPos, setLastStampPos] = useState(null);
+    const [liveStamperDelta, setLiveStamperDelta] = useState({ x: 0, y: 0 });
     const [activeMailDragID, setActiveMailDragID] = useState(null);
+    const [isStamperReturning, setIsStamperReturning] = useState(false);
+    const [isStamping, setIsStamping] = useState(false);
 
     const playPaperRustle = () => {
         const audio = new Audio(openMailSound);
@@ -38,6 +44,9 @@ export function useDragAndDrop({
             setLivePaperDelta({ x: 0, y: 0 });
             playPaperRustle();
         }
+        if (active.id === "stamper-1") {
+            setLiveStamperDelta({ x: 0, y: 0 });
+        }
         if (typeof active.id === "string" && active.id.startsWith("mail-")) {
             setActiveMailDragID(active.id);
             setLiveMailDelta({ x: 0, y: 0 });
@@ -47,7 +56,7 @@ export function useDragAndDrop({
 
     function handleDragEnd(event) {
         if (isTransitioning) return;
-        const { active } = event;
+        const { active, over } = event;
 
         if (active.id === "paper-1") {
             setPaperPos((prev) => ({
@@ -56,7 +65,44 @@ export function useDragAndDrop({
             }));
             setLivePaperDelta({ x: 0, y: 0 });
         }
+        if (active.id === "stamper-1") {
+            if (over?.id === "paper-1") {
+                // Fix lỗi con dấu bị null: Đo trực tiếp vị trí thực tế từ DOM wrapper
+                const stamperEl = document.querySelector('.stamper-wrapper');
+                const finalPos = stamperEl ? stamperEl.getBoundingClientRect() : null;
 
+                // 1. Khóa cứng vị trí delta ngay tại chỗ thả chuột
+                setLiveStamperDelta({ x: event.delta.x, y: event.delta.y });
+
+                // 2. Kích hoạt class CSS dập lún xuống mặt bàn
+                setIsStamping(true);
+
+                // 3. Đợi hành trình lún xuống (300ms) -> Tiến hành in dấu mực lên giấy
+                setTimeout(() => {
+                    if (finalPos) {
+                        setLastStampPos(finalPos);
+                        onStamp(finalPos); // Gọi hàm callback truyền vị trí đi
+                    }
+                }, 300);
+
+                // 4. Giữ nguyên trạng thái lún 1.2 giây rồi nhấc lên, bật hiệu ứng quay về
+                setTimeout(() => {
+                    setIsStamping(false);
+                    setIsStamperReturning(true);
+                    setLiveStamperDelta({ x: 0, y: 0 }); // Đưa delta về 0 để quay về vị trí ban đầu (1500, 100)
+                }, 1200);
+
+                // 5. Sau khi kết thúc thời gian di chuyển (1.2s chờ + 0.6s bay về) -> Dọn dẹp state
+                setTimeout(() => {
+                    setIsStamperReturning(false);
+                    setLastStampPos(null);
+                }, 1800);
+
+            } else {
+                // Thả hụt giấy thì bay thẳng về ngay lập tức
+                setLiveStamperDelta({ x: 0, y: 0 });
+            }
+        }
         if (active.id === activeMailDragID) {
             setMailPositions((prev) => ({
                 ...prev,
@@ -106,7 +152,9 @@ export function useDragAndDrop({
             }
             setLivePaperDelta(adjustedDelta);
         }
-
+        if (active.id === "stamper-1") {
+            setLiveStamperDelta({ x: 0, y: 0 });
+        }
         if (active.id === activeMailDragID) {
             let adjustedDelta = { x: delta.x, y: delta.y };
             const currentMailOrigin = mailPositions[activeMailDragID] || { x: 950, y: 400 };
@@ -160,6 +208,10 @@ export function useDragAndDrop({
         mailPositions,
         activeMailDragID,
         liveMailDelta,
+        isStamperReturning,
+        lastStampPos,
+        isStamping,
+        liveStamperDelta,
         handleDragStart,
         handleDragMove,
         handleDragEnd,

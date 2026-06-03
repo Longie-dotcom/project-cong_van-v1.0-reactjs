@@ -21,18 +21,18 @@ function App() {
 
     [STATS.RESOURCE]: 0,
     [STATS.COAL]: 0,
-    [STATS.ECONOMY]: 90000,
+    [STATS.ECONOMY]: 50,
     [STATS.HAPPINESS]: 0,
 
-    [FLAG.WORKER_HELP_1]: false,
-    [FLAG.WORKER_HELP_2]: false,
-    [FLAG.WORKER_HELP_3]: false,
+    [FLAG.SUPPORTED_WORKER_SCORE]: 0,
     [FLAG.JOINED_THE_REVOLUTION]: false,
 
+    conversationHistory: [],
+    objectives: null,
+    
     currentEventIdx: 0,
     eventHistory: null,
     currentEventID: null,
-    currentPhaseID: "PHASE_1",
 
     village_1: 0,
     village_2: 0,

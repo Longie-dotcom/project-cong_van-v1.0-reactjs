@@ -3,34 +3,36 @@ import { DndContext } from "@dnd-kit/core";
 import { useGameState } from "../../hooks/useGameState";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 import { useGameActions } from "../../hooks/useGameAction";
-import { usePassiveCoal } from "../../hooks/usePassiveCoal";
 import { useGameHub } from "../../hooks/useGameHub";
 import { STATS, FLAG } from "../../data/assets/stats";
-import { GAME_DATA } from "../../data/assets";
 import { ENDINGS } from "../../data/phases/ending";
+import { ALL_EVENTS } from "../../data/phases/phases";
+import { GAME_DATA } from "../../data/assets";
 
 import Paper from "../item/Paper/Paper";
 import Telephone from "../item/Telephone/Telephone";
-import Mine from "../item/Mine/Mine";
 import Mail from "../item/Indicator/Mail";
 import Newspaper from "../item/Indicator/Newspaper";
 import StatTab from "../item/Indicator/StatTab";
-import CoalQuotaDisplay from "../item/Indicator/CoalQuotaDisplay";
+import Stamper from "../item/Stamper/Stamper";
+import ErrorPopup from "../item/Indicator/ErrorPopup";
 
 import "./GameScene.css";
 import SpriteButton from "../item/Button/SpriteButton";
+import Note from "../item/Note/Note";
 
 export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [activeEvents, setActiveEvents] = useState({ mails: [], calls: [] });
   const [activeNews, setActiveNews] = useState(null);
-  const [activeTab, setActiveTab] = useState("A");
-  const [miners, setMiners] = useState([]);
+  const [marks, setMarks] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [transitionClass, setTransitionClass] = useState("");
 
   const isEventActive = activeEvents.mails.length > 0 || activeEvents.calls.length > 0;
-  const currentPhaseData = GAME_DATA.PHASES[playerState.currentPhaseID] || {};
-  const quota = currentPhaseData.Coal_Quota || 0;
+  const currentEvent = ALL_EVENTS[playerState.currentEventID];
 
+  const INITIAL_STAMPER_POS = { x: 1500, y: 100 };
   const INITIAL_PAPER_POS = { x: 500, y: 100 };
   const PAPER_SIZE = { width: 628, height: 840 };
   const MAIL_SIZE = { width: 80, height: 60 };
@@ -53,15 +55,35 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
   );
 
   const {
+    handleStamp,
+    handleEventChoice
+  } = useGameActions(
+    playerState,
+    setPlayerState,
+    setActiveEvents,
+    setActiveNews,
+    setMarks,
+    activeEvents,
+    setErrorMessage,
+    setTransitionClass
+  );
+
+  const {
     paperPos,
     livePaperDelta,
     mailPositions,
+    isStamperReturning,
+    lastStampPos,
+    isStamping,
+    liveStamperDelta,
     handleDragStart,
     handleDragMove,
     handleDragEnd,
     handleReorganizeDesk
   } = useDragAndDrop({
     initialPaperPos: INITIAL_PAPER_POS,
+    initialStamperPos: INITIAL_STAMPER_POS,
+    onStamp: handleStamp,
     deskObstacles: OBSTACLES,
     paperSize: PAPER_SIZE,
     mailSize: MAIL_SIZE,
@@ -71,30 +93,20 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
   });
 
   const {
-    handleUpgradeClick,
-    handleMineClick,
-    handleEventChoice
-  } = useGameActions(
-    playerState,
-    setPlayerState,
-    setActiveEvents,
-    setActiveNews,
-    currentPhaseData,
-    GAME_DATA.UPGRADE_DATA,
-    isTransitioning,
-    isEventActive
-  );
-
-  const {
     fetchNextEvent
   } = useGameState(
     playerState
   )
 
-  usePassiveCoal(
-    playerState,
-    setPlayerState
-  );
+  const handleConversationLogged = (log) => {
+    setPlayerState(prev => ({
+      ...prev,
+      conversationHistory: [
+        ...(prev.conversationHistory || []),
+        log
+      ]
+    }));
+  };
 
   // EFFECT CẬP NHẬT connectionId CHO playerState
   useEffect(() => {
@@ -124,121 +136,113 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
     return () => clearTimeout(timer);
   }, [playerState, isConnected, sendPlayerState]);
 
-  // EFFECT THEO DÕI EVENTS MỚI
+  // EFFECT ĐIỀU PHỐI EVENT & KIỂM TRA ENDING
   useEffect(() => {
-    if (playerState.currentEventID || playerState.currentPhaseID === "ENDING_TRIGGERED") {
-      return;
+    // 1. Kiểm tra khẩn cấp: Hễ âm tiền là xử thua tức thì, không đợi hết ngày
+    const currentMoney = playerState[STATS.ECONOMY] ?? 0;
+    if (currentMoney < 0) {
+      const endingData = ENDINGS["BANKRUPTCY"];
+      if (endingData) {
+        onGameEnd({
+          title: endingData.title,
+          subtitle: endingData.subtitle,
+          description: endingData.description,
+          isFailure: true,
+          finalStats: playerState
+        });
+        return;
+      }
     }
 
+    // 2. Nếu đang trong ngày làm việc -> Giữ nguyên trạng thái bàn làm việc
+    if (playerState.currentEventID !== null) return;
+
+    // 3. Khi ngày cũ đã dọn (currentEventID === null) -> Tiến hành bốc ngày mới và check chỉ tiêu Than đầu ngày
     const result = fetchNextEvent();
     if (!result || result.type === "NONE") return;
 
-    // Nếu là EVENT chính, chờ 15s. Nếu là SIDE_EVENT, chờ 14s.
-    const delay = result.type === "EVENT" ? (Math.random() * 15000) : 14000;
+    // Xử lý thua Quota đầu ngày
+    if (result.type === "GAME_OVER_STATS") {
+      const endingData = ENDINGS[result.endingKey];
+      if (endingData) {
+        onGameEnd({
+          title: endingData.title,
+          subtitle: endingData.subtitle,
+          description: endingData.description,
+          isFailure: true,
+          finalStats: playerState
+        });
+        return;
+      }
+    }
 
-    const timer = setTimeout(() => {
-      if (result.type === "EVENT" || result.type === "SIDE_EVENT") {
-        const nextEvent = result.event;
+    // Xử lý phá đảo game thành công
+    if (result.type === "GAME_OVER") {
+      const endingData = ENDINGS[result.endingKey];
 
+      if (endingData) {
+        onGameEnd({
+          title: endingData.title,
+          subtitle: endingData.subtitle,
+          description: endingData.description,
+          isFailure: result.endingKey !== "BINH_MINH_VUNG_DAY",
+          finalStats: playerState
+        });
+        return;
+      }
+    }
+
+    // Nạp tài nguyên cho ngày mới
+    if (result.type === "EVENT" || result.type === "SIDE_EVENT") {
+      const nextEvent = result.eventData;
+      const nextEventID = result.eventID;
+      const delay = result.type === "EVENT" ? (Math.random() * 1000) : 1000;
+
+      const timer = setTimeout(() => {
         setPlayerState(prev => ({
           ...prev,
-          currentEventID: nextEvent.EventID,
-          currentEventIdx: result.type === "EVENT" ? (result.index + 1) : prev.currentEventIdx
+          currentEventID: nextEventID,
+          currentEventIdx: result.type === "EVENT" ? (result.index + 1) : prev.currentEventIdx,
+          objectives: nextEvent.Objectives
+            ? [nextEvent.Objectives]
+            : []
         }));
 
         setActiveEvents({
-          mails: nextEvent.MailsList || [],
-          calls: nextEvent.Telephone ? [nextEvent.Telephone] : []
+          mails: nextEvent.Mails || [],
+          calls: nextEvent.Telephone?.calls || []
         });
-      }
-    }, delay);
+      }, delay);
 
-    return () => clearTimeout(timer);
-
-  }, [playerState.currentEventID, playerState.currentEventIdx, playerState.currentPhaseID]);
-
-  // EFFECT CHECK ENDING
-  useEffect(() => {
-    if (playerState.currentPhaseID === "ENDING_TRIGGERED") {
-      // Lấy dữ liệu ending
-      const happiness = playerState[STATS.HAPPINESS] ?? 0;
-      const joined = playerState[FLAG.JOINED_THE_REVOLUTION];
-
-      let endingID = "BINH_MINH_HOA_GIAI";
-      if (happiness < 50 && !joined) endingID = "KY_NGUYEN_THEP";
-      else if (happiness >= 50 && joined) endingID = "CHUYEN_CHINH_VO_SAN";
-
-      // Gọi hàm callback và ngay lập tức dừng lại
-      onGameEnd({ ...ENDINGS[endingID], endingID });
+      return () => clearTimeout(timer);
     }
-  }, [playerState.currentPhaseID, onGameEnd]);
-
-  // EFFECT THEO DÕI CÁC UPGRADE ĐỂ TĂNG/GIẢM WORKER
-  useEffect(() => {
-    const totalUpgradeLevel = (
-      playerState.railway +
-      playerState.auto +
-      playerState.tools +
-      playerState.storage
-    );
-
-    // Giới hạn tối đa 20 miners
-    const targetWorkerCount = Math.min(Math.floor(totalUpgradeLevel / 2), 20);
-
-    setMiners((currentMiners) => {
-      const diff = targetWorkerCount - currentMiners.length;
-
-      if (diff === 0) return currentMiners;
-
-      // Trường hợp 1: Thêm Worker mới
-      if (diff > 0) {
-        const directions = ['left', 'right', 'up', 'down'];
-        const newWorkers = Array.from({ length: diff }).map((_, index) => {
-          const randomDirection = directions[Math.floor(Math.random() * directions.length)];
-          const spawnX = Math.floor(Math.random() * (472 - 40) + 40);
-
-          // Tỷ lệ phân bổ vị trí spawn trên/dưới
-          const spawnY = Math.random() > 0.5
-            ? Math.floor(Math.random() * (390 - 100) + 100)
-            : Math.floor(Math.random() * (850 - 590) + 590);
-
-          return {
-            id: `${Date.now()}-${index}-${Math.random()}`,
-            direction: randomDirection,
-            x: spawnX,
-            y: spawnY,
-          };
-        });
-
-        return [...currentMiners, ...newWorkers];
-      }
-
-      // Trường hợp 2: Giảm Worker (khi người chơi bị trừ hoặc mất nâng cấp - nếu có)
-      if (diff < 0) {
-        return currentMiners.slice(0, targetWorkerCount);
-      }
-
-      return currentMiners;
-    });
   }, [
-    playerState.railway,
-    playerState.auto,
-    playerState.tools,
-    playerState.storage
+    playerState.currentEventID,
+    playerState.currentEventIdx,
+    playerState[STATS.ECONOMY]
   ]);
 
   return (
     <div className={`game-screen ${isTransitioning ? "desk-frozen" : ""}`}>
+      {transitionClass && (
+        <div className={`retro-scene-overlay ${transitionClass}`} />
+      )}
+
+      <ErrorPopup
+        message={errorMessage}
+        duration={2500}
+        onClose={() => setErrorMessage(null)}
+      />
+
       <DndContext onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
         <div className="desk-area">
           <img src={GAME_DATA.DESK} alt="Desk Frame" className="desk-frame" />
           <StatTab stats={playerState} />
-
+          <Note history={playerState.conversationHistory} objectives={playerState.objectives} />
           <Paper
             currentX={paperPos.x} currentY={paperPos.y} liveDelta={livePaperDelta}
-            activeTab={activeTab} setActiveTab={isTransitioning ? () => { } : setActiveTab}
-            playerState={playerState} onUpgradeClick={handleUpgradeClick}
-            isEventActive={isEventActive}
+            playerState={playerState}
+            isEventActive={isEventActive} eventData={currentEvent} marks={marks}
           />
 
           {/* Render Active Events */}
@@ -246,6 +250,7 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
             phoneCalls={activeEvents.calls}
             onCallDialed={(number) => console.log("Dialed:", number)}
             onChoiceSelect={handleEventChoice}
+            onConversationLogged={handleConversationLogged}
           />
 
           {activeEvents.mails.map((mailItem) => (
@@ -258,17 +263,12 @@ export default function GameScene({ onGameEnd, playerState, setPlayerState }) {
             />
           ))}
 
-          <Mine playerState={playerState} onMineClick={handleMineClick} miners={miners} isEventActive={isEventActive} />
-
           <Newspaper
             title={activeNews?.title}
             content={activeNews?.content}
           />
 
-          <CoalQuotaDisplay
-            currentCoal={playerState.COAL}
-            quota={quota}
-          />
+          <Stamper isReturning={isStamperReturning} lastStampPos={lastStampPos} isStamping={isStamping} liveDelta={liveStamperDelta} />
 
           <SpriteButton
             assets={GAME_DATA.REORGANIZE_BUTTON}

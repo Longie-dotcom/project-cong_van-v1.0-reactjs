@@ -1,165 +1,107 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TELEPHONE_CONFIG } from "../../../data/assets/telephone";
 import "./Telephone.css";
-import { PAPER_CONFIG } from "../../../data/assets/paper";
 
-function KeypadButton({ normalImg, hoverImg, clickImg, onClick, altText }) {
-  const [status, setStatus] = useState("normal");
-
-  let currentImg = normalImg;
-  if (status === "hovered") currentImg = hoverImg;
-  if (status === "clicked") currentImg = clickImg;
-
-  return (
-    <button
-      className="keypad-digit-btn"
-      onClick={onClick}
-      onMouseEnter={() => setStatus("hovered")}
-      onMouseLeave={() => setStatus("normal")}
-      onMouseDown={() => setStatus("clicked")}
-      onMouseUp={() => setStatus("hovered")}
-      style={{
-        background: "none",
-        border: "none",
-        padding: 0,
-        cursor: "pointer",
-      }}
-    >
-      <img
-        src={currentImg}
-        alt={altText}
-        style={{
-          display: "block",
-          width: "22px",
-          height: "auto",
-          imageRendering: "pixelated",
-        }}
-      />
-    </button>
-  );
-}
-
-export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelect }) {
+export default function Telephone({ phoneCalls = [], onChoiceSelect, onConversationLogged }) {
   const [phoneState, setPhoneState] = useState("idle");
   const [ringFrame, setRingFrame] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const typewriterIntervalRef = useRef(null);
 
+  // States quản lý sơ đồ hội thoại hình cây
   const [currentCallIdx, setCurrentCallIdx] = useState(0);
+  const [currentNodeKey, setCurrentNodeKey] = useState("root");
   const [currentLineIdx, setCurrentLineIdx] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
-  const [dialedNumber, setDialedNumber] = useState("");
 
+  // Refs điều khiển âm thanh thoại & nhạc chuông
   const ringAudioRef = useRef(null);
   const blipPoolRef = useRef([]);
   const blipIndexRef = useRef(0);
   const activeBlipSourceRef = useRef(null);
 
-  // 🆕 Polyphonic Keypad Sound Audio Channel Pool
-  const keypadPoolRef = useRef([]);
-  const keypadIndexRef = useRef(0);
+  const lastCallIdRef = useRef(null);
+  // Bộ nhớ tạm thời lưu lựa chọn của người chơi để chờ thoại xong mới kích hoạt Event cha
+  const pendingChoiceRef = useRef(null);
+  const loggedNodesRef = useRef(new Set());
 
-  const numericButtonsConfig = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => ({
-    value: num.toString(),
-    ...TELEPHONE_CONFIG.BUTTONS[num] // Tự động lấy normal, hover, active
-  }));
-
-  // 🆕 Initialize the Keypad Sound audio channel buffers
-  useEffect(() => {
-    const POOL_SIZE = 4;
-    for (let i = 0; i < POOL_SIZE; i++) {
-      const audioInstance = new Audio(TELEPHONE_CONFIG.SOUNDS.keypad);
-      audioInstance.volume = 0.4;
-      keypadPoolRef.current.push(audioInstance);
-    }
-
-    return () => {
-      keypadPoolRef.current.forEach((audio) => audio.pause());
-      keypadPoolRef.current = [];
-    };
-  }, []);
-
-  // 🆕 Playback channel routing function
-  const playKeypadSound = useCallback(() => {
-    if (keypadPoolRef.current.length > 0) {
-      const audioChannel = keypadPoolRef.current[keypadIndexRef.current];
-      if (audioChannel) {
-        audioChannel.currentTime = 0;
-        audioChannel.play().catch(() => { });
-      }
-      keypadIndexRef.current =
-        (keypadIndexRef.current + 1) % keypadPoolRef.current.length;
-    }
-  }, []);
-
-  // 🆕 Limit to 7 digits maximum and execute feedback audio sound
-  const handleDigitPress = useCallback(
-    (digit) => {
-      if (dialedNumber.length < 7) {
-        playKeypadSound();
-        setDialedNumber((prev) => prev + digit);
-      }
-    },
-    [dialedNumber.length, playKeypadSound],
-  );
-
-  const handleDeletePress = useCallback(() => {
-    if (dialedNumber.length > 0) {
-      playKeypadSound();
-      setDialedNumber((prev) => prev.slice(0, -1));
-    }
-  }, [dialedNumber.length, playKeypadSound]);
-
-  const handleTriggerCall = useCallback(() => {
-    playKeypadSound();
-    if (dialedNumber.trim() && onCallDialed) {
-      onCallDialed(dialedNumber);
-    }
-  }, [dialedNumber, onCallDialed, playKeypadSound]);
 
   // ====================================================================
-  // MONITOR INCOMING CALL DATA CHANGE UPDATES
+  // ĐỒNG BỘ KHI CÓ EVENT CUỘC GỌI MỚI KÍCH HOẠT
   // ====================================================================
   useEffect(() => {
-    const syncTimer = setTimeout(() => {
-      if (phoneCalls && phoneCalls.length > 0) {
+    const currentCallId = phoneCalls && phoneCalls[0]?.callID;
+
+    if (currentCallId) {
+      if (currentCallId !== lastCallIdRef.current) {
+        lastCallIdRef.current = currentCallId;
+
+        pendingChoiceRef.current = null;
+        loggedNodesRef.current.clear();
+
         setPhoneState("ringing");
         setIsOpen(false);
         setCurrentCallIdx(0);
+        setCurrentNodeKey(phoneCalls[0].startNodeID || "root");
         setCurrentLineIdx(0);
-      } else {
-        setPhoneState("idle");
-        setIsOpen(false);
       }
-    }, 0);
-
-    return () => clearTimeout(syncTimer);
+    } else {
+      lastCallIdRef.current = null;
+      setPhoneState("idle");
+      setIsOpen(false);
+    }
   }, [phoneCalls]);
 
-  const activeCallNode = phoneCalls[currentCallIdx] || null;
-  const currentSpeakerName = activeCallNode?.senderName || "ẨN DANH";
-  const currentSpeakerImage = activeCallNode?.senderImage || null;
-  const currentSpeakerBlip = activeCallNode?.senderBlip || null;
-  const currentTextRaw = activeCallNode?.senderText || "";
-  const linesArray = Array.isArray(currentTextRaw)
-    ? currentTextRaw
-    : [currentTextRaw];
+  // Bóc tách dữ liệu động theo Nút (Node) hiện tại
+  const activeCallGroup = phoneCalls[currentCallIdx] || null;
+  const nodesMap = activeCallGroup?.nodes || {};
+  const currentNode = nodesMap[currentNodeKey] || null;
+
+  const currentSpeakerName = currentNode?.senderName || "ẨN DANH";
+  const currentSpeakerImage = currentNode?.senderImage || null;
+  const currentSpeakerBlip = currentNode?.senderBlip || null;
+  const currentTextRaw = currentNode?.senderText || "";
+  const linesArray = Array.isArray(currentTextRaw) ? currentTextRaw : [currentTextRaw];
   const currentLineText = linesArray[currentLineIdx] || "";
 
+  useEffect(() => {
+    if (!isOpen || isTyping || !currentNode) return;
+
+    const nodeKey = `${currentCallIdx}-${currentNodeKey}`;
+
+    if (loggedNodesRef.current.has(nodeKey)) return;
+
+    loggedNodesRef.current.add(nodeKey);
+
+    onConversationLogged?.({
+      type: "PHONE",
+      sender: currentSpeakerName,
+      topic: linesArray.join(" "),
+      choice: null
+    });
+
+  }, [
+    isOpen,
+    isTyping,
+    currentCallIdx,
+    currentNodeKey,
+    currentSpeakerName,
+    linesArray,
+    onConversationLogged
+  ]);
+
   // ====================================================================
-  // AUDIO LOOP CONTROL (Ringtone handling)
+  // AUDIO RING TONE (Nhạc chuông điện thoại)
   // ====================================================================
   useEffect(() => {
     const playRingtone = () => {
       if (phoneState === "ringing" && ringAudioRef.current) {
-        ringAudioRef.current
-          .play()
+        ringAudioRef.current.play()
           .then(() => {
             window.removeEventListener("click", playRingtone);
             window.removeEventListener("mousedown", playRingtone);
-          })
-          .catch((err) => console.log("Audio waiting for bypass...", err));
+          }).catch((err) => console.log("Audio bpassed...", err));
       }
     };
 
@@ -178,24 +120,20 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
         ringAudioRef.current.currentTime = 0;
       }
     }
-
     return () => {
       window.removeEventListener("click", playRingtone);
       window.removeEventListener("mousedown", playRingtone);
-      if (ringAudioRef.current) {
-        ringAudioRef.current.pause();
-        ringAudioRef.current = null;
-      }
     };
   }, [phoneState]);
 
+  // Hoạt ảnh điện thoại rung reo
   useEffect(() => {
     if (phoneState !== "ringing") return;
     const frameInterval = setInterval(() => {
       setRingFrame((prevFrame) => (prevFrame + 1) % TELEPHONE_CONFIG.MAIN.ringing.length);
     }, 200);
     return () => clearInterval(frameInterval);
-  }, [phoneState, TELEPHONE_CONFIG.MAIN.ringing.length]);
+  }, [phoneState]);
 
   const handleOpenPhone = useCallback(() => {
     if (phoneState !== "ringing") return;
@@ -203,16 +141,15 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
     setIsOpen(true);
   }, [phoneState]);
 
+  // Tự động nhấc máy sau 1.5 giây đổ chuông
   useEffect(() => {
     if (phoneState !== "ringing") return;
-    const autoOpenTimer = setTimeout(() => {
-      handleOpenPhone();
-    }, 1500);
+    const autoOpenTimer = setTimeout(() => { handleOpenPhone(); }, 1500);
     return () => clearTimeout(autoOpenTimer);
   }, [phoneState, handleOpenPhone]);
 
   // ====================================================================
-  // TYPEWRITER EFFECT TICKER
+  // HIỆU ỨNG CHỮ CHẠY (TYPEWRITER) & TIẾNG BLIP VOICE
   // ====================================================================
   useEffect(() => {
     if (!isOpen || !currentLineText) {
@@ -224,13 +161,9 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
     setDisplayedText("");
 
     const POOL_SIZE = 4;
-    if (
-      blipPoolRef.current.length === 0 ||
-      activeBlipSourceRef.current !== currentSpeakerBlip
-    ) {
+    if (blipPoolRef.current.length === 0 || activeBlipSourceRef.current !== currentSpeakerBlip) {
       blipPoolRef.current.forEach((audio) => audio.pause());
       blipPoolRef.current = [];
-
       for (let i = 0; i < POOL_SIZE; i++) {
         const audioInstance = new Audio(currentSpeakerBlip);
         audioInstance.volume = 0.35;
@@ -249,8 +182,7 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
             activeBlip.currentTime = 0;
             activeBlip.play().catch(() => { });
           }
-          blipIndexRef.current =
-            (blipIndexRef.current + 1) % blipPoolRef.current.length;
+          blipIndexRef.current = (blipIndexRef.current + 1) % blipPoolRef.current.length;
         }
         setDisplayedText((prev) => prev + nextChar);
         nextCharIndex++;
@@ -258,20 +190,11 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
         clearInterval(typewriterInterval);
         setIsTyping(false);
       }
-    }, 25); // 25ms speed as requested
+    }, 25);
 
     typewriterIntervalRef.current = typewriterInterval;
-
-    return () => {
-      clearInterval(typewriterInterval);
-    };
-  }, [
-    isOpen,
-    currentCallIdx,
-    currentLineIdx,
-    currentLineText,
-    currentSpeakerBlip,
-  ]);
+    return () => clearInterval(typewriterInterval);
+  }, [isOpen, currentCallIdx, currentNodeKey, currentLineIdx, currentLineText, currentSpeakerBlip]);
 
   useEffect(() => {
     return () => {
@@ -282,27 +205,45 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
     };
   }, []);
 
+  // ====================================================================
+  // LOGIC DI CHUYỂN TRONG ĐỒ THỊ THOẠI HÌNH CÂY (ĐÃ SỬA KÍCH HOẠT EVENT)
+  // ====================================================================
   const moveToNextDialogue = useCallback(() => {
-    // 1. Nếu còn dòng thoại tiếp theo trong cùng 1 cuộc gọi -> chuyển dòng
     if (currentLineIdx < linesArray.length - 1) {
       setCurrentLineIdx((prev) => prev + 1);
+      return;
     }
-    // 2. Nếu đang ở dòng cuối cùng của cuộc gọi
-    else {
-      // Nếu có cuộc gọi tiếp theo trong danh sách
-      if (currentCallIdx < phoneCalls.length - 1) {
-        setCurrentCallIdx((prev) => prev + 1);
+
+    // Nếu Node có thuộc tính đi tiếp trực tiếp sang node phản ứng
+    if (currentNode && currentNode.nextNodeID) {
+      setCurrentNodeKey(currentNode.nextNodeID);
+      setCurrentLineIdx(0);
+    }
+    // Nếu hết sạch thoại trong cây và không còn lựa chọn nào nữa -> KẾT THÚC CUỘC GỌI CHÍNH THỨC
+    else if (!currentNode?.choices || currentNode.choices.length === 0) {
+      const nextCallIdx = currentCallIdx + 1;
+
+      if (nextCallIdx < phoneCalls.length) {
+        setCurrentCallIdx(nextCallIdx);
+        setCurrentNodeKey(phoneCalls[nextCallIdx].startNodeID || "root");
         setCurrentLineIdx(0);
+        setPhoneState("ringing");
+        setIsOpen(false);
       } else {
-        // Hết cuộc gọi -> Đóng phone
+        if (pendingChoiceRef.current) {
+          if (onChoiceSelect) onChoiceSelect(pendingChoiceRef.current);
+          pendingChoiceRef.current = null;
+        } else {
+          // Phòng trường hợp cuộc gọi thuần túy thông báo không có lựa chọn nào, vẫn gửi object rỗng để kết thúc event
+          if (onChoiceSelect) onChoiceSelect({});
+        }
         setIsOpen(false);
         setPhoneState("idle");
       }
     }
-  }, [currentLineIdx, linesArray.length, currentCallIdx, phoneCalls.length]);
+  }, [currentLineIdx, linesArray.length, currentNode, currentCallIdx, phoneCalls, onChoiceSelect]);
 
   function handleDialogueClick() {
-    // NẾU đang typing, cho hiện full text
     if (isTyping) {
       if (typewriterIntervalRef.current) clearInterval(typewriterIntervalRef.current);
       setDisplayedText(currentLineText);
@@ -310,112 +251,47 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
       return;
     }
 
-    // NẾU đang ở dòng cuối và có lựa chọn -> CHẶN không cho chuyển tiếp tự động
     const isLastLine = currentLineIdx === linesArray.length - 1;
-    const hasChoices = activeCallNode.choices && activeCallNode.choices.length > 0;
+    const hasChoices = currentNode?.choices && currentNode.choices.length > 0;
 
-    if (isLastLine && hasChoices) {
-      return; // Dừng lại, bắt buộc người dùng phải chọn
-    }
+    if (isLastLine && hasChoices) return;
 
-    // Nếu không có lựa chọn, mới cho phép chuyển tiếp
     moveToNextDialogue();
   }
 
-  // ====================================================================
-  // KEYBOARD DIALOGUE HOTKEYS (Space / Enter)
-  // ====================================================================
+  // Hotkeys Space / Enter để lướt thoại
   useEffect(() => {
-    if (!isOpen || !activeCallNode) return;
-
+    if (!isOpen || !currentNode) return;
     const handleDialogueKeyDown = (e) => {
       if (e.key === " " || e.key === "Enter") {
-        e.preventDefault(); // Stop spacebar scrolling
+        e.preventDefault();
         handleDialogueClick();
       }
     };
-
     window.addEventListener("keydown", handleDialogueKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleDialogueKeyDown);
-    };
-  }, [isOpen, activeCallNode, isTyping, currentLineText, currentLineIdx, linesArray.length, currentCallIdx, phoneCalls.length]);
+    return () => window.removeEventListener("keydown", handleDialogueKeyDown);
+  }, [isOpen, currentNode, isTyping, currentLineText, currentLineIdx, linesArray.length, currentCallIdx, phoneCalls.length]);
 
   return (
     <div className="telephone-system-wrapper">
-      {/* LED Display Screen Output */}
-      <div className="telephone-led-display">
-        <span className="dialed-number-text">{dialedNumber || ""}</span>
-      </div>
-
       <div className="telephone-component-container">
         <img
-          src={
-            phoneState === "ringing"
-              ? TELEPHONE_CONFIG.MAIN.ringing[ringFrame % TELEPHONE_CONFIG.MAIN.ringing.length]
-              : TELEPHONE_CONFIG.MAIN.idle
-          }
+          src={phoneState === "ringing" ? TELEPHONE_CONFIG.MAIN.ringing[ringFrame % TELEPHONE_CONFIG.MAIN.ringing.length] : TELEPHONE_CONFIG.MAIN.idle}
           alt="Telephone Base"
           className="telephone-base-display"
         />
 
-        <button
-          className={`telephone-receiver-btn ${phoneState}`}
-          onClick={handleOpenPhone}
-          disabled={phoneState !== "ringing"}
-        >
-          <img
-            src={TELEPHONE_CONFIG.MAIN.base}
-            alt="Phone Handset Receiver"
-            className="telephone-pixel-art"
-          />
+        <button className={`telephone-receiver-btn ${phoneState}`} onClick={handleOpenPhone} disabled={phoneState !== "ringing"}>
+          <img src={TELEPHONE_CONFIG.MAIN.base} alt="Phone Handset Receiver" className="telephone-pixel-art" />
         </button>
-
-        {/* PHYSICAL GRID DISPLAY USING IMAGE SWITCHING LOGIC */}
-        <div className="telephone-keypad-grid">
-          {numericButtonsConfig.map((btn) => (
-            <KeypadButton
-              key={btn.value}
-              normalImg={btn.normal}
-              hoverImg={btn.hover}
-              clickImg={btn.active} // Chú ý: object của bạn đặt tên là 'active', không phải 'click'
-              altText={`Button ${btn.value}`}
-              onClick={() => handleDigitPress(btn.value)}
-            />
-          ))}
-
-          {/* Delete & Call Button cũng dùng từ TELEPHONE */}
-          <KeypadButton
-            normalImg={TELEPHONE_CONFIG.BUTTONS.delete.normal}
-            hoverImg={TELEPHONE_CONFIG.BUTTONS.delete.hover}
-            clickImg={TELEPHONE_CONFIG.BUTTONS.delete.active}
-            altText="Delete Button"
-            onClick={handleDeletePress}
-          />
-          <KeypadButton
-            normalImg={TELEPHONE_CONFIG.BUTTONS.call.normal}
-            hoverImg={TELEPHONE_CONFIG.BUTTONS.call.hover}
-            clickImg={TELEPHONE_CONFIG.BUTTONS.call.active}
-            altText="Call Button"
-            onClick={handleTriggerCall}
-          />
-        </div>
       </div>
 
-      {isOpen && activeCallNode && (
-        <div
-          className="caller-dialogue-panel"
-          onClick={handleDialogueClick}
-          style={{ cursor: "pointer" }}
-        >
+      {isOpen && currentNode && (
+        <div className="caller-dialogue-panel" onClick={handleDialogueClick} style={{ cursor: "pointer" }}>
           <div className="caller-profile-header">
             {currentSpeakerImage && (
               <div className={`caller-avatar-wrapper ${isTyping ? "avatar-glitch" : ""}`}>
-                <img
-                  src={currentSpeakerImage}
-                  alt={currentSpeakerName}
-                  className="caller-avatar"
-                />
+                <img src={currentSpeakerImage} alt={currentSpeakerName} className="caller-avatar" />
               </div>
             )}
           </div>
@@ -426,18 +302,33 @@ export default function Telephone({ phoneCalls = [], onCallDialed, onChoiceSelec
               {displayedText}
             </p>
 
-            {/* Chỉ hiển thị lựa chọn nếu đã chạy hết chữ (isTyping === false) 
-      và đang ở dòng cuối cùng của cuộc gọi đó */}
-            {!isTyping && activeCallNode.choices && currentLineIdx === linesArray.length - 1 ? (
+            {/* Hiển thị lựa chọn phân nhánh cốt truyện */}
+            {!isTyping && currentNode.choices && currentLineIdx === linesArray.length - 1 ? (
               <div className="telephone-choices-container">
-                {activeCallNode.choices.map((choice, idx) => (
+                {currentNode.choices.map((choice, idx) => (
                   <button
                     key={idx}
                     className="telephone-choice-btn"
                     onClick={(e) => {
-                      e.stopPropagation(); // Ngăn sự kiện nổi bọt
-                      onChoiceSelect(choice);
-                      moveToNextDialogue();
+                      e.stopPropagation();
+
+                      onConversationLogged?.({
+                        type: "PHONE_CHOICE",
+                        sender: currentSpeakerName,
+                        choice: choice.text
+                      });
+
+                      if (choice.nextNodeID) {
+                        // NẾU CÓ ĐOẠN THOẠI SAU: Ghim lựa chọn lại, nhảy tiếp node thoại tại local chứ KHÔNG báo lên GameScene vội
+                        pendingChoiceRef.current = choice;
+                        setCurrentNodeKey(choice.nextNodeID);
+                        setCurrentLineIdx(0);
+                      } else {
+                        // NẾU KHÔNG CÓ ĐOẠN THOẠI SAU (End luôn): Kích hoạt kết thúc event ngay lập tức
+                        if (onChoiceSelect) onChoiceSelect(choice);
+                        setIsOpen(false);
+                        setPhoneState("idle");
+                      }
                     }}
                   >
                     {choice.text}

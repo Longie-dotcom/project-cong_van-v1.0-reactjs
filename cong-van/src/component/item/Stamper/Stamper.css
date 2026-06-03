@@ -1,0 +1,50 @@
+.stamper-wrapper {
+    position: absolute;
+    top: 100px;
+    left: 1500px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    z-index: 100;
+}
+
+/* TRẠNG THÁI ĐANG DI CHUYỂN */
+.stamper-wrapper.is-dragging {
+    cursor: grabbing;
+    filter: drop-shadow(0px 60px 0px rgba(0, 0, 0, 0.6)) brightness(0.85);
+}
+
+.stamper-wrapper.is-dragging .stamper-img {
+    transform: translateY(-55px);
+    /* Nhấc cao lên hẳn */
+}
+
+/* TRẠNG THÁI ẤN XUỐNG MẶT BÀN (DẬP DẤU) */
+.stamper-wrapper.is-stamping .stamper-img {
+    transform: translateY(4px) scale(0.96);
+    /* Ấn lún xuống mặt bàn góc cạnh */
+    filter: drop-shadow(0px 2px 0px rgba(0, 0, 0, 0.6)) brightness(0.85);
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* TRẠNG THÁI BAY VỀ CHỖ CŨ */
+.stamper-wrapper.is-returning {
+    /* Cho phép wrapper mượt mà trượt về tọa độ gốc (1500, 100) trong 0.6s */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.stamper-wrapper.is-returning .stamper-img {
+    /* Trả ảnh về trạng thái bình thường khi bay */
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+}
+
+.stamper-img {
+    pointer-events: none;
+    display: block;
+    width: 192px;
+    height: 192px;
+    image-rendering: pixelated;
+    transition: transform 0.15s;
+    /* Mượt mà khi nhấc lên */
+}

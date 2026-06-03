@@ -4,11 +4,7 @@
   height: 840px;
   user-select: none;
   touch-action: none;
-  z-index: 2;
-}
-
-.paper:active {
-  cursor: grabbing;
+  z-index: 5;
 }
 
 .paper-image {
@@ -18,84 +14,139 @@
   height: 100%;
   image-rendering: pixelated;
   z-index: 2;
-  cursor: grab;
+  pointer-events: none;
 }
 
-.paper-image:active {
-  cursor: grabbing;
-}
-
-/* ==========================================================================
-   CANVAS PARTICLE & JUICE EFFECT INTEGRATION
-   ========================================================================== */
-.paper-juice-canvas {
+.drag-handle {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; 
-  z-index: 99;         
-  image-rendering: pixelated; 
+  cursor: grab;
+  z-index: 2;
 }
 
-/* ==========================================================================
-   TEXT LAYER
-   ========================================================================== */
-.paper-text-layer {
+/* ========================================================================== */
+
+.paper-content {
   position: absolute;
   top: 132px;
   left: 48px;
   width: 524px;
   height: 640px;
-  display: flex;
-  flex-direction: column;
-  z-index: 3;
+  z-index: 10;
   color: #111;
-  font-weight: normal; /* Đảm bảo không bị dính bold mặc định */
+  pointer-events: auto;
 }
 
 .paper-title {
-  margin-top: 20px;
+  margin: 20px 0 12px 0;
   font-size: 16px;
   text-align: center;
-  margin-bottom: 12px;
-  padding-bottom: 1px;
   font-weight: normal;
 }
 
-/* ==========================================================================
-   POPUP FLOATING CẢNH BÁO LỖI 
-   ========================================================================== */
-.paper-error-floating-popup {
-  position: absolute;
-  transform: translate(-50%, -100%);
-  background: black;
-  color: #ffffff;
-  padding: 14px;
-  font-family: inherit;
-  font-size: 16px;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 999;  
-  animation: paperErrorFloatUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.paper-description {
+  margin-bottom: 20px;
 }
 
-@keyframes paperErrorFloatUp {
-  0% {
-    transform: translate(-50%, -50%);
-    opacity: 0;
-  }
-  20% {
-    transform: translate(-50%, -110%);
-    opacity: 1;
-  }
-  40% {
-    transform: translate(-50%, -100%);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -140%);
-    opacity: 0;
-  }
+.effects-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ================================================= */
+
+.effect-box {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+
+  min-height: 60px;
+
+  padding: 8px 12px;
+
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+
+  font-size: 16px;
+}
+
+/* ================================================= */
+
+.effect-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.effect-icon img {
+  width: 50px;
+  height: 50px;
+  image-rendering: pixelated;
+}
+
+/* ================================================= */
+
+.effect-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.effect-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.effect-name {
+  color: #222;
+}
+
+.effect-value {
+  font-size: 16px;
+}
+
+.effect-value.positive {
+  color: #2c7a2c;
+}
+
+.effect-value.negative {
+  color: #b83232;
+}
+
+.effect-description {
+  font-size: 16px;
+  color: #555;
+}
+
+/* ========================================================================== */
+
+.stamp-mark {
+  position: absolute;
+  pointer-events: none;
+  width: 128px;
+  height: auto;
+  z-index: 20;
+  user-select: none;
+}
+
+.paper-warning {
+  margin-top: 16px;
+  padding: 10px 12px;
+
+  border: 2px solid rgba(0, 0, 0, 0.35);
+  font-style: italic;
+  background: rgba(255, 0, 0, 0.08);
+  text-align: center;
+  font-size: 16px;
+
+  color: #c40909;
 }
