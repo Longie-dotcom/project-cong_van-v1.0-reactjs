@@ -70,6 +70,7 @@ export const DAY_11 = Object.freeze({
                     busy_reply: {
                         senderName: CHARACTER_CONFIG.ELIAS.name,
                         senderImage: CHARACTER_CONFIG.ELIAS.images.sad,
+                        senderBlip: CHARACTER_CONFIG.ELIAS.sound,
                         senderText: [
                             "Nhưng bố lúc nào cũng nói vậy…",
                             "Con chỉ thấy giọng bố ngày càng mệt hơn thôi."
@@ -80,6 +81,7 @@ export const DAY_11 = Object.freeze({
                     fine_lie: {
                         senderName: CHARACTER_CONFIG.ELIAS.name,
                         senderImage: CHARACTER_CONFIG.ELIAS.images.sad,
+                        senderBlip: CHARACTER_CONFIG.ELIAS.sound,
                         senderText: [
                             "Vậy sao…",
                             "Nhưng nếu ‘ổn’ mà nghe như đang cố chịu đựng thì có thật là ổn không bố?"
@@ -90,6 +92,7 @@ export const DAY_11 = Object.freeze({
                     honest_break: {
                         senderName: CHARACTER_CONFIG.ELIAS.name,
                         senderImage: CHARACTER_CONFIG.ELIAS.images.sad,
+                        senderBlip: CHARACTER_CONFIG.ELIAS.sound,
                         senderText: [
                             "…",
                             "Con không hiểu hết chuyện của người lớn.",
@@ -128,7 +131,7 @@ export const DAY_11 = Object.freeze({
                         senderName: CHARACTER_CONFIG.BERNARD_HALE.name,
                         senderImage: CHARACTER_CONFIG.BERNARD_HALE.images.default,
                         senderBlip: CHARACTER_CONFIG.BERNARD_HALE.sound,
-                        senderText: ["Giám sát phải đi đôi với kết quả. Nhớ lấy, mục tiêu đợt này là 120 tấn, không có chỗ cho sự chậm trễ."],
+                        senderText: ["Giám sát phải đi đôi với kết quả. Nhớ lấy, mục tiêu đợt này là 90 tấn, không có chỗ cho sự chậm trễ."],
                         nextNodeID: null
                     }
                 }

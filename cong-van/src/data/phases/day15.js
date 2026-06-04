@@ -41,6 +41,8 @@ export const DAY_15 = Object.freeze({
 
                     ask: {
                         senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
+                        senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.default,
+                        senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
                         senderText: [
                             "1000 tấn.",
                             "Trước ngày 20."
@@ -50,6 +52,8 @@ export const DAY_15 = Object.freeze({
 
                     realize: {
                         senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
+                        senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.default,
+                        senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
                         senderText: [
                             "Tôi không có thói quen báo tin ‘nhẹ nhàng’.",
                             "Đây là con số cuối cùng."
@@ -60,6 +64,7 @@ export const DAY_15 = Object.freeze({
                     anger: {
                         senderName: CHARACTER_CONFIG.ALEXANDER_WHITMORE.name,
                         senderImage: CHARACTER_CONFIG.ALEXANDER_WHITMORE.images.serious,
+                        senderBlip: CHARACTER_CONFIG.ALEXANDER_WHITMORE.sound,
                         senderText: [
                             "Cảm xúc không thay đổi được chỉ tiêu.",
                             "Hiệu suất thì có."
@@ -98,6 +103,8 @@ export const DAY_15 = Object.freeze({
                     // =========================
                     yes: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "…",
                             "Vậy là không còn ‘hiểu lầm’ nữa."
@@ -107,6 +114,8 @@ export const DAY_15 = Object.freeze({
 
                     yes_2: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "1000 tấn không phải chỉ tiêu.",
                             "Nó là bài kiểm tra xem ai sẽ gãy trước."
@@ -119,6 +128,8 @@ export const DAY_15 = Object.freeze({
                     // =========================
                     doubt: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "Ngay cả anh cũng không chắc…",
                             "Vậy ai đang nắm quyền ra quyết định này?"
@@ -128,6 +139,8 @@ export const DAY_15 = Object.freeze({
 
                     doubt_2: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "Tôi bắt đầu nghĩ chúng ta không quản lý cái mỏ này nữa.",
                             "Chúng ta chỉ đang vận hành một thứ không cần con người hiểu nó."
@@ -149,6 +162,8 @@ export const DAY_15 = Object.freeze({
 
                     mira_power: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "Vậy là không ai có quyền…",
                             "NHƯNG VẪN CÓ NGƯỜI RA LỆNH."
@@ -170,6 +185,8 @@ export const DAY_15 = Object.freeze({
 
                     mira_sync: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "…",
                             "Ít nhất anh cũng thấy nó là gì rồi."
@@ -179,6 +196,8 @@ export const DAY_15 = Object.freeze({
 
                     mira_sync_2: {
                         senderName: CHARACTER_CONFIG.MIRA_VOLKOV.name,
+                        senderImage: CHARACTER_CONFIG.MIRA_VOLKOV.images.default,
+                        senderBlip: CHARACTER_CONFIG.MIRA_VOLKOV.sound,
                         senderText: [
                             "Không ai ở đây đang quản lý sản xuất cả.",
                             "Chúng ta đang chứng kiến một hệ thống tự ăn chính nó."

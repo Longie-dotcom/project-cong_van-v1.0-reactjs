@@ -12,14 +12,14 @@ export const DAY_10 = Object.freeze({
         deadlineDay: 15,
         requiredCoal: 90,
         title: "Chỉ tiêu đợt 3",
-        description: "Hội đồng đang có mặt để kiểm tra. Mục tiêu tổng đã nâng lên 120 tấn trước ngày 15. Nhận ngân sách và chuẩn bị cho giai đoạn khắc nghiệt nhất."
+        description: "Hội đồng đang có mặt để kiểm tra. Mục tiêu tổng đã nâng lên 90 tấn trước ngày 15. Nhận ngân sách và chuẩn bị cho giai đoạn khắc nghiệt nhất."
     },
 
     Mails: [
         {
             id: "board_funding_midterm",
             title: "GIẢI NGÂN NGÂN SÁCH ĐỢT 3",
-            content: "Patrick, \n\nHội đồng ghi nhận khu mỏ đã vượt qua mốc cơ bản đầu tiên. Tuy nhiên, mục tiêu cuối cùng của chúng ta là 120 tấn vào Ngày 15. \n\nTôi đã phê duyệt giải ngân 40 đơn vị ngân sách để anh tiếp tục duy trì hoạt động và chuẩn bị khai thác tầng sâu. Đừng làm tôi thất vọng. \n\n- E. Wentworth.",
+            content: "Patrick, \n\nHội đồng ghi nhận khu mỏ đã vượt qua mốc cơ bản đầu tiên. Tuy nhiên, mục tiêu cuối cùng của chúng ta là 90 tấn vào Ngày 15. \n\nTôi đã phê duyệt giải ngân 40 đơn vị ngân sách để anh tiếp tục duy trì hoạt động và chuẩn bị khai thác tầng sâu. Đừng làm tôi thất vọng. \n\n- E. Wentworth.",
             normalImg: MAIL_CONFIG.ITEMS.mail_3.normal,
             hoverImg: MAIL_CONFIG.ITEMS.mail_3.hover,
             choices: [
@@ -48,7 +48,7 @@ export const DAY_10 = Object.freeze({
                         senderBlip: CHARACTER_CONFIG.BERNARD_HALE.sound,
                         senderText: [
                             "Patrick, đoàn thanh tra đã vào vị trí. Chúng tôi sẽ đối chiếu sổ sách của anh với thực tế hầm lò.",
-                            "Tiền đã được chuyển. Giờ là lúc anh chứng minh con số 120 tấn vào ngày 15 là khả thi."
+                            "Tiền đã được chuyển. Giờ là lúc anh chứng minh con số 90 tấn vào ngày 15 là khả thi."
                         ],
                         choices: [
                             { text: "Báo cáo số liệu đã được chuẩn bị sẵn trên bàn.", nextNodeID: "confirm" },
@@ -134,7 +134,7 @@ export const DAY_10 = Object.freeze({
                 ],
                 triggeredNews: {
                     title: "Căng thẳng tại Blackridge: Báo cáo gây tranh cãi",
-                    content: "Hội đồng không hài lòng với thực trạng yếu kém của khu mỏ, cảnh báo sẽ có biện pháp mạnh tay nếu không đạt 120 tấn."
+                    content: "Hội đồng không hài lòng với thực trạng yếu kém của khu mỏ, cảnh báo sẽ có biện pháp mạnh tay nếu không đạt 90 tấn."
                 }
             },
             III: {

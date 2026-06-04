@@ -115,6 +115,28 @@ export const DAY_3 = Object.freeze({
                         nextNodeID: null
                     }
                 }
+            },
+
+            {
+                callID: "MIRA_HEALTH_CRISIS_CALL",
+                startNodeID: "root",
+                nodes: {
+                    root: {
+                        senderName: CHARACTER_CONFIG.DOMIXI.name,
+                        senderImage: CHARACTER_CONFIG.DOMIXI.images.default, // Dùng ảnh DoMixi.png
+                        senderBlip: CHARACTER_CONFIG.DOMIXI.sound,
+                        senderText: [
+                            "Alo em có phải Vũ không?",
+                            "Ui Vũ ơi em đừng có chối, thông tin về tên địa chỉ nhà, học trường gì, ở đâu, bố mẹ tên là gì anh có cả ở đây rồi."
+                        ],
+                        choices: [
+                            {
+                                text: "* Chặn số *",
+                            }
+                        ],
+                        nextNodeID: null
+                    }
+                }
             }
         ]
     },

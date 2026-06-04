@@ -4,28 +4,7 @@ import { MAIL_CONFIG } from "../assets/mails";
 
 export const SIDE_EVENT = Object.freeze({
     // 1. Sự kiện "Độ Mixi gọi điện dọa (phong cách 'Alo Vũ')"
-    EV_RAND_MIXIGAMING_DRAMA: {
-        EventID: "EV_RAND_MIXIGAMING_DRAMA",
-        Telephone: {
-            senderName: CHARACTER_CONFIG.DOMIXI.name,
-            senderImage: CHARACTER_CONFIG.DOMIXI.images.default, // Dùng ảnh DoMixi.png
-            senderBlip: CHARACTER_CONFIG.DOMIXI.sound,
-            senderText: [
-                "Alo em có phải Patrick không?",
-                "Ui Patrick ơi em đừng có chối, thông tin về tên địa chỉ nhà, học trường gì, ở đâu, bố mẹ tên là gì anh có cả ở đây rồi."
-            ],
-            choices: [
-                {
-                    text: "Tôi lạy anh, tôi cống nạp tiền. (-50000 Tiền)",
-                    effect: { [STATS.ECONOMY]: -50000, }
-                },
-                {
-                    text: "Anh giỏi thì tới đây! (Chặn số)",
-                    effect: { }
-                }
-            ]
-        }
-    },
+
 
     // 2. Sự kiện "Phụ huynh FPT đến trường đòi công bằng"
     EV_RAND_FPT_PARENT: {
