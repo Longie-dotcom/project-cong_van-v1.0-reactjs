@@ -4,9 +4,10 @@ import { BOOT_DATA } from "../../data/assets";
 import './BootScene.css';
 import ErrorPopup from "../item/Indicator/ErrorPopup";
 
-export default function BootScene({ setPlayerState }) {
+export default function BootScene({ setPlayerState, playerState }) {
   const [isActivated, setIsActivated] = useState(false);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!isActivated) return;
@@ -17,7 +18,6 @@ export default function BootScene({ setPlayerState }) {
       return audio;
     };
 
-    const [errorMessage, setErrorMessage] = useState("");
     const stampAudio = createAudio(BOOT_DATA.STAMP_SOUND);
     const mailAudio = createAudio(BOOT_DATA.OPEN_MAIL_SOUND, 0.7);
 
