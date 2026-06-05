@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BOOT_DATA } from "../../data/assets";
 import './BootScene.css';
+import ErrorPopup from "../item/Indicator/ErrorPopup";
 
 export default function BootScene({ setPlayerState }) {
   const [isActivated, setIsActivated] = useState(false);
@@ -16,6 +17,7 @@ export default function BootScene({ setPlayerState }) {
       return audio;
     };
 
+    const [errorMessage, setErrorMessage] = useState("");
     const stampAudio = createAudio(BOOT_DATA.STAMP_SOUND);
     const mailAudio = createAudio(BOOT_DATA.OPEN_MAIL_SOUND, 0.7);
 
@@ -39,6 +41,10 @@ export default function BootScene({ setPlayerState }) {
 
   return (
     <div className="screen boot-screen">
+      <ErrorPopup
+        message={errorMessage}
+        onClose={() => setErrorMessage("")}
+      />
       <button
         className="admin-float-btn"
         onClick={() => navigate("/admin")}
@@ -65,7 +71,17 @@ export default function BootScene({ setPlayerState }) {
             onClick={(e) => e.stopPropagation()} // Quan trọng: không kích hoạt màn hình
           />
 
-          <div className="boot-click-trigger" onClick={() => !isActivated && setIsActivated(true)}>
+          <div
+            className="boot-click-trigger"
+            onClick={() => {
+              if (!playerState.name?.trim()) {
+                setErrorMessage("Vui lòng nhập tên trước khi bắt đầu!");
+                return;
+              }
+
+              setIsActivated(true);
+            }}
+          >
             <p>{BOOT_DATA.ACTIVATE_TITLE}</p>
           </div>
         </div>
