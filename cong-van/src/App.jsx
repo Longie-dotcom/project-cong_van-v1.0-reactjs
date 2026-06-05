@@ -21,7 +21,7 @@ function App() {
 
     [STATS.RESOURCE]: 0,
     [STATS.COAL]: 0,
-    [STATS.ECONOMY]: 50,
+    [STATS.ECONOMY]: 60,
     [STATS.HAPPINESS]: 0,
 
     [FLAG.SUPPORTED_WORKER_SCORE]: 0,
