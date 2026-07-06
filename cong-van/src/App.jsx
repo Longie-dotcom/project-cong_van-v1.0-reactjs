@@ -21,7 +21,7 @@ function App() {
 
     [STATS.RESOURCE]: 0,
     [STATS.COAL]: 0,
-    [STATS.ECONOMY]: 50,
+    [STATS.ECONOMY]: 100,
     [STATS.HAPPINESS]: 0,
 
     [FLAG.SUPPORTED_WORKER_SCORE]: 0,
@@ -61,7 +61,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/boot" />} />
 
-        <Route path="/boot" element={<BootScene setPlayerState={setPlayerState} />} />
+        <Route path="/boot" element={<BootScene setPlayerState={setPlayerState} playerState={playerState} />} />
 
         <Route path="/intro" element={<IntroScene />} />
 

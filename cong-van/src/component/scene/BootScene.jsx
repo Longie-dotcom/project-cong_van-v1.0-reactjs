@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BOOT_DATA } from "../../data/assets";
 import './BootScene.css';
+import ErrorPopup from "../item/Indicator/ErrorPopup";
 
-export default function BootScene({ setPlayerState }) {
+export default function BootScene({ setPlayerState, playerState }) {
   const [isActivated, setIsActivated] = useState(false);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!isActivated) return;
@@ -39,6 +41,10 @@ export default function BootScene({ setPlayerState }) {
 
   return (
     <div className="screen boot-screen">
+      <ErrorPopup
+        message={errorMessage}
+        onClose={() => setErrorMessage("")}
+      />
       <button
         className="admin-float-btn"
         onClick={() => navigate("/admin")}
@@ -65,7 +71,17 @@ export default function BootScene({ setPlayerState }) {
             onClick={(e) => e.stopPropagation()} // Quan trọng: không kích hoạt màn hình
           />
 
-          <div className="boot-click-trigger" onClick={() => !isActivated && setIsActivated(true)}>
+          <div
+            className="boot-click-trigger"
+            onClick={() => {
+              if (!playerState.name?.trim()) {
+                setErrorMessage("Vui lòng nhập tên trước khi bắt đầu!");
+                return;
+              }
+
+              setIsActivated(true);
+            }}
+          >
             <p>{BOOT_DATA.ACTIVATE_TITLE}</p>
           </div>
         </div>
